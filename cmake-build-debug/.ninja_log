@@ -1,3 +1,7 @@
 # ninja log v5
 0	3380	7213008075353595	CMakeFiles/Compiler_Project.dir/main.cpp.obj	d17d59ef3a06985d
 3384	4266	7213008084128371	Compiler_Project.exe	8caaf60f0e038f72
+4	1614	7213020382600742	CMakeFiles/Compiler_Project.dir/main.cpp.obj	d17d59ef3a06985d
+1615	2481	7213020391229451	Compiler_Project.exe	8caaf60f0e038f72
+4	574	7213020528543058	CMakeFiles/Compiler_Project.dir/main.cpp.obj	d17d59ef3a06985d
+575	803	7213020530741705	Compiler_Project.exe	8caaf60f0e038f72
