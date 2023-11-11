@@ -12,6 +12,10 @@ std::unordered_map<std::string, Automaton *> getAutomata();
 void test1();
 
 int main() {
+//    for (auto &entry:getAutomata()){
+//        std::cout << entry.second->toString() << std::endl;
+//    }
+
 
     test1();
     return 0;

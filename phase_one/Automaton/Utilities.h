@@ -30,7 +30,7 @@ public:
      * @param a the automaton that the states belong to
      * @return true if the state set contains an accepting state, false otherwise
      */
-    static bool containsAcceptingState(const std::set<State> &stateSet, Automaton a);
+    static bool containsAcceptingState(const std::vector<std::shared_ptr<State>> &stateSet, Automaton &a);
 
     /**
      * Combines two automata using the union operation.
@@ -45,7 +45,7 @@ public:
      * // Do something with automaton...
      * delete automaton;
      */
-    static Automaton *unionAutomata(Automaton a1, Automaton a2, const std::string &newToken);
+    static Automaton *unionAutomata(const Automaton &a1, const Automaton &a2, const std::string &newToken);
 
     /**
      * Combines two automata using the concatenation operation.
@@ -60,7 +60,7 @@ public:
      * // Do something with automaton...
      * delete automaton;
      * */
-    static Automaton *concatAutomaton(Automaton a1, Automaton a2, const std::string &newToken);
+    static Automaton *concatAutomaton(const Automaton &a1, const Automaton &a2, const std::string &newToken);
 
     /**
      * Creates the Kleene closure of an automaton.
@@ -74,7 +74,7 @@ public:
      * // Do something with automaton...
      * delete automaton;
      * */
-    static Automaton *kleeneClosure(Automaton a, const std::string &newToken);
+    static Automaton *kleeneClosure(const Automaton &a, const std::string &newToken);
 
     /**
      * Creates the positive closure of an automaton.
@@ -88,7 +88,7 @@ public:
      * // Do something with automaton...
      * delete automaton;
      */
-    static Automaton *positiveClosure(Automaton a, const std::string &newToken);
+    static Automaton *positiveClosure(const Automaton &a, const std::string &newToken);
 
     /**
      * Creates a new automaton that represents the union of a set of automata.
@@ -105,7 +105,7 @@ public:
      *
      * Note: Memory management is crucial when using raw pointers in C++. Consider using smart pointers to automatically manage the memory of these objects.
      */
-    static Automaton *unionAutomataSet(std::vector<Automaton> automata);
+    static Automaton *unionAutomataSet(std::vector<Automaton> &automata);
 };
 
 

@@ -351,7 +351,7 @@ public class Utilities {
         // Copy accepting states
         for (State originalAcceptingState : originalAutomaton.getAccepting()) {
             State copiedAcceptingState = copiedAutomaton.getStateById(originalAcceptingState.getId());
-            copiedAutomaton.addFinalState(copiedAcceptingState);
+            copiedAutomaton.addFinal(copiedAcceptingState);
         }
 
         // Copy start state

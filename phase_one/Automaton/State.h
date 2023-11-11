@@ -69,12 +69,12 @@ public:
     /**
      * Overloads the equality operator.
      */
-    bool operator==(State &other);
+    bool operator==(const State &other) const;
 
     /**
      * Overloads the inequality operator.
      */
-    bool operator!=(State &other);
+    bool operator!=(const State &other) const;
 
     /**
      * Overloads the less than operator.

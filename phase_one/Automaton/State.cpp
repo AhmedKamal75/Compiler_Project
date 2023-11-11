@@ -18,7 +18,7 @@ std::string State::getToken() const {
     return this->token;
 }
 
-void State::setToken(const std::string &t){
+void State::setToken(const std::string &t) {
     this->token = t;
 }
 
@@ -38,11 +38,11 @@ void State::setAccepting(bool value) {
     this->isAccepting = value;
 }
 
-bool State::operator==(State &other) {
+bool State::operator==(const State &other) const {
     return (this->id == other.id) && (this->isAccepting == other.isAccepting) && (this->token == other.token);
 }
 
-bool State::operator!=(State &other) {
+bool State::operator!=(const State &other) const {
     return !(*this == other);
 }
 
@@ -87,6 +87,3 @@ std::string State::toStringFull() const {
     oss << "[" << id << ", " << this->isAccepting << ", " << this->token << "]";
     return oss.str();
 }
-
-
-

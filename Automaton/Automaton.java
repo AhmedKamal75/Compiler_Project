@@ -129,7 +129,7 @@ public class Automaton {
         this.states.add(state);
     }
 
-    public void addFinalState(State state) {
+    public void addFinal(State state) {
         this.accepting.add(state);
     }
 

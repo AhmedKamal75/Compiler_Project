@@ -1,4 +1,3 @@
-
 #ifndef COMPILER_PROJECT_AUTOMATON_H
 #define COMPILER_PROJECT_AUTOMATON_H
 
@@ -6,11 +5,14 @@
 #include <map>
 #include <string>
 #include <vector>
+#include <memory>
 #include "State.h"
 
 /**
  * This class represents a finite automaton.
  * An automaton is a finite representation of a formal language that can be an acceptor or a transducer.
+ *
+ * remember to use std::make_shared<State>() when creating new State objects to ensure they are managed by smart pointers.
  */
 class Automaton {
 public:
@@ -21,26 +23,32 @@ public:
     Automaton(const std::string &alphabet, const std::string &tokenName, const std::string &epsilonSymbol);
 
     // Adds transitions to the automaton.
-    void addTransitions(const State &currentState, const std::string &transitionSymbol,
-                        const std::vector<State> &nextStates);
+    void addTransitions(const std::shared_ptr<State> &currentState, const std::string &transitionSymbol,
+                        const std::vector<std::shared_ptr<State>> &nextStates);
+
+    // Adds transitions to the automaton.
+    void addTransitions(
+            const std::map<std::pair<std::shared_ptr<State>, std::string>, std::vector<std::shared_ptr<State>>> &extraTransitions);
 
     // Returns the next states from a given state and transition symbol.
-    std::vector<State> getNextStates(const State &currentState, const std::string &transitionSymbol);
+    std::vector<std::shared_ptr<State>>
+    getNextStates(const std::shared_ptr<State> &currentState, const std::string &transitionSymbol);
 
     // Assigns new ids to all states in the automaton.
     void giveNewIdsAll();
 
     // Assigns new ids to all states in a given set of states.
-    void giveNewIdsAll(std::vector<State> &stateSet, int fromId, bool positive);
+    void giveNewIdsAll(int fromId, bool positive);
 
     // Sets the token of the automaton.
     void setToken(const std::string &tokenName);
 
     // Returns the transitions of the automaton in DFA format.
-    std::map<std::pair<State, std::string>, State> getTransitionsDFAFormat();
+    std::map<std::pair<std::shared_ptr<State>, std::string>, std::shared_ptr<State>> getTransitionsDFAFormat();
 
     // Sets the transitions of the automaton in DFA format.
-    void setTransitionsDFAFormat(const std::map<std::pair<State, std::string>, State> &newTransitions);
+    void setTransitionsDFAFormat(
+            const std::map<std::pair<std::shared_ptr<State>, std::string>, std::shared_ptr<State>> &newTransitions);
 
     // Returns the tokens of the automaton.
     std::string getTokens();
@@ -49,34 +57,46 @@ public:
     std::string getToken();
 
     // Returns a state by its id.
-    State &getStateById(int id);
+    std::shared_ptr<State> getStateById(int id);
 
     // Adds a state to the automaton.
-    void addState(const State &state);
+    void addState(const std::shared_ptr<State> &state);
+
+    // Adds states to the automaton.
+    void addStates(const std::vector<std::shared_ptr<State>> &extraStates);
 
     // Adds a final state to the automaton.
-    void addFinalState(const State &state);
+    void addFinal(const std::shared_ptr<State> &state);
+
+    // Adds final states to the automaton.
+    [[maybe_unused]] void addFinals(const std::vector<std::shared_ptr<State>> &extraStates);
 
     // Returns the states of the automaton.
-    std::vector<State> &getStates();
+    std::vector<std::shared_ptr<State>> &getStates();
 
     // Returns the alphabets of the automaton.
     std::vector<std::string> &getAlphabets();
 
+    // Adds alphabets to the automaton.
+    void addAlphabets(const std::vector<std::string> &extraAlphabets);
+
+    // Adds an alphabet to the automaton.
+    void addAlphabet(const std::string &alphabet);
+
     // Returns the start state of the automaton.
-    State &getStart();
+    std::shared_ptr<State> &getStart();
 
     // Sets the start state of the automaton.
-    void setStart(State &state);
+    void setStart(const std::shared_ptr<State> &state);
 
     // Returns the transitions of the automaton.
-    std::map<std::pair<State, std::string>, std::vector<State>> &getTransitions();
+    std::map<std::pair<std::shared_ptr<State>, std::string>, std::vector<std::shared_ptr<State>>> &getTransitions();
 
     // Returns the accepting states of the automaton.
-    std::vector<State> &getAccepting();
+    std::vector<std::shared_ptr<State>> &getAccepting();
 
     // Checks if a state is an accepting state.
-    bool isAcceptingState(const State &state);
+    bool isAcceptingState(const std::shared_ptr<State> &state);
 
     // Returns the epsilon symbol of the automaton.
     [[nodiscard]] std::string getEpsilonSymbol() const;
@@ -90,33 +110,32 @@ public:
     // Returns the regular expression of the automaton.
     std::string getRegex();
 
-    // Returns a JSON representation of the automaton.
-    std::string toJson();
-
-    // Returns a string representation of the automaton.
     std::string toString();
 
+    std::string toJson();
+
 private:
+
     // The states of the automaton.
-    std::vector<State> states = {};
-
-    // The alphabets of the automaton.
-    std::vector<std::string> alphabets = {};
-
-    // The start state of the automaton.
-    State start;
-
-    // The transitions of the automaton.
-    std::map<std::pair<State, std::string>, std::vector<State>> transitions = {};
+    std::vector<std::shared_ptr<State>> states;
 
     // The accepting states of the automaton.
-    std::vector<State> accepting = {};
+    std::vector<std::shared_ptr<State>> accepting;
+
+    // The transitions of the automaton.
+    std::map<std::pair<std::shared_ptr<State>, std::string>, std::vector<std::shared_ptr<State>>> transitions;
+
+    // The start state of the automaton.
+    std::shared_ptr<State> start;
+
+    // The alphabets of the automaton.
+    std::vector<std::string> alphabets;
 
     // The epsilon symbol of the automaton.
-    std::string epsilonSymbol{};
+    std::string epsilonSymbol;
 
     // The regular expression of the automaton.
-    std::string regex{};
+    std::string regex;
 
     // The built-in epsilon symbol.
     const std::string BUILT_IN_EPSILON_SYMBOL = "\\L";
