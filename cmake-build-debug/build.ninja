@@ -67,6 +67,18 @@ build CMakeFiles/Compiler_Project.dir/phase_one/Automaton/State.cpp.obj: CXX_COM
   OBJECT_DIR = CMakeFiles\Compiler_Project.dir
   OBJECT_FILE_DIR = CMakeFiles\Compiler_Project.dir\phase_one\Automaton
 
+build CMakeFiles/Compiler_Project.dir/phase_one/Automaton/Utilities.cpp.obj: CXX_COMPILER__Compiler_Project_unscanned_Debug C$:/Users/Delta/CLionProjects/Compiler_Project/phase_one/Automaton/Utilities.cpp || cmake_object_order_depends_target_Compiler_Project
+  DEP_FILE = CMakeFiles\Compiler_Project.dir\phase_one\Automaton\Utilities.cpp.obj.d
+  FLAGS = -g -std=gnu++17 -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles\Compiler_Project.dir
+  OBJECT_FILE_DIR = CMakeFiles\Compiler_Project.dir\phase_one\Automaton
+
+build CMakeFiles/Compiler_Project.dir/phase_one/Automaton/Conversions.cpp.obj: CXX_COMPILER__Compiler_Project_unscanned_Debug C$:/Users/Delta/CLionProjects/Compiler_Project/phase_one/Automaton/Conversions.cpp || cmake_object_order_depends_target_Compiler_Project
+  DEP_FILE = CMakeFiles\Compiler_Project.dir\phase_one\Automaton\Conversions.cpp.obj.d
+  FLAGS = -g -std=gnu++17 -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles\Compiler_Project.dir
+  OBJECT_FILE_DIR = CMakeFiles\Compiler_Project.dir\phase_one\Automaton
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target Compiler_Project
@@ -75,7 +87,7 @@ build CMakeFiles/Compiler_Project.dir/phase_one/Automaton/State.cpp.obj: CXX_COM
 #############################################
 # Link the executable Compiler_Project.exe
 
-build Compiler_Project.exe: CXX_EXECUTABLE_LINKER__Compiler_Project_Debug CMakeFiles/Compiler_Project.dir/main.cpp.obj CMakeFiles/Compiler_Project.dir/phase_one/Automaton/Automaton.cpp.obj CMakeFiles/Compiler_Project.dir/phase_one/Automaton/State.cpp.obj
+build Compiler_Project.exe: CXX_EXECUTABLE_LINKER__Compiler_Project_Debug CMakeFiles/Compiler_Project.dir/main.cpp.obj CMakeFiles/Compiler_Project.dir/phase_one/Automaton/Automaton.cpp.obj CMakeFiles/Compiler_Project.dir/phase_one/Automaton/State.cpp.obj CMakeFiles/Compiler_Project.dir/phase_one/Automaton/Utilities.cpp.obj CMakeFiles/Compiler_Project.dir/phase_one/Automaton/Conversions.cpp.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\Compiler_Project.dir

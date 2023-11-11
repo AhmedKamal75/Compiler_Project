@@ -1,18 +1,14 @@
-//
-// Created by Delta on 11/10/2023.
-//
-
 #include <sstream>
 #include <algorithm>
 #include <utility>
 #include "Automaton.h"
 
 Automaton::Automaton() {
-    this->states = std::set<State>();
-    this->alphabets = std::set<std::string>();
+    this->states = std::vector<State>();
+    this->alphabets = std::vector<std::string>();
     this->start = State();
-    this->transitions = std::map<std::pair<State, std::string>, std::set<State>>();
-    this->accepting = std::set<State>();
+    this->transitions = std::map<std::pair<State, std::string>, std::vector<State>>();
+    this->accepting = std::vector<State>();
     this->epsilonSymbol = BUILT_IN_EPSILON_SYMBOL;
 }
 
@@ -33,60 +29,46 @@ Automaton::Automaton(const std::string &alphabet, const std::string &tokenName, 
 }
 
 void Automaton::addTransitions(const State &currentState, const std::string &transitionSymbol,
-                               const std::set<State> &nextStates) {
+                               const std::vector<State> &nextStates) {
     std::pair<State, std::string> transitionKey(currentState, transitionSymbol);
-    std::set<State> tempNextStates = getNextStates(currentState, transitionSymbol);
-    tempNextStates.insert(nextStates.begin(), nextStates.end());
+    std::vector<State> tempNextStates = getNextStates(currentState, transitionSymbol);
+    tempNextStates.insert(tempNextStates.end(), nextStates.begin(), nextStates.end());
     this->transitions[transitionKey] = tempNextStates;
 }
 
-std::set<State> Automaton::getNextStates(const State &currentState, const std::string &transitionSymbol) {
+std::vector<State> Automaton::getNextStates(const State &currentState, const std::string &transitionSymbol) {
     std::pair<State, std::string> transitionKey = std::make_pair(currentState, transitionSymbol);
-
     auto iterator = this->transitions.find(transitionKey);
 
     if (iterator != this->transitions.end()) {
         return iterator->second;
     } else {
-        return {};
+        return std::vector<State>();
     }
 }
 
 void Automaton::giveNewIdsAll() {
-    this->giveNewIdsAll(this->states, 0, true);
+    this->giveNewIdsAll(0, true);
 }
 
-void Automaton::giveNewIdsAll(std::set<State> &stateSet, int fromId, bool positive) {
-    // Create a vector and move elements from the set to the vector
-    std::vector<State> tempStates(stateSet.begin(), stateSet.end());
-    stateSet.clear();
-
-    // Update the elements in the vector
+void Automaton::giveNewIdsAll(int fromId, bool positive) {
     int i = fromId;
-    for (State &state: tempStates) {
+    for (auto &state: this->states) {
         state.setId(i);
         i = (positive) ? (i + 1) : (i - 1);
     }
-
-    // Move the updated elements back to the set
-    stateSet.insert(states.begin(), states.end());
 }
 
 void Automaton::setToken(const std::string &tokenName) {
-    std::vector<State> temp(this->accepting.begin(), this->accepting.end());
-    this->accepting.clear();
-
-    for (State &state: temp) {
-        state.setToken(tokenName);
+    for (auto &state: this->accepting) {
         state.setAccepting(true);
+        state.setToken(tokenName);
     }
-
-    this->accepting.insert(temp.begin(), temp.end());
 }
 
 std::map<std::pair<State, std::string>, State> Automaton::getTransitionsDFAFormat() {
     std::map<std::pair<State, std::string>, State> dfaTransitions;
-    for (auto &entry: this->transitions) {
+    for (auto &entry: transitions) {
         if (!entry.second.empty()) {
             State nextState = *entry.second.begin();
             dfaTransitions[entry.first] = nextState;
@@ -97,9 +79,9 @@ std::map<std::pair<State, std::string>, State> Automaton::getTransitionsDFAForma
 }
 
 void Automaton::setTransitionsDFAFormat(const std::map<std::pair<State, std::string>, State> &newTransitions) {
-    std::map<std::pair<State, std::string>, std::set<State>> tempTransitions;
+    std::map<std::pair<State, std::string>, std::vector<State>> tempTransitions;
     for (auto &entry: newTransitions) {
-        std::set<State> newState = {entry.second};
+        std::vector<State> newState = {entry.second};
         tempTransitions[entry.first] = newState;
     }
     this->transitions = tempTransitions;
@@ -120,14 +102,11 @@ std::string Automaton::getTokens() {
 }
 
 std::string Automaton::getToken() {
-    return (*this->accepting.begin()).getToken();
+    return this->accepting[0].getToken();
 }
 
 State &Automaton::getStateById(int id) {
-    // Create a vector and move elements from the set to the vector
-    std::vector<State> statesCopy(this->states.begin(), this->states.end());
-
-    for (State &state: statesCopy) {
+    for (auto &state: this->states) {
         if (state.getId() == id) {
             return state;
         }
@@ -136,19 +115,19 @@ State &Automaton::getStateById(int id) {
     throw std::runtime_error("State with given ID not found");
 }
 
-void Automaton::addState(const State& state) {
-    this->states.insert(state);
+void Automaton::addState(const State &state) {
+    this->states.push_back(state);
 }
 
-void Automaton::addFinalState(const State& state) {
-    this->accepting.insert(state);
+void Automaton::addFinalState(const State &state) {
+    this->accepting.push_back(state);
 }
 
-std::set<State> &Automaton::getStates() {
+std::vector<State> &Automaton::getStates() {
     return this->states;
 }
 
-std::set<std::string> &Automaton::getAlphabets() {
+std::vector<std::string> &Automaton::getAlphabets() {
     return this->alphabets;
 }
 
@@ -160,24 +139,19 @@ void Automaton::setStart(State &state) {
     this->start = state;
 }
 
-std::map<std::pair<State, std::string>, std::set<State>> &Automaton::getTransitions() {
+std::map<std::pair<State, std::string>, std::vector<State>> &Automaton::getTransitions() {
     return this->transitions;
 }
 
-std::set<State> &Automaton::getAccepting() {
+std::vector<State> &Automaton::getAccepting() {
     return this->accepting;
 }
 
-bool Automaton::isAcceptingState(const State& state) {
-    auto it = this->accepting.find(state);
-    if (it != this->accepting.end()){
-        return true;
-    } else {
-        return false;
-    }
+bool Automaton::isAcceptingState(const State &state) {
+    return std::find(this->accepting.begin(), this->accepting.end(), state) != this->accepting.end();
 }
 
-std::string Automaton::getEpsilonSymbol() {
+std::string Automaton::getEpsilonSymbol() const {
     return this->epsilonSymbol;
 }
 
@@ -199,10 +173,10 @@ std::string Automaton::toJson() {
     sb << R"({"type":"DFA","dfa":{"transitions":{)";
 
     // Transitions
-    for (const auto& entry : transitions) {
+    for (const auto &entry: transitions) {
         sb << "\"" << entry.first.first.getId() << "\":{\""
            << entry.first.second << "\":\"";
-        for (const State& state : entry.second) {
+        for (const State &state: entry.second) {
             sb << state.getId();
         }
         sb << "\"},";
@@ -218,7 +192,7 @@ std::string Automaton::toJson() {
 
     // Accept States
     sb << "\"acceptStates\":[";
-    for (const State& state : accepting) {
+    for (const State &state: accepting) {
         sb << "\"" << state.getId() << "\",";
     }
     // Remove trailing comma
@@ -255,19 +229,14 @@ std::string Automaton::toString() {
 
     ss << "Transition Function: \n";
     // Create a vector of the map's pairs
-    std::vector<std::pair<std::pair<State, std::string>, std::set<State>>> sortedTransitions(this->transitions.begin(),
-                                                                                             this->transitions.end());
+    std::vector<std::pair<std::pair<State, std::string>, std::vector<State>>> sortedTransitions(
+            this->transitions.begin(),
+            this->transitions.end());
     // Sort the vector
-//    std::sort(sortedTransitions.begin(), sortedTransitions.end(),
-//              [](const auto &a, const auto &b) {
-//                  return a.first.first < b.first.first;
-//              });
-
     std::sort(sortedTransitions.begin(), sortedTransitions.end());
 
-
     for (const auto &entry: sortedTransitions) {
-        ss << "δ(" << entry.first.first.getId() << ", " << entry.first.second << ") = ";
+        ss << "f(" << entry.first.first.getId() << ", " << entry.first.second << ") = ";
         for (const auto &state: entry.second) {
             ss << state.getId() << " ";
         }

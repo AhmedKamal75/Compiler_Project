@@ -18,7 +18,7 @@ std::string State::getToken() const {
     return this->token;
 }
 
-void State::setToken(const std::string &t) {
+void State::setToken(const std::string &t){
     this->token = t;
 }
 
@@ -87,5 +87,6 @@ std::string State::toStringFull() const {
     oss << "[" << id << ", " << this->isAccepting << ", " << this->token << "]";
     return oss.str();
 }
+
 
 

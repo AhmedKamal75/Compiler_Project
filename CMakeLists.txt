@@ -7,4 +7,9 @@ add_executable(Compiler_Project main.cpp
         phase_one/Automaton/Automaton.cpp
         phase_one/Automaton/Automaton.h
         phase_one/Automaton/State.cpp
-        phase_one/Automaton/State.h)
+        phase_one/Automaton/State.h
+        phase_one/Automaton/Utilities.cpp
+        phase_one/Automaton/Utilities.h
+        phase_one/Automaton/Conversions.cpp
+        phase_one/Automaton/Conversions.h
+)
