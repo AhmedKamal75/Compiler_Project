@@ -23,14 +23,6 @@ public:
      */
     static Automaton *copyAutomaton(Automaton &originalAutomaton);
 
-    /**
-     * Checks if the given set of states contains an accepting state.
-     *
-     * @param stateSet the set of states to check
-     * @param a the automaton that the states belong to
-     * @return true if the state set contains an accepting state, false otherwise
-     */
-    static bool containsAcceptingState(const std::vector<std::shared_ptr<State>> &stateSet, Automaton &a);
 
     /**
      * Combines two automata using the union operation.
@@ -45,7 +37,7 @@ public:
      * // Do something with automaton...
      * delete automaton;
      */
-    static Automaton *unionAutomata(const Automaton &a1, const Automaton &a2, const std::string &newToken);
+    static Automaton *unionAutomata( Automaton &a1,  Automaton &a2,const  std::string &newToken);
 
     /**
      * Combines two automata using the concatenation operation.
@@ -60,7 +52,7 @@ public:
      * // Do something with automaton...
      * delete automaton;
      * */
-    static Automaton *concatAutomaton(const Automaton &a1, const Automaton &a2, const std::string &newToken);
+    static Automaton *concatAutomaton( Automaton &a1,  Automaton &a2,const  std::string &newToken);
 
     /**
      * Creates the Kleene closure of an automaton.
@@ -74,7 +66,7 @@ public:
      * // Do something with automaton...
      * delete automaton;
      * */
-    static Automaton *kleeneClosure(const Automaton &a, const std::string &newToken);
+    static Automaton *kleeneClosure( Automaton &a,const  std::string &newToken);
 
     /**
      * Creates the positive closure of an automaton.
@@ -88,7 +80,7 @@ public:
      * // Do something with automaton...
      * delete automaton;
      */
-    static Automaton *positiveClosure(const Automaton &a, const std::string &newToken);
+    static Automaton *positiveClosure( Automaton &a,const  std::string &newToken);
 
     /**
      * Creates a new automaton that represents the union of a set of automata.

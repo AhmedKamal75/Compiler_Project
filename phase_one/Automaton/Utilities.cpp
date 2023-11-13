@@ -1,21 +1,12 @@
 #include "Utilities.h"
 
-bool Utilities::containsAcceptingState(const std::vector<std::shared_ptr<State>> &stateSet, Automaton &a) {
-    for (const auto &state: stateSet) {
-        if (a.isAcceptingState(state)) {
-            return true;
-        }
-    }
-    return false;
-}
-
 Automaton *Utilities::copyAutomaton(Automaton &originalAutomaton) {
     auto *copy = new Automaton();
 
     copy->setEpsilonSymbol(originalAutomaton.getEpsilonSymbol());
 
-    for (const auto &state: originalAutomaton.getStates()) {
-        copy->addState(std::make_shared<State>(*state));
+    for (const std::shared_ptr<State> &state_ptr: originalAutomaton.getStates()) {
+        copy->addState(std::make_shared<State>(state_ptr->copy()));
     }
 
     for (const auto &alphabet: originalAutomaton.getAlphabets()) {
@@ -23,20 +14,18 @@ Automaton *Utilities::copyAutomaton(Automaton &originalAutomaton) {
     }
 
     for (const auto &entry: originalAutomaton.getTransitions()) {
-        std::shared_ptr<State> fromState = copy->getStateById(entry.first.first->getId());
+        std::shared_ptr<State> from_state_ptr = copy->getStateById(entry.first.first->getId());
         std::string transitionSymbol = entry.first.second;
-        std::vector<std::shared_ptr<State>> toStates;
+        std::vector<std::shared_ptr<State>> to_states;
         for (const auto &originalToState: entry.second) {
-            std::shared_ptr<State> toState = copy->getStateById(originalToState->getId());
-            toStates.push_back(toState);
+            std::shared_ptr<State> to_state_ptr = copy->getStateById(originalToState->getId());
+            to_states.push_back(to_state_ptr);
         }
-
-        copy->addTransitions(fromState, transitionSymbol, toStates);
+        copy->addTransitions(from_state_ptr, transitionSymbol, to_states);
     }
 
-    for (const auto &originalAcceptingState: originalAutomaton.getAccepting()) {
-        std::shared_ptr<State> copiedAcceptingState = copy->getStateById(originalAcceptingState->getId());
-        copy->addFinal(copiedAcceptingState);
+    for (const std::shared_ptr<State> &originalAcceptingState: originalAutomaton.getAccepting()) {
+        copy->addFinal(copy->getStateById(originalAcceptingState->getId()));
     }
 
     copy->setStart(copy->getStateById(originalAutomaton.getStart()->getId()));
@@ -46,11 +35,11 @@ Automaton *Utilities::copyAutomaton(Automaton &originalAutomaton) {
     return copy;
 }
 
-Automaton *Utilities::unionAutomata(const Automaton &a1, const Automaton &a2, const std::string &newToken) {
-    Automaton tempA1 = a1;
-    Automaton tempA2 = a2;
-    tempA1.giveNewIdsAll(0, false);
-    tempA2.giveNewIdsAll(0, true);
+Automaton *Utilities::unionAutomata(Automaton &a1, Automaton &a2, const std::string &newToken) {
+    Automaton tempA1 = *copyAutomaton(a1);
+    Automaton tempA2 = *copyAutomaton(a2);
+    tempA1.giveNewIdsAll(-1, false);
+    tempA2.giveNewIdsAll(1, true);
 
     // Create a new automaton
     auto *unionAutomaton = new Automaton();
@@ -69,8 +58,8 @@ Automaton *Utilities::unionAutomata(const Automaton &a1, const Automaton &a2, co
     // Create a new start state with ε-transitions to the start states of the
     // original automata
     auto newStartState = std::make_shared<State>(static_cast<int>(unionAutomaton->getStates().size()) + 1, false, "");
-    unionAutomaton->addTransitions(newStartState, unionAutomaton->getEpsilonSymbol(), {tempA1.getStart()});
-    unionAutomaton->addTransitions(newStartState, unionAutomaton->getEpsilonSymbol(), {tempA2.getStart()});
+    unionAutomaton->addTransitions(newStartState, unionAutomaton->getEpsilonSymbol(),
+                                   {tempA1.getStart(), tempA2.getStart()});
     unionAutomaton->setStart(newStartState);
     unionAutomaton->addState(newStartState);
 
@@ -82,17 +71,17 @@ Automaton *Utilities::unionAutomata(const Automaton &a1, const Automaton &a2, co
     std::string tempToken = (newToken.empty()) ? ("(" + tempA1.getToken() + "|" + tempA2.getToken() + ")") : (newToken);
 
     // Update the token names of the accepting states
-    unionAutomaton->setToken(newToken);
+    unionAutomaton->setToken(tempToken);
     unionAutomaton->giveNewIdsAll();
 
     return unionAutomaton;
 }
 
-Automaton *Utilities::concatAutomaton(const Automaton &a1, const Automaton &a2, const std::string &newToken) {
-    Automaton tempA1 = a1;
-    Automaton tempA2 = a2;
-    tempA1.giveNewIdsAll(0, false);
-    tempA2.giveNewIdsAll(0, true);
+Automaton *Utilities::concatAutomaton(Automaton &a1, Automaton &a2, const std::string &newToken) {
+    Automaton tempA1 = *copyAutomaton(a1);
+    Automaton tempA2 = *copyAutomaton(a2);
+    tempA1.giveNewIdsAll(-1, false);
+    tempA2.giveNewIdsAll(1, true);
 
     // Create a new automaton
     auto *concatAutomaton = new Automaton();
@@ -120,6 +109,8 @@ Automaton *Utilities::concatAutomaton(const Automaton &a1, const Automaton &a2, 
         state->setAccepting(false);
         concatAutomaton->addTransitions(state, concatAutomaton->getEpsilonSymbol(), {a2Start});
     }
+    // Set the accepting states to the accepting states of the second automaton
+    concatAutomaton->addFinals(tempA2.getAccepting());
 
     // If a new token name is not provided, construct it from the old token names
     std::string tempToken = (newToken.empty()) ? ("(" + tempA1.getToken() + tempA2.getToken() + ")") : (newToken);
@@ -131,8 +122,8 @@ Automaton *Utilities::concatAutomaton(const Automaton &a1, const Automaton &a2, 
     return concatAutomaton;
 }
 
-Automaton *Utilities::kleeneClosure(const Automaton &a, const std::string &newToken) {
-    Automaton tempA = a;
+Automaton *Utilities::kleeneClosure(Automaton &a, const std::string &newToken) {
+    Automaton tempA = *copyAutomaton(a);
     tempA.giveNewIdsAll(0, false);
 
     // Create a new automaton
@@ -148,7 +139,8 @@ Automaton *Utilities::kleeneClosure(const Automaton &a, const std::string &newTo
 
     // Create a new start state and a new accepting state
     auto newStartState = std::make_shared<State>(static_cast<int>(kleeneAutomaton->getStates().size()) + 1, false, "");
-    auto newAcceptingState = std::make_shared<State>(static_cast<int>(kleeneAutomaton->getStates().size()) + 2, true, newToken);
+    auto newAcceptingState = std::make_shared<State>(static_cast<int>(kleeneAutomaton->getStates().size()) + 2, true,
+                                                     newToken);
     kleeneAutomaton->addStates({newStartState, newAcceptingState});
 
     // Set the start state and the accepting states
@@ -182,8 +174,8 @@ Automaton *Utilities::kleeneClosure(const Automaton &a, const std::string &newTo
     return kleeneAutomaton;
 }
 
-Automaton *Utilities::positiveClosure(const Automaton &a, const std::string &newToken) {
-    Automaton tempA = a;
+Automaton *Utilities::positiveClosure(Automaton &a, const std::string &newToken) {
+    Automaton tempA = *copyAutomaton(a);
     tempA.giveNewIdsAll(0, false);
 
     // Create a new automaton
@@ -198,8 +190,10 @@ Automaton *Utilities::positiveClosure(const Automaton &a, const std::string &new
     positiveAutomaton->addTransitions(tempA.getTransitions());
 
     // Create a new start state and a new accepting state
-    auto newStartState = std::make_shared<State>(static_cast<int>(positiveAutomaton->getStates().size()) + 1, false, "");
-    auto newAcceptingState = std::make_shared<State>(static_cast<int>(positiveAutomaton->getStates().size()) + 2, true, newToken);
+    auto newStartState = std::make_shared<State>(static_cast<int>(positiveAutomaton->getStates().size()) + 1, false,
+                                                 "");
+    auto newAcceptingState = std::make_shared<State>(static_cast<int>(positiveAutomaton->getStates().size()) + 2, true,
+                                                     newToken);
     positiveAutomaton->addStates({newStartState, newAcceptingState});
 
     // Set the start state and the accepting states
@@ -243,7 +237,7 @@ Automaton *Utilities::unionAutomataSet(std::vector<Automaton> &automata) {
     unionAutomaton->setEpsilonSymbol(automata[0].getEpsilonSymbol());
 
     // Create a new start state
-    auto newStartState = std::make_shared<State>(0, false, "");
+    auto newStartState = std::make_shared<State>(-1, false, "");
 
     // Set the start state
     unionAutomaton->setStart(newStartState);
@@ -251,8 +245,11 @@ Automaton *Utilities::unionAutomataSet(std::vector<Automaton> &automata) {
     // Add the new start state to the set of states
     unionAutomaton->addState(newStartState);
 
+    std::string newToken;
+
     // Iterate over the automata in the vector
-    for (Automaton &a: automata) {
+    for (Automaton &tempA: automata) {
+        Automaton a = *copyAutomaton(tempA);
         // Give new IDs to the states in the current automaton
         a.giveNewIdsAll(static_cast<int>(unionAutomaton->getStates().size()) + 1, true);
 
@@ -262,12 +259,20 @@ Automaton *Utilities::unionAutomataSet(std::vector<Automaton> &automata) {
         unionAutomaton->addTransitions(a.getTransitions());
 
         // Add ε-transitions from the new start state to the start state of the current automaton
-        std::shared_ptr<State> aStart = unionAutomaton->getStateById(a.getStart()->getId());
-        unionAutomaton->addTransitions(newStartState, unionAutomaton->getEpsilonSymbol(), {aStart});
+        unionAutomaton->addTransitions(newStartState, unionAutomaton->getEpsilonSymbol(),
+                                       {unionAutomaton->getStateById(a.getStart()->getId())});
 
         // Add the accepting states from the current automaton
         unionAutomaton->addFinals(a.getAccepting());
+
+        // Append the token of the current automaton to the new token
+        if (!newToken.empty()) {
+            newToken += "|";
+        }
+        newToken += "(" + a.getToken() + ")";
     }
+
+    unionAutomaton->setToken(newToken);
 
     // Give new IDs to all states in the union automaton
     unionAutomaton->giveNewIdsAll();
