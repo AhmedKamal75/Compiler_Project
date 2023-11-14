@@ -51,3 +51,16 @@
 1579	2443	7216593387806863	Compiler_Project.exe	62f8f484666ff90
 4	1540	7216594106682377	CMakeFiles/Compiler_Project.dir/main.cpp.obj	d17d59ef3a06985d
 1540	2419	7216594115412175	Compiler_Project.exe	62f8f484666ff90
+38	2010	7216703358913467	CMakeFiles/Compiler_Project.dir/phase_one/Automaton/Utilities.cpp.obj	cf32eecb5cfabff0
+24	2184	7216703360702377	CMakeFiles/Compiler_Project.dir/phase_one/Automaton/Conversions.cpp.obj	9b58b12ba4429f9b
+14	2829	7216703367108427	CMakeFiles/Compiler_Project.dir/phase_one/Automaton/Automaton.cpp.obj	68d0b51c32caa537
+4	1634	7216710386721078	CMakeFiles/Compiler_Project.dir/main.cpp.obj	d17d59ef3a06985d
+1635	2911	7216710399421543	Compiler_Project.exe	62f8f484666ff90
+5	1548	7216711008119914	CMakeFiles/Compiler_Project.dir/main.cpp.obj	d17d59ef3a06985d
+1549	2556	7216711018161268	Compiler_Project.exe	62f8f484666ff90
+5	1656	7216778157623898	CMakeFiles/Compiler_Project.dir/main.cpp.obj	d17d59ef3a06985d
+1657	2639	7216778167397913	Compiler_Project.exe	62f8f484666ff90
+4	1570	7216780743612575	CMakeFiles/Compiler_Project.dir/main.cpp.obj	d17d59ef3a06985d
+1571	2725	7216780755089419	Compiler_Project.exe	62f8f484666ff90
+5	1552	7216781037048053	CMakeFiles/Compiler_Project.dir/main.cpp.obj	d17d59ef3a06985d
+1553	2593	7216781047399215	Compiler_Project.exe	62f8f484666ff90

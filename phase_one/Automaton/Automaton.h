@@ -95,6 +95,9 @@ public:
     // Returns the accepting states of the automaton.
     std::vector<std::shared_ptr<State>> &getAccepting();
 
+    // Chicks if a state in the states vector is accepting
+    bool hasAcceptingState(std::vector<std::shared_ptr<State>>& states_vector);
+
     // Checks if a state is an accepting state.
     bool isAcceptingState(const std::shared_ptr<State> &state);
 

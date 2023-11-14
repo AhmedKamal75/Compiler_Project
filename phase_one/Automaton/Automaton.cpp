@@ -218,6 +218,18 @@ std::vector<std::shared_ptr<State>> &Automaton::getAccepting() {
     return this->accepting;
 }
 
+bool Automaton::hasAcceptingState(std::vector<std::shared_ptr<State>>& states_vector){
+    return std::any_of(states_vector.begin(), states_vector.end(), [this] (std::shared_ptr<State> &state_ptr){
+            return this->isAcceptingState(state_ptr);
+    });
+//    for (const std::shared_ptr<State>& state_ptr:states_vector){
+//        if (isAcceptingState(state_ptr)){
+//            return true;
+//        }
+//    }
+//    return false;
+}
+
 bool Automaton::isAcceptingState(const std::shared_ptr<State> &state) {
     auto it = std::find_if(this->accepting.begin(), this->accepting.end(),
                            [&state](auto ptr) { return *ptr == *state; });
