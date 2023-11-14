@@ -47,9 +47,16 @@ void test1() {
     std::shared_ptr<Automaton> aPbK = Utilities::concatAutomaton(aP, bK, "");
     std::shared_ptr<Automaton> aPbKaPUbK = Utilities::concatAutomaton(aPbK, aPUbK, "");
 
-    std::cout << aP->toString() << std::endl;
-    std::shared_ptr<Automaton> dfa = conversions.convertToDFA(aPUbKK);
+    std::shared_ptr<Automaton> nfa = Utilities::copyAutomaton(aPbKaPUbK);
+    std::cout << "nfa:" << std::endl;
+    std::cout << nfa->toString() << std::endl;
+    std::shared_ptr<Automaton> dfa = conversions.convertToDFA(nfa);
+    std::cout << "dfa:" << std::endl;
     std::cout << dfa->toString() << std::endl;
+    std::shared_ptr<Automaton> minDFA = conversions.minimizeDFA(dfa);
+    std::cout << "min dfa:" << std::endl;
+    std::cout << minDFA->toString() << std::endl;
+
 }
 
 

@@ -1,3 +1,4 @@
+#include <iostream>
 #include "Conversions.h"
 
 Conversions::Conversions() : counter(0) {}
@@ -39,7 +40,7 @@ Conversions::epsilonClosure(std::shared_ptr<Automaton> &a, std::shared_ptr<State
     return epsilon_closure_vector;
 }
 
-[[maybe_unused]] std::shared_ptr<Automaton>
+[[maybe_unused]] [[maybe_unused]] std::shared_ptr<Automaton>
 Conversions::removeEpsilonTransitions(std::shared_ptr<Automaton> &automaton) {
     // create a copy of the parameter
     std::shared_ptr<Automaton> a = Utilities::copyAutomaton(automaton);
@@ -230,128 +231,164 @@ Conversions::createDFAState(std::vector<std::shared_ptr<State>> &state_vector, s
     return dfa;
 }
 
-//
-//
-//Automaton* Conversions::minimizeDFA(Automaton &automaton) {
-//    Automaton dfa = utilities.copyAutomaton(automaton);
-//
-//    std::vector<std::unordered_set<std::shared_ptr<State>>> currentGroup;
-//    currentGroup.push_back(dfa.getAccepting());
-//    std::unordered_set<std::shared_ptr<State>> nonAcceptingStates(dfa.getStates());
-//    for (auto &state : dfa.getAccepting()) {
-//        nonAcceptingStates.erase(state);
-//    }
-//    currentGroup.push_back(nonAcceptingStates);
-//
-//    while (true) {
-//        std::vector<std::unordered_set<std::shared_ptr<State>>> nextGroup = getNextEquivalence(currentGroup, dfa.getAlphabets(), dfa.getTransitionsDFAFormat());
-//        if (currentGroup == nextGroup) {
-//            break;
-//        }
-//        currentGroup = nextGroup;
-//    }
-//
-//    Automaton* minDFA = new Automaton();
-//    minDFA->setEpsilonSymbol(dfa.getEpsilonSymbol());
-//    minDFA->getAlphabets().insert(dfa.getAlphabets().begin(), dfa.getAlphabets().end());
-//
-//    auto statesData = getNewStatesAndSpecialStates(currentGroup, dfa);
-//    minDFA->getStates().insert(statesData.first.begin(), statesData.first.end());
-//    minDFA->setStart(statesData.second.first);
-//    minDFA->getAccepting().insert(statesData.second.second.begin(), statesData.second.second.end());
-//
-//    minDFA->setTransitionsDFAFormat(getNewTransitions(dfa, currentGroup, statesData.first));
-//
-//    minDFA->giveNewIdsAll(minDFA->getStates(), true);
-//
-//    return minDFA;
-//}
-//
-//
-//std::vector<std::unordered_set<std::shared_ptr<State>>>
-//Conversions::getNextEquivalence(std::vector<std::unordered_set<std::shared_ptr<State>>> &prevEquivalence,
-//                                std::unordered_set<std::string> &alphabets,
-//                                std::unordered_map<std::pair<std::shared_ptr<State>, std::string>, std::shared_ptr<State>> &transitions) {
-//    std::vector<std::unordered_set<std::shared_ptr<State>>> nextEquivalence;
-//
-//    for (auto &group: prevEquivalence) {
-//        std::unordered_map<std::unordered_set<std::shared_ptr<State>>, std::unordered_set<std::shared_ptr<State>>> newGroups;
-//        for (auto &state: group) {
-//            std::unordered_set<std::shared_ptr<State>> key;
-//            for (auto &symbol: alphabets) {
-//                if (!symbol.equals(a.getEpsilonSymbol())) {
-//                    auto nextState = transitions[std::make_pair(state, symbol)];
-//                    for (auto &g: prevEquivalence) {
-//                        if (g.find(nextState) != g.end()) {
-//                            key.insert(g.begin()->get());
-//                            break;
-//                        }
-//                    }
-//                }
-//            }
-//            if (newGroups.find(key) == newGroups.end()) {
-//                newGroups[key] = std::unordered_set<std::shared_ptr<State>>();
-//            }
-//            newGroups[key].insert(state);
-//        }
-//        for (auto &newGroup: newGroups) {
-//            nextEquivalence.push_back(newGroup.second);
-//        }
-//    }
-//
-//    return nextEquivalence;
-//}
-//
-//
-//std::pair<std::vector<std::shared_ptr<State>>, std::pair<std::shared_ptr<State>, std::unordered_set<std::shared_ptr<State>>>>
-//Conversions::getNewStatesAndSpecialStates(std::vector<std::unordered_set<std::shared_ptr<State>>> &group,
-//                                          Automaton &automaton) {
-//    std::vector<std::shared_ptr<State>> newStates;
-//    std::shared_ptr<State> newStartState = nullptr;
-//    std::unordered_set<std::shared_ptr<State>> newAcceptingStates;
-//
-//    int i = 0;
-//    for (auto &g: group) {
-//        auto representativeState = g.begin()->get();
-//        newStates.push_back(representativeState);
-//
-//        if (g.find(automaton.getStart()) != g.end()) {
-//            newStartState = representativeState;
-//        }
-//
-//        for (auto &oldState: g) {
-//            if (automaton.getAccepting().find(oldState) != automaton.getAccepting().end()) {
-//                newAcceptingStates.insert(representativeState);
-//                break;
-//            }
-//        }
-//        i++;
-//    }
-//
-//    return std::make_pair(newStates, std::make_pair(newStartState, newAcceptingStates));
-//}
-//
-//std::unordered_map<std::pair<std::shared_ptr<State>, std::string>, std::shared_ptr<State>>
-//Conversions::getNewTransitions(Automaton &oldDFA, std::vector<std::unordered_set<std::shared_ptr<State>>> &group,
-//                               std::vector<std::shared_ptr<State>> &newStates) {
-//    std::unordered_map<std::pair<std::shared_ptr<State>, std::string>, std::shared_ptr<State>> newTransitions;
-//    std::unordered_map<std::shared_ptr<State>, std::shared_ptr<State>> stateToRepresentative;
-//
-//    int i = 0;
-//    for (auto &g: group) {
-//        for (auto &oldState: g) {
-//            stateToRepresentative[oldState] = newStates[i];
-//        }
-//        i++;
-//    }
-//
-//    for (auto &newState: newStates) {
-//        for (auto &symbol: oldDFA.getAlphabets()) {
-//            auto key = std::make_pair(newState, symbol);
-//            newTransitions[key] = stateToRepresentative[oldDFA.getTransitionsDFAFormat()[key]];
-//        }
-//    }
-//
-//    return newTransitions;
-//}
-//
+std::shared_ptr<Automaton> Conversions::minimizeDFA(std::shared_ptr<Automaton> &automaton) {
+    // Step 0: Create a copy of the original automaton so that it is changed.
+    std::shared_ptr<Automaton> dfa = Utilities::copyAutomaton(automaton);
+    // Step 1: Create a list of groups of states. Initially, there are two groups: accepting states and non-accepting states.
+    std::vector<std::vector<std::shared_ptr<State>>> current_group;
+    current_group.push_back(dfa->getAccepting());
+    std::vector<std::shared_ptr<State>> non_accepting_state;
+    for (std::shared_ptr<State> &state_ptr: dfa->getStates()) {
+        if (!dfa->isAcceptingState(state_ptr)) {
+            non_accepting_state.push_back(state_ptr);
+        }
+    }
+    current_group.push_back(non_accepting_state);
+    // Step 2: Refine the groups until no further refinement is possible.
+    while (true) {
+        std::vector<std::vector<std::shared_ptr<State>>> next_group = getNextEquivalence(current_group, dfa);
+        if (Utilities::group_equal(current_group, next_group)) {
+            break;
+        }
+        current_group = next_group;
+    }
+
+    // Step 3: Construct the minimized DFA.
+    std::shared_ptr<Automaton> minDFA = std::make_shared<Automaton>();
+    // fields that don't need any computations.
+    minDFA->setEpsilonSymbol(dfa->getEpsilonSymbol());
+    minDFA->addAlphabets(dfa->getAlphabets());
+    // calculating the states.
+    std::pair<std::vector<std::shared_ptr<State>>, std::pair<std::shared_ptr<State>, std::vector<std::shared_ptr<State>>>> statesData = getNewStatesAndSpecialStates(
+            current_group, dfa);
+    minDFA->addStates(statesData.first);
+    minDFA->setStart(statesData.second.first);
+    minDFA->addFinals(statesData.second.second);
+
+    minDFA->setTransitionsDFAFormat(getNewTransitions(dfa, current_group, statesData.first));
+
+    minDFA->setToken(dfa->getToken());
+    minDFA->giveNewIdsAll();
+
+    return minDFA;
+}
+
+
+std::vector<std::vector<std::shared_ptr<State>>>
+Conversions::getNextEquivalence(std::vector<std::vector<std::shared_ptr<State>>> &previous_equivalence,
+                                std::shared_ptr<Automaton> &dfa) {
+    std::vector<std::vector<std::shared_ptr<State>>> nextEquivalence;
+
+    for (std::vector<std::shared_ptr<State>> &group: previous_equivalence) {
+        // in the new groups variable we are storing the next the collective next paired with the states they came from
+        std::vector<std::pair<std::vector<std::shared_ptr<State>>, std::vector<std::shared_ptr<State>>>> new_groups;
+
+        for (std::shared_ptr<State> &state_ptr: group) {
+            // destinations contains the states that are the destinations
+            std::vector<std::shared_ptr<State>> destinations;
+
+            for (std::string &alphabet: dfa->getAlphabets()) {
+                std::shared_ptr<State> next_state_ptr = *dfa->getNextStates(state_ptr, alphabet).begin();
+                for (std::vector<std::shared_ptr<State>> &g: previous_equivalence) {
+                    // add new destination
+                    auto it = std::find_if(g.begin(), g.end(), [&next_state_ptr](std::shared_ptr<State> &s_ptr) {
+                        return *s_ptr == *next_state_ptr;
+                    });
+                    if (it != g.end()) {
+                        destinations.push_back(*g.begin());
+                        break;
+                    }
+                }
+            }
+            // now add state to be one of the sources of the destinations calculated above.
+            auto it = std::find_if(new_groups.begin(), new_groups.end(),
+                                   [&destinations](
+                                           std::pair<std::vector<std::shared_ptr<State>>, std::vector<std::shared_ptr<State>>> &p) {
+                                       return Utilities::vector_equal(destinations, p.first);
+                                   });
+
+            if (it == new_groups.end()) {
+                std::vector<std::shared_ptr<State>> sources = {state_ptr};
+                new_groups.emplace_back(destinations, sources);
+            } else {
+                it->second.push_back(state_ptr);
+            }
+        }
+        for (std::pair<std::vector<std::shared_ptr<State>>, std::vector<std::shared_ptr<State>>> &pair: new_groups) {
+            nextEquivalence.push_back(pair.second);
+        }
+    }
+
+    return nextEquivalence;
+}
+
+
+std::pair<std::vector<std::shared_ptr<State>>, std::pair<std::shared_ptr<State>, std::vector<std::shared_ptr<State>>>>
+Conversions::getNewStatesAndSpecialStates(std::vector<std::vector<std::shared_ptr<State>>> &group,
+                                          std::shared_ptr<Automaton> &a) {
+    std::vector<std::shared_ptr<State>> new_states;
+    std::shared_ptr<State> new_start;
+    std::vector<std::shared_ptr<State>> new_accepting;
+
+    bool start_is_set = false;
+    // Create new states and map old states to new states
+    for (std::vector<std::shared_ptr<State>> &g: group) {
+        std::shared_ptr<State> representativeState = g.front();  // take the first state of the set as the representative of the set
+        new_states.push_back(representativeState);
+
+        auto it = std::find_if(g.begin(), g.end(),
+                               [&a](std::shared_ptr<State> &ptr) { return *ptr == *a->getStart(); });
+        if (!start_is_set && (it != g.end())) {
+            new_start = representativeState;// the new start state is the representative of the group containing the old start state
+            start_is_set = true;
+        }
+
+        if (a->hasAcceptingState(g)) {
+            // if the group contains an old accepting state, the representative state is a new accepting state
+            representativeState->setAccepting(true);
+            representativeState->setToken(a->getToken());
+            new_accepting.push_back(representativeState);
+        }
+
+    }
+    return std::make_pair(new_states, std::make_pair(new_start, new_accepting));
+}
+
+
+std::map<std::pair<std::shared_ptr<State>, std::string>, std::shared_ptr<State>>
+Conversions::getNewTransitions(std::shared_ptr<Automaton> &oldDFA,
+                               std::vector<std::vector<std::shared_ptr<State>>> &group,
+                               std::vector<std::shared_ptr<State>> &newStates) {
+//    std::map<std::pair<std::shared_ptr<State>, std::string>, std::shared_ptr<State>> oldTransitions = oldDFA->getTransitionsDFAFormat();
+
+    std::vector<std::pair<std::shared_ptr<State>, std::shared_ptr<State>>> state_to_representative;
+
+    // Map old states to their respective representative.
+    int i = 0;
+    for (auto &g: group) {
+        for (auto &old_state: g) {
+            state_to_representative.emplace_back(old_state, newStates[i]);
+        }
+        i++;
+    }
+
+    // Create new transitions
+    std::map<std::pair<std::shared_ptr<State>, std::string>, std::shared_ptr<State>> newTransitions;
+
+    for (std::shared_ptr<State> &new_state: newStates) {
+        for (std::string &alphabet: oldDFA->getAlphabets()) {
+            std::pair<std::shared_ptr<State>, std::string> key = std::make_pair(new_state, alphabet);
+
+            std::shared_ptr<State> old_state = *oldDFA->getNextStates(new_state, alphabet).begin();
+            auto it = std::find_if(state_to_representative.begin(), state_to_representative.end(),
+                                   [&old_state](std::pair<std::shared_ptr<State>, std::shared_ptr<State>> &entry) {
+                                       return *entry.first == *old_state;
+                                   });
+
+            std::shared_ptr<State> next_state = it->second;
+            newTransitions[key] = next_state;
+        }
+    }
+    return newTransitions;
+}
+

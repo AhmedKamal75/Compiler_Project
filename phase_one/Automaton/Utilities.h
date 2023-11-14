@@ -37,7 +37,8 @@ public:
      * // Do something with automaton...
      * delete automaton;
      */
-    static std::shared_ptr<Automaton> unionAutomata(std::shared_ptr<Automaton> &a1, std::shared_ptr<Automaton> &a2, const std::string &newToken);
+    static std::shared_ptr<Automaton>
+    unionAutomata(std::shared_ptr<Automaton> &a1, std::shared_ptr<Automaton> &a2, const std::string &newToken);
 
     /**
      * Combines two automata using the concatenation operation.
@@ -52,7 +53,8 @@ public:
      * // Do something with automaton...
      * delete automaton;
      * */
-    static std::shared_ptr<Automaton> concatAutomaton(std::shared_ptr<Automaton> &a1, std::shared_ptr<Automaton> &a2, const std::string &newToken);
+    static std::shared_ptr<Automaton>
+    concatAutomaton(std::shared_ptr<Automaton> &a1, std::shared_ptr<Automaton> &a2, const std::string &newToken);
 
     /**
      * Creates the Kleene closure of an automaton.
@@ -127,6 +129,10 @@ public:
      */
     static void addAll(std::vector<std::shared_ptr<State>> &to, std::vector<std::shared_ptr<State>> &from);
 
+    static bool group_equal(std::vector<std::vector<std::shared_ptr<State>>> &g1,
+                     std::vector<std::vector<std::shared_ptr<State>>> &g2);
+
+    static void group_string(std::vector<std::vector<std::shared_ptr<State>>> &group);
 };
 
 

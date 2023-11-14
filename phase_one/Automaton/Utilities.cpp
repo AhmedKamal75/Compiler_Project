@@ -1,3 +1,4 @@
+#include <iostream>
 #include "Utilities.h"
 
 std::shared_ptr<Automaton> Utilities::copyAutomaton(std::shared_ptr<Automaton> &originalAutomaton) {
@@ -313,4 +314,28 @@ Utilities::addAll(std::vector<std::shared_ptr<State>> &to, std::vector<std::shar
             to.push_back(from_state_ptr);
         }
     }
+}
+
+bool Utilities::group_equal(std::vector<std::vector<std::shared_ptr<State>>> &g1, std::vector<std::vector<std::shared_ptr<State>>> &g2){
+    if (g1.size() != g2.size()){
+        return false;
+    }
+    for (int i = 0; i < g1.size();i++){
+        if (!vector_equal(g1[i],g2[i])){
+            return false;
+        }
+    }
+    return true;
+}
+
+
+void Utilities::group_string(std::vector<std::vector<std::shared_ptr<State>>>&group){
+    for (const std::vector<std::shared_ptr<State>> &g: group) {
+        std::cout << "{";
+        for (const std::shared_ptr<State> &s: g) {
+            std::cout << s->toString() << ", ";
+        }
+        std::cout << "}  ";
+    }
+    std::cout << std::endl;
 }
