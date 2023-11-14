@@ -2,7 +2,7 @@
 #include "Utilities.h"
 
 std::shared_ptr<Automaton> Utilities::copyAutomaton(std::shared_ptr<Automaton> &originalAutomaton) {
-//    auto *copy = new Automaton();
+//    auto *copy = new automaton();
     std::shared_ptr<Automaton> copy = std::make_shared<Automaton>();
 
     copy->setEpsilonSymbol(originalAutomaton->getEpsilonSymbol());

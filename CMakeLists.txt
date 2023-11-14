@@ -4,12 +4,14 @@ project(Compiler_Project)
 set(CMAKE_CXX_STANDARD 17)
 
 add_executable(Compiler_Project main.cpp
-        phase_one/Automaton/Automaton.cpp
-        phase_one/Automaton/Automaton.h
-        phase_one/Automaton/State.cpp
-        phase_one/Automaton/State.h
-        phase_one/Automaton/Utilities.cpp
-        phase_one/Automaton/Utilities.h
-        phase_one/Automaton/Conversions.cpp
-        phase_one/Automaton/Conversions.h
+        phase_one/automaton/Automaton.cpp
+        phase_one/automaton/Automaton.h
+        phase_one/automaton/State.cpp
+        phase_one/automaton/State.h
+        phase_one/automaton/Utilities.cpp
+        phase_one/automaton/Utilities.h
+        phase_one/automaton/Conversions.cpp
+        phase_one/automaton/Conversions.h
+        phase_one/creation/Constants.cpp
+        phase_one/creation/Constants.h
 )

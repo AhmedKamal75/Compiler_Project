@@ -55,29 +55,35 @@ build CMakeFiles/Compiler_Project.dir/main.cpp.obj: CXX_COMPILER__Compiler_Proje
   OBJECT_DIR = CMakeFiles\Compiler_Project.dir
   OBJECT_FILE_DIR = CMakeFiles\Compiler_Project.dir
 
-build CMakeFiles/Compiler_Project.dir/phase_one/Automaton/Automaton.cpp.obj: CXX_COMPILER__Compiler_Project_unscanned_Debug C$:/Users/Delta/CLionProjects/Compiler_Project/phase_one/Automaton/Automaton.cpp || cmake_object_order_depends_target_Compiler_Project
-  DEP_FILE = CMakeFiles\Compiler_Project.dir\phase_one\Automaton\Automaton.cpp.obj.d
+build CMakeFiles/Compiler_Project.dir/phase_one/automaton/Automaton.cpp.obj: CXX_COMPILER__Compiler_Project_unscanned_Debug C$:/Users/Delta/CLionProjects/Compiler_Project/phase_one/automaton/Automaton.cpp || cmake_object_order_depends_target_Compiler_Project
+  DEP_FILE = CMakeFiles\Compiler_Project.dir\phase_one\automaton\Automaton.cpp.obj.d
   FLAGS = -g -std=gnu++17 -fdiagnostics-color=always
   OBJECT_DIR = CMakeFiles\Compiler_Project.dir
-  OBJECT_FILE_DIR = CMakeFiles\Compiler_Project.dir\phase_one\Automaton
+  OBJECT_FILE_DIR = CMakeFiles\Compiler_Project.dir\phase_one\automaton
 
-build CMakeFiles/Compiler_Project.dir/phase_one/Automaton/State.cpp.obj: CXX_COMPILER__Compiler_Project_unscanned_Debug C$:/Users/Delta/CLionProjects/Compiler_Project/phase_one/Automaton/State.cpp || cmake_object_order_depends_target_Compiler_Project
-  DEP_FILE = CMakeFiles\Compiler_Project.dir\phase_one\Automaton\State.cpp.obj.d
+build CMakeFiles/Compiler_Project.dir/phase_one/automaton/State.cpp.obj: CXX_COMPILER__Compiler_Project_unscanned_Debug C$:/Users/Delta/CLionProjects/Compiler_Project/phase_one/automaton/State.cpp || cmake_object_order_depends_target_Compiler_Project
+  DEP_FILE = CMakeFiles\Compiler_Project.dir\phase_one\automaton\State.cpp.obj.d
   FLAGS = -g -std=gnu++17 -fdiagnostics-color=always
   OBJECT_DIR = CMakeFiles\Compiler_Project.dir
-  OBJECT_FILE_DIR = CMakeFiles\Compiler_Project.dir\phase_one\Automaton
+  OBJECT_FILE_DIR = CMakeFiles\Compiler_Project.dir\phase_one\automaton
 
-build CMakeFiles/Compiler_Project.dir/phase_one/Automaton/Utilities.cpp.obj: CXX_COMPILER__Compiler_Project_unscanned_Debug C$:/Users/Delta/CLionProjects/Compiler_Project/phase_one/Automaton/Utilities.cpp || cmake_object_order_depends_target_Compiler_Project
-  DEP_FILE = CMakeFiles\Compiler_Project.dir\phase_one\Automaton\Utilities.cpp.obj.d
+build CMakeFiles/Compiler_Project.dir/phase_one/automaton/Utilities.cpp.obj: CXX_COMPILER__Compiler_Project_unscanned_Debug C$:/Users/Delta/CLionProjects/Compiler_Project/phase_one/automaton/Utilities.cpp || cmake_object_order_depends_target_Compiler_Project
+  DEP_FILE = CMakeFiles\Compiler_Project.dir\phase_one\automaton\Utilities.cpp.obj.d
   FLAGS = -g -std=gnu++17 -fdiagnostics-color=always
   OBJECT_DIR = CMakeFiles\Compiler_Project.dir
-  OBJECT_FILE_DIR = CMakeFiles\Compiler_Project.dir\phase_one\Automaton
+  OBJECT_FILE_DIR = CMakeFiles\Compiler_Project.dir\phase_one\automaton
 
-build CMakeFiles/Compiler_Project.dir/phase_one/Automaton/Conversions.cpp.obj: CXX_COMPILER__Compiler_Project_unscanned_Debug C$:/Users/Delta/CLionProjects/Compiler_Project/phase_one/Automaton/Conversions.cpp || cmake_object_order_depends_target_Compiler_Project
-  DEP_FILE = CMakeFiles\Compiler_Project.dir\phase_one\Automaton\Conversions.cpp.obj.d
+build CMakeFiles/Compiler_Project.dir/phase_one/automaton/Conversions.cpp.obj: CXX_COMPILER__Compiler_Project_unscanned_Debug C$:/Users/Delta/CLionProjects/Compiler_Project/phase_one/automaton/Conversions.cpp || cmake_object_order_depends_target_Compiler_Project
+  DEP_FILE = CMakeFiles\Compiler_Project.dir\phase_one\automaton\Conversions.cpp.obj.d
   FLAGS = -g -std=gnu++17 -fdiagnostics-color=always
   OBJECT_DIR = CMakeFiles\Compiler_Project.dir
-  OBJECT_FILE_DIR = CMakeFiles\Compiler_Project.dir\phase_one\Automaton
+  OBJECT_FILE_DIR = CMakeFiles\Compiler_Project.dir\phase_one\automaton
+
+build CMakeFiles/Compiler_Project.dir/phase_one/creation/Constants.cpp.obj: CXX_COMPILER__Compiler_Project_unscanned_Debug C$:/Users/Delta/CLionProjects/Compiler_Project/phase_one/creation/Constants.cpp || cmake_object_order_depends_target_Compiler_Project
+  DEP_FILE = CMakeFiles\Compiler_Project.dir\phase_one\creation\Constants.cpp.obj.d
+  FLAGS = -g -std=gnu++17 -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles\Compiler_Project.dir
+  OBJECT_FILE_DIR = CMakeFiles\Compiler_Project.dir\phase_one\creation
 
 
 # =============================================================================
@@ -87,7 +93,7 @@ build CMakeFiles/Compiler_Project.dir/phase_one/Automaton/Conversions.cpp.obj: C
 #############################################
 # Link the executable Compiler_Project.exe
 
-build Compiler_Project.exe: CXX_EXECUTABLE_LINKER__Compiler_Project_Debug CMakeFiles/Compiler_Project.dir/main.cpp.obj CMakeFiles/Compiler_Project.dir/phase_one/Automaton/Automaton.cpp.obj CMakeFiles/Compiler_Project.dir/phase_one/Automaton/State.cpp.obj CMakeFiles/Compiler_Project.dir/phase_one/Automaton/Utilities.cpp.obj CMakeFiles/Compiler_Project.dir/phase_one/Automaton/Conversions.cpp.obj
+build Compiler_Project.exe: CXX_EXECUTABLE_LINKER__Compiler_Project_Debug CMakeFiles/Compiler_Project.dir/main.cpp.obj CMakeFiles/Compiler_Project.dir/phase_one/automaton/Automaton.cpp.obj CMakeFiles/Compiler_Project.dir/phase_one/automaton/State.cpp.obj CMakeFiles/Compiler_Project.dir/phase_one/automaton/Utilities.cpp.obj CMakeFiles/Compiler_Project.dir/phase_one/automaton/Conversions.cpp.obj CMakeFiles/Compiler_Project.dir/phase_one/creation/Constants.cpp.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\Compiler_Project.dir

@@ -17,7 +17,7 @@ public:
      * @return a pointer to a deep copy of the original automaton
      *
      * remember to:
-     * Automaton* automaton = utilities.copyAutomaton(originalAutomaton);
+     * automaton* automaton = utilities.copyAutomaton(originalAutomaton);
      * // Do something with automaton...
      * delete automaton;
      */
@@ -33,7 +33,7 @@ public:
      * @return a new automaton that is the union of a1 and a2
      *
      * remember to:
-     * Automaton* automaton = utilities.unionAutomata(a1, a2, newToken);
+     * automaton* automaton = utilities.unionAutomata(a1, a2, newToken);
      * // Do something with automaton...
      * delete automaton;
      */
@@ -49,7 +49,7 @@ public:
      * @return a new automaton that is the concatenation of a1 and a2
      *
      * remember to:
-     * Automaton* automaton = utilities.concatenateAutomata(a1, a2, newToken);
+     * automaton* automaton = utilities.concatenateAutomata(a1, a2, newToken);
      * // Do something with automaton...
      * delete automaton;
      * */
@@ -64,7 +64,7 @@ public:
      * @return a new automaton that is the Kleene closure of a
      *
      * remember to:
-     * Automaton* automaton = utilities.kleeneClosure(a, newToken);
+     * automaton* automaton = utilities.kleeneClosure(a, newToken);
      * // Do something with automaton...
      * delete automaton;
      * */
@@ -78,7 +78,7 @@ public:
      * @return a new automaton that is the positive closure of a
      *
      * remember to:
-     * Automaton* automaton = utilities.positiveClosure(a1, newToken);
+     * automaton* automaton = utilities.positiveClosure(a1, newToken);
      * // Do something with automaton...
      * delete automaton;
      */
@@ -87,15 +87,15 @@ public:
     /**
      * Creates a new automaton that represents the union of a set of automata.
      *
-     * @param automata: A vector of Automaton objects. Each Automaton in the vector retains its own token.
-     * @return A pointer to a new Automaton object that represents the union of all the Automaton objects in the input vector.
+     * @param automata: A vector of automaton objects. Each automaton in the vector retains its own token.
+     * @return A pointer to a new automaton object that represents the union of all the automaton objects in the input vector.
      *
-     * This function creates a new Automaton object that represents the union of all the Automaton objects in the input vector.
-     * Each Automaton in the vector retains its own token. The function first creates a new Automaton object and sets its epsilon symbol
-     * to that of the first Automaton in the vector. It then iterates over the Automaton objects in the vector, giving new IDs to their states,
-     * and adding their states, alphabets, transitions, and accepting states to the new Automaton. It also adds ε-transitions from the new start
-     * state to the start state of each Automaton in the vector. Finally, it sets the start state of the new Automaton and gives new IDs to all
-     * its states. The function returns a pointer to the new Automaton.
+     * This function creates a new automaton object that represents the union of all the automaton objects in the input vector.
+     * Each automaton in the vector retains its own token. The function first creates a new automaton object and sets its epsilon symbol
+     * to that of the first automaton in the vector. It then iterates over the automaton objects in the vector, giving new IDs to their states,
+     * and adding their states, alphabets, transitions, and accepting states to the new automaton. It also adds ε-transitions from the new start
+     * state to the start state of each automaton in the vector. Finally, it sets the start state of the new automaton and gives new IDs to all
+     * its states. The function returns a pointer to the new automaton.
      *
      * Note: Memory management is crucial when using raw pointers in C++. Consider using smart pointers to automatically manage the memory of these objects.
      */

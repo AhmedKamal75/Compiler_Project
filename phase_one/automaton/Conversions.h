@@ -62,13 +62,13 @@ public:
     [[maybe_unused]] std::shared_ptr<Automaton> removeEpsilonTransitions(std::shared_ptr<Automaton> &automaton);
 
     /**
-     * @brief Converts a given NFA (Non-deterministic Finite Automaton) to a DFA (Deterministic Finite Automaton).
+     * @brief Converts a given NFA (Non-deterministic Finite automaton) to a DFA (Deterministic Finite automaton).
      *
-     * @param automaton A shared pointer to the Automaton object that represents the NFA.
+     * @param automaton A shared pointer to the automaton object that represents the NFA.
      *
-     * @return A shared pointer to the newly created Automaton object that represents the DFA.
+     * @return A shared pointer to the newly created automaton object that represents the DFA.
      *
-     * The function first creates a copy of the NFA and a new Automaton object for the DFA. It then copies the alphabets and epsilon symbol from the NFA to the DFA.
+     * The function first creates a copy of the NFA and a new automaton object for the DFA. It then copies the alphabets and epsilon symbol from the NFA to the DFA.
      * It prepares the NFA for conversion by calling the `prepareForAutomaton` method. This method ensures that the NFA is in the correct format for conversion.
      * It then computes the epsilon closure of the start state of the NFA and adds it to a queue. This queue is used to keep track of the states that need to be processed.
      * The function then enters a loop where it processes each state in the queue. For each state, it retrieves the corresponding DFA state using the `getDFAState` method. If no such state exists, it creates a new DFA state using the `createDFAState` method and adds it to the DFA.
@@ -88,7 +88,7 @@ public:
     std::shared_ptr<Automaton> convertToDFA(std::shared_ptr<Automaton> &automaton);
 
     /**
-     * This method minimizes a given DFA (Deterministic Finite LexicalAnalysisGenerator.Automaton) using Hopcroft's algorithm.
+     * This method minimizes a given DFA (Deterministic Finite LexicalAnalysisGenerator.automaton) using Hopcroft's algorithm.
      * The algorithm works by partitioning the states of the DFA into groups of indistinguishable states,
      * and then collapsing each group of states into a single state. The resulting minimized DFA has the
      * property that it has the smallest possible number of states and is equivalent to the original DFA.
@@ -105,20 +105,20 @@ private:
     int counter;
 
     /**
-     * @brief Creates a new "dead" state in the Automaton.
+     * @brief Creates a new "dead" state in the automaton.
      *
-     * @param a A shared pointer to the Automaton object that represents the DFA.
+     * @param a A shared pointer to the automaton object that represents the DFA.
      *
      * @return A shared pointer to the newly created "dead" State object in the DFA.
      *
      * The function first creates a new State object with a unique ID and adds it to the DFA. This state is a "dead" state, meaning that any transition to this state will not lead to an accepting state.
-     * It then iterates over each symbol in the alphabet of the Automaton. For each symbol, it adds a transition from the "dead" state to itself. This means that once the Automaton transitions to the "dead" state, it will stay in the "dead" state regardless of the input symbol.
+     * It then iterates over each symbol in the alphabet of the automaton. For each symbol, it adds a transition from the "dead" state to itself. This means that once the automaton transitions to the "dead" state, it will stay in the "dead" state regardless of the input symbol.
      * Finally, it returns a shared pointer to the newly created "dead" State object.
      *
      * This function is part of the process of converting an NFA to a DFA.
      * It helps in handling the case where there is no valid transition for a given state and input symbol in the NFA.
      * In the DFA, such cases are handled by transitioning to a "dead" state.
-     * The "dead" state is a non-accepting state, and once the Automaton transitions to the "dead" state, it cannot transition to any other state.
+     * The "dead" state is a non-accepting state, and once the automaton transitions to the "dead" state, it cannot transition to any other state.
      * This ensures that the DFA is complete, meaning that it has a valid transition for every state and input symbol.
      */
     [[maybe_unused]] std::shared_ptr<State> createDeadState(std::shared_ptr<Automaton> &a);
@@ -148,13 +148,13 @@ private:
      * @brief Creates a new state in the DFA from a vector of states in the NFA and adjusts the DFA according to its new state.
      *
      * @param state_vector A vector of shared pointers to State objects. These states are from the NFA and will be replaced by the new DFA state.
-     * @param a A shared pointer to the Automaton object that represents the NFA.
-     * @param dfa A shared pointer to the Automaton object that represents the DFA. This DFA will be adjusted according to its new state.
+     * @param a A shared pointer to the automaton object that represents the NFA.
+     * @param dfa A shared pointer to the automaton object that represents the DFA. This DFA will be adjusted according to its new state.
      *
      * @return A shared pointer to the newly created State object in the DFA.
      *
      * The function first creates a new State object with a unique ID and adds it to the DFA.
-     * It then checks if any of the states in `state_vector` are accepting states in the NFA using the `hasAcceptingState` method of the Automaton class.
+     * It then checks if any of the states in `state_vector` are accepting states in the NFA using the `hasAcceptingState` method of the automaton class.
      * If there is an accepting state, it sets the new state as an accepting state in the DFA and assigns it the token of the NFA.
      * It also adds the new state to the list of final states in the DFA.
      * Finally, it returns a shared pointer to the newly created State object.
