@@ -7,7 +7,7 @@ import java.util.*;
  * It includes methods for converting epsilon-NFAs to NFAs and NFAs to DFAs.
  */
 public class Conversion {
-    private final HashMap<State, HashSet<State>> epsilonClosures;
+    private final HashMap<State, HashSet<State>> epsilon_closures;
     private Integer counter;
     private final Utilities utilities;
 
@@ -15,7 +15,7 @@ public class Conversion {
      * Constructs a new Conversion object.
      */
     public Conversion() {
-        this.epsilonClosures = new HashMap<>();
+        this.epsilon_closures = new HashMap<>();
         this.counter = 0;
         this.utilities = new Utilities();
     }
@@ -27,7 +27,7 @@ public class Conversion {
      * @param a the new automaton
      */
     public void prepareForAutomaton(Automaton a) {
-        epsilonClosures.clear();
+        epsilon_closures.clear();
         this.counter = a.getStates().size() + 1;
     }
 
@@ -42,8 +42,8 @@ public class Conversion {
      * @return the epsilon-closure of the state
      */
     private HashSet<State> epsilonClosure(Automaton a, State state) {
-        if (epsilonClosures.containsKey(state)) {
-            return epsilonClosures.get(state);
+        if (epsilon_closures.containsKey(state)) {
+            return epsilon_closures.get(state);
         }
         HashSet<State> epsilonClosure = new HashSet<>();
         Stack<State> stack = new Stack<>();
@@ -59,7 +59,7 @@ public class Conversion {
                 }
             }
         }
-        epsilonClosures.put(state, epsilonClosure);
+        epsilon_closures.put(state, epsilonClosure);
         return epsilonClosure;
     }
 
@@ -189,7 +189,7 @@ public class Conversion {
                     }
                     // compute the next state from the ε-closure set calculated above.
                     State nextState;
-                    if (epsilonClosures.isEmpty()) { // meaning that next state is a dead state
+                    if (epsilon_closures.isEmpty()) { // meaning that next state is a dead state
                         nextState = getDFAState(epsilonClosureSet, dfaStates);
                         if (nextState == null) {
                             nextState = createDeadState(dfa);

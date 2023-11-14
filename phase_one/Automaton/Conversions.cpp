@@ -1,68 +1,79 @@
-//#include "Conversions.h"
-//
-//Conversions::Conversions() : counter(0), utilities() {}
-//
-//void Conversions::prepareForAutomaton(Automaton &a) {
-//    epsilonClosures.clear();
-//    this->counter = static_cast<int>(a.getStates().size()) + 1;
-//}
-//
-//std::unordered_set<std::shared_ptr<State>> Conversions::epsilonClosure(Automaton &a, std::shared_ptr<State> state) {
-//    if (epsilonClosures.find(state) != epsilonClosures.end()) {
-//        return epsilonClosures[state];
-//    }
-//    std::unordered_set<std::shared_ptr<State>> epsilonClosure;
-//    std::stack<std::shared_ptr<State>> stack;
-//    stack.push(state);
-//
-//    while (!stack.empty()) {
-//        std::shared_ptr<State> currentState = stack.top();
-//        stack.pop();
-//        epsilonClosure.insert(currentState);
-//
-//        for (auto nextState: a.getNextStates(currentState, a.getEpsilonSymbol())) {
-//            if (epsilonClosure.find(nextState) == epsilonClosure.end()) {
-//                stack.push(nextState);
-//            }
-//        }
-//    }
-//    epsilonClosures[state] = epsilonClosure;
-//    return epsilonClosure;
-//}
-//
-//Automaton* Conversions::removeEpsilonTransitions(Automaton &automaton) {
-//    Automaton a = utilities.copyAutomaton(automaton);
-//    Automaton* nfa = new Automaton();
-//
-//    nfa->setEpsilonSymbol(a.getEpsilonSymbol());
-//    nfa->getStates().insert(a.getStates().begin(), a.getStates().end());
-//    nfa->getAlphabets().insert(a.getAlphabets().begin(), a.getAlphabets().end());
-//    nfa->setStart(a.getStart());
-//    nfa->getAccepting().insert(a.getAccepting().begin(), a.getAccepting().end());
-//
-//    this->prepareForAutomaton(a);
-//
-//    for (auto &state : a.getStates()) {
-//        for (auto &alphabet : a.getAlphabets()) {
-//            if (!alphabet.equals(a.getEpsilonSymbol())) {
-//                std::unordered_set<std::shared_ptr<State>> x = epsilonClosure(a, state);
-//                std::unordered_set<std::shared_ptr<State>> y;
-//                for (auto &s : x) {
-//                    y.insert(a.getNextStates(s, alphabet).begin(), a.getNextStates(s, alphabet).end());
-//                }
-//                std::unordered_set<std::shared_ptr<State>> z;
-//                for (auto &s : y) {
-//                    z.insert(epsilonClosure(a, s).begin(), epsilonClosure(a, s).end());
-//                }
-//                nfa->addTransitions(state, alphabet, z);
-//            }
-//        }
-//    }
-//
-//    nfa->giveNewIdsAll(nfa->getStates(), true);
-//
-//    return nfa;
-//}
+#include "Conversions.h"
+
+Conversions::Conversions() : counter(0) {}
+
+void Conversions::prepareForAutomaton(Automaton &a) {
+    epsilon_closures.clear();
+    counter = static_cast<int>(a.getStates().size()) + 1;
+}
+
+std::vector<std::shared_ptr<State>> Conversions::epsilonClosure(Automaton &a, std::shared_ptr<State> state_ptr) {
+    auto iterator = std::find_if(this->epsilon_closures.begin(), this->epsilon_closures.end(),
+                                 [&state_ptr](
+                                         const std::pair<std::shared_ptr<State>, std::vector<std::shared_ptr<State>>> &ptr) {
+                                     return *ptr.first == *state_ptr;
+                                 });
+    if (iterator != this->epsilon_closures.end()) {
+        return iterator->second;
+    }
+    std::vector<std::shared_ptr<State>> epsilon_closure_vector;
+    std::stack<std::shared_ptr<State>> stack;
+    stack.push(state_ptr);
+
+    while (!stack.empty()) {
+        std::shared_ptr<State> currentState = stack.top();
+        stack.pop();
+        epsilon_closure_vector.push_back(currentState);
+
+        for (std::shared_ptr<State> &next_state: a.getNextStates(currentState, a.getEpsilonSymbol())) {
+            auto it = std::find_if(epsilon_closure_vector.begin(), epsilon_closure_vector.end(),
+                                   [&next_state](const std::shared_ptr<State> &ptr) { return *ptr == *next_state; });
+            if (it == epsilon_closure_vector.end()) {
+                stack.push(next_state);
+            }
+        }
+    }
+
+    std::pair<std::shared_ptr<State>, std::vector<std::shared_ptr<State>>> item = std::make_pair(state_ptr,
+                                                                                                 epsilon_closure_vector);
+    epsilon_closures.push_back(item);
+    return epsilon_closure_vector;
+}
+
+
+Automaton* Conversions::removeEpsilonTransitions(Automaton &automaton) {
+    Automaton a = *Utilities::copyAutomaton(automaton);
+    auto* nfa = new Automaton();
+
+    nfa->setEpsilonSymbol(a.getEpsilonSymbol());
+    nfa->addStates(a.getStates());
+    nfa->addAlphabets(a.getAlphabets());
+    nfa->setStart(a.getStart());
+    nfa->addFinals(a.getAccepting());
+
+    this->prepareForAutomaton(a);
+
+    for (std::shared_ptr<State> &state : a.getStates()) {
+        for (std::string &alphabet : a.getAlphabets()) {
+            if (alphabet != a.getEpsilonSymbol()) {
+                std::vector<std::shared_ptr<State>> x = epsilonClosure(a, state);
+                std::vector<std::shared_ptr<State>> y;
+                for (std::shared_ptr<State> &s : x) {
+                    y.push_back(a.getNextStates(s, alphabet).begin(), a.getNextStates(s, alphabet).end());
+                }
+                std::unordered_set<std::shared_ptr<State>> z;
+                for (auto &s : y) {
+                    z.insert(epsilonClosure(a, s).begin(), epsilonClosure(a, s).end());
+                }
+                nfa->addTransitions(state, alphabet, z);
+            }
+        }
+    }
+
+    nfa->giveNewIdsAll(nfa->getStates(), true);
+
+    return nfa;
+}
 //
 //Automaton* Conversions::convertToDFA(Automaton &automaton) {
 //    Automaton a = utilities.copyAutomaton(automaton);
@@ -106,7 +117,7 @@
 //                    epsilonClosureSet.insert(epsilonClosure(a, s).begin(), epsilonClosure(a, s).end());
 //                }
 //                std::shared_ptr<State> nextState;
-//                if (epsilonClosures.empty()) {
+//                if (epsilon_closures.empty()) {
 //                    nextState = getDFAState(epsilonClosureSet, dfaStates);
 //                    if (nextState == nullptr) {
 //                        nextState = createDeadState(dfa);

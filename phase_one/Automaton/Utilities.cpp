@@ -1,7 +1,8 @@
 #include "Utilities.h"
 
-Automaton *Utilities::copyAutomaton(Automaton &originalAutomaton) {
-    auto *copy = new Automaton();
+std::shared_ptr<Automaton> Utilities::copyAutomaton(Automaton &originalAutomaton) {
+//    auto *copy = new Automaton();
+    std::shared_ptr<Automaton> copy = std::make_shared<Automaton>();
 
     copy->setEpsilonSymbol(originalAutomaton.getEpsilonSymbol());
 
@@ -35,14 +36,14 @@ Automaton *Utilities::copyAutomaton(Automaton &originalAutomaton) {
     return copy;
 }
 
-Automaton *Utilities::unionAutomata(Automaton &a1, Automaton &a2, const std::string &newToken) {
+std::shared_ptr<Automaton> Utilities::unionAutomata(Automaton &a1, Automaton &a2, const std::string &newToken) {
     Automaton tempA1 = *copyAutomaton(a1);
     Automaton tempA2 = *copyAutomaton(a2);
     tempA1.giveNewIdsAll(-1, false);
     tempA2.giveNewIdsAll(1, true);
 
     // Create a new automaton
-    auto *unionAutomaton = new Automaton();
+    std::shared_ptr<Automaton> unionAutomaton = std::make_shared<Automaton>();
     // Add the epsilon symbol
     unionAutomaton->setEpsilonSymbol(tempA1.getEpsilonSymbol());
 
@@ -77,14 +78,14 @@ Automaton *Utilities::unionAutomata(Automaton &a1, Automaton &a2, const std::str
     return unionAutomaton;
 }
 
-Automaton *Utilities::concatAutomaton(Automaton &a1, Automaton &a2, const std::string &newToken) {
+std::shared_ptr<Automaton> Utilities::concatAutomaton(Automaton &a1, Automaton &a2, const std::string &newToken) {
     Automaton tempA1 = *copyAutomaton(a1);
     Automaton tempA2 = *copyAutomaton(a2);
     tempA1.giveNewIdsAll(-1, false);
     tempA2.giveNewIdsAll(1, true);
 
     // Create a new automaton
-    auto *concatAutomaton = new Automaton();
+    std::shared_ptr<Automaton> concatAutomaton = std::make_shared<Automaton>();
 
     // Add the epsilon symbol
     concatAutomaton->setEpsilonSymbol(tempA1.getEpsilonSymbol());
@@ -122,12 +123,12 @@ Automaton *Utilities::concatAutomaton(Automaton &a1, Automaton &a2, const std::s
     return concatAutomaton;
 }
 
-Automaton *Utilities::kleeneClosure(Automaton &a, const std::string &newToken) {
+std::shared_ptr<Automaton> Utilities::kleeneClosure(Automaton &a, const std::string &newToken) {
     Automaton tempA = *copyAutomaton(a);
     tempA.giveNewIdsAll(0, false);
 
     // Create a new automaton
-    auto *kleeneAutomaton = new Automaton();
+    std::shared_ptr<Automaton> kleeneAutomaton = std::make_shared<Automaton>();
 
     // Add the epsilon symbol
     kleeneAutomaton->setEpsilonSymbol(tempA.getEpsilonSymbol());
@@ -174,12 +175,12 @@ Automaton *Utilities::kleeneClosure(Automaton &a, const std::string &newToken) {
     return kleeneAutomaton;
 }
 
-Automaton *Utilities::positiveClosure(Automaton &a, const std::string &newToken) {
+std::shared_ptr<Automaton> Utilities::positiveClosure(Automaton &a, const std::string &newToken) {
     Automaton tempA = *copyAutomaton(a);
     tempA.giveNewIdsAll(0, false);
 
     // Create a new automaton
-    auto *positiveAutomaton = new Automaton();
+    std::shared_ptr<Automaton> positiveAutomaton = std::make_shared<Automaton>();
 
     // Add the epsilon symbol
     positiveAutomaton->setEpsilonSymbol(tempA.getEpsilonSymbol());
@@ -224,9 +225,9 @@ Automaton *Utilities::positiveClosure(Automaton &a, const std::string &newToken)
     return positiveAutomaton;
 }
 
-Automaton *Utilities::unionAutomataSet(std::vector<Automaton> &automata) {
+std::shared_ptr<Automaton> Utilities::unionAutomataSet(std::vector<Automaton> &automata) {
     // Create a new automaton
-    auto *unionAutomaton = new Automaton();
+    std::shared_ptr<Automaton> unionAutomaton = std::make_shared<Automaton>();
 
     // If the vector is empty, return the new (empty) automaton
     if (automata.empty()) {

@@ -1,12 +1,13 @@
 #include <iostream>
 #include <set>
-#include <map>
 #include <list>
 #include <vector>
-#include <algorithm>
 #include "phase_one/Automaton/State.h"
 #include "phase_one/Automaton/Automaton.h"
 #include "phase_one/Automaton/Utilities.h"
+#include "phase_one/Automaton/Conversions.h"
+
+Conversions conversions;
 
 void test1();
 
@@ -42,8 +43,15 @@ void test1() {
     Automaton bK = *Utilities::kleeneClosure(*automata["b"], "");
     Automaton aUbK = *Utilities::kleeneClosure(*Utilities::unionAutomata(*automata["a"], *automata["b"], ""), "");
     std::cout << aUbK.toString() << std::endl;
-    Automaton aKbKaUbK = *Utilities::concatAutomaton(*Utilities::concatAutomaton(aP, bK, ""), aUbK, "");
-    std::cout << aKbKaUbK.toString() << std::endl;
+    Automaton aUbKa = *Utilities::concatAutomaton(aUbK,*automata["a"],"");
+    std::cout << aUbKa.toString() << std::endl;
+//    Automaton aKbKaUbK = *Utilities::concatAutomaton(*Utilities::concatAutomaton(aP, bK, ""), aUbK, "");
+//    std::cout << aKbKaUbK.toString() << std::endl;
+    std::vector<std::shared_ptr<State>> vec = conversions.epsilonClosure(aUbKa, aUbKa.getNextStates(aUbKa.getStart(),aUbKa.getEpsilonSymbol())[0]);
+    for (const std::shared_ptr<State> &ptr: vec) {
+        std::cout << ptr->toString() << std::endl;
+    }
+
 
 }
 
