@@ -6,9 +6,10 @@
 Automaton::Automaton() {
     this->states = std::vector<std::shared_ptr<State>>();
     this->alphabets = std::vector<std::string>();
-    this->start = std::make_shared<State>();
     this->transitions = std::map<std::pair<std::shared_ptr<State>, std::string>, std::vector<std::shared_ptr<State>>>();
     this->accepting = std::vector<std::shared_ptr<State>>();
+    this->start.reset();
+//    this->start = std::make_shared<State>();
     this->epsilonSymbol = BUILT_IN_EPSILON_SYMBOL;
 }
 

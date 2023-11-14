@@ -40,23 +40,15 @@ void test1() {
     std::unordered_map<std::string, std::shared_ptr<Automaton>> automata = getAutomata();
     std::shared_ptr<Automaton> aP = Utilities::positiveClosure(automata["a"], "");
     std::shared_ptr<Automaton> bK = Utilities::kleeneClosure(automata["b"], "");
-//    std::shared_ptr<Automaton> aUb = Utilities::unionAutomata(automata["a"], automata["b"], "");
+    std::shared_ptr<Automaton> aUb = Utilities::unionAutomata(automata["a"], automata["b"], "");
     std::shared_ptr<Automaton> aPUbK = Utilities::unionAutomata(aP, bK, "");
     std::shared_ptr<Automaton> aPUbKK = Utilities::kleeneClosure(aPUbK, "");
     std::shared_ptr<Automaton> aPUbKKa = Utilities::concatAutomaton(aPUbKK, automata["a"], "");
-//    std::cout << aPUbKKa->toString() << std::endl;
     std::shared_ptr<Automaton> aPbK = Utilities::concatAutomaton(aP, bK, "");
     std::shared_ptr<Automaton> aPbKaPUbK = Utilities::concatAutomaton(aPbK, aPUbK, "");
-//    std::cout << aPbKaPUbK->toString() << std::endl;
 
-//    std::cout << "epsilon closure of the start of the above automaton" << std::endl;
-//    std::vector<std::shared_ptr<State>> vec = conversions.epsilonClosure(aPUbKKa,
-//                                                                         aPUbKKa->getNextStates(aPUbKKa->getStart(),
-//                                                                                                aPUbKKa->getEpsilonSymbol())[0]);
-//    for (const std::shared_ptr<State> &ptr: vec) {
-//        std::cout << ptr->toString() << std::endl;
-//    }
-    std::shared_ptr<Automaton> dfa = conversions.convertToDFA(aPbKaPUbK);
+    std::cout << aP->toString() << std::endl;
+    std::shared_ptr<Automaton> dfa = conversions.convertToDFA(aPUbKK);
     std::cout << dfa->toString() << std::endl;
 }
 

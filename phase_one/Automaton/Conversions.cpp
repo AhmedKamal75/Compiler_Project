@@ -35,9 +35,7 @@ Conversions::epsilonClosure(std::shared_ptr<Automaton> &a, std::shared_ptr<State
         }
     }
 
-    std::pair<std::shared_ptr<State>, std::vector<std::shared_ptr<State>>> item = std::make_pair(state_ptr,
-                                                                                                 epsilon_closure_vector);
-    epsilon_closures.push_back(item);
+    epsilon_closures.emplace_back(state_ptr, epsilon_closure_vector);
     return epsilon_closure_vector;
 }
 
@@ -114,6 +112,7 @@ Conversions::createDFAState(std::vector<std::shared_ptr<State>> &state_vector, s
 
 [[maybe_unused]] std::shared_ptr<State> Conversions::getDFAState(std::vector<std::shared_ptr<State>> &state_vector,
                                                                  std::vector<std::pair<std::vector<std::shared_ptr<State>>, std::shared_ptr<State>>> &dfa_states) {
+
     auto it = std::find_if(dfa_states.begin(), dfa_states.end(),
                            [&state_vector](
                                    std::pair<std::vector<std::shared_ptr<State>>, std::shared_ptr<State>> &entry) {
@@ -177,12 +176,12 @@ Conversions::createDFAState(std::vector<std::shared_ptr<State>> &state_vector, s
             // that mean that the dfa will have its start state set one time only, and that
             // is for the correct state
         }
-        // now we have a new state that needs to be added to the dfa
+        // now we have a number(size=alphabets) of transitions that needs to be added to the dfa
 
 
         for (std::string &alphabet: a->getAlphabets()) {
             if (alphabet != a->getEpsilonSymbol()) {
-                // get the set reachable from dfaState(currentState) using current alphabet.
+                // get the set reachable from dfa_state(currentState) using current alphabet.
                 std::vector<std::shared_ptr<State>> reachable_states_vector;
                 for (std::shared_ptr<State> &state_ptr: current_vector) { // currentSet is already an epsilon closure
                     std::vector<std::shared_ptr<State>> temp_next_states = a->getNextStates(state_ptr, alphabet);
@@ -225,6 +224,7 @@ Conversions::createDFAState(std::vector<std::shared_ptr<State>> &state_vector, s
         }
     }
 
+    dfa->setToken(a->getToken());
     dfa->giveNewIdsAll();
 
     return dfa;

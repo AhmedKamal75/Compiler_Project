@@ -285,9 +285,11 @@ std::shared_ptr<Automaton> Utilities::unionAutomataSet(std::vector<std::shared_p
 }
 
 bool Utilities::vector_equal(std::vector<std::shared_ptr<State>> &x, std::vector<std::shared_ptr<State>> &y) {
+    // if the two empty, then they are equal
     if (x.empty() && y.empty()){
         return true;
     }
+    // all elements in y should be in x
     for (std::shared_ptr<State> y_state_ptr: y) {
         auto it = std::find_if(x.begin(), x.end(), [&y_state_ptr](std::shared_ptr<State> &x_state_ptr) {
             return *y_state_ptr == *x_state_ptr;
@@ -296,7 +298,8 @@ bool Utilities::vector_equal(std::vector<std::shared_ptr<State>> &x, std::vector
             return false;
         }
     }
-    return true;
+    // the two sizes should be the same.
+    return y.size() == x.size();
 }
 
 
