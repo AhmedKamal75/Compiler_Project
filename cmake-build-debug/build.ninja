@@ -85,6 +85,12 @@ build CMakeFiles/Compiler_Project.dir/phase_one/creation/Constants.cpp.obj: CXX_
   OBJECT_DIR = CMakeFiles\Compiler_Project.dir
   OBJECT_FILE_DIR = CMakeFiles\Compiler_Project.dir\phase_one\creation
 
+build CMakeFiles/Compiler_Project.dir/phase_one/creation/InfixToPostfix.cpp.obj: CXX_COMPILER__Compiler_Project_unscanned_Debug C$:/Users/Delta/CLionProjects/Compiler_Project/phase_one/creation/InfixToPostfix.cpp || cmake_object_order_depends_target_Compiler_Project
+  DEP_FILE = CMakeFiles\Compiler_Project.dir\phase_one\creation\InfixToPostfix.cpp.obj.d
+  FLAGS = -g -std=gnu++17 -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles\Compiler_Project.dir
+  OBJECT_FILE_DIR = CMakeFiles\Compiler_Project.dir\phase_one\creation
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target Compiler_Project
@@ -93,7 +99,7 @@ build CMakeFiles/Compiler_Project.dir/phase_one/creation/Constants.cpp.obj: CXX_
 #############################################
 # Link the executable Compiler_Project.exe
 
-build Compiler_Project.exe: CXX_EXECUTABLE_LINKER__Compiler_Project_Debug CMakeFiles/Compiler_Project.dir/main.cpp.obj CMakeFiles/Compiler_Project.dir/phase_one/automaton/Automaton.cpp.obj CMakeFiles/Compiler_Project.dir/phase_one/automaton/State.cpp.obj CMakeFiles/Compiler_Project.dir/phase_one/automaton/Utilities.cpp.obj CMakeFiles/Compiler_Project.dir/phase_one/automaton/Conversions.cpp.obj CMakeFiles/Compiler_Project.dir/phase_one/creation/Constants.cpp.obj
+build Compiler_Project.exe: CXX_EXECUTABLE_LINKER__Compiler_Project_Debug CMakeFiles/Compiler_Project.dir/main.cpp.obj CMakeFiles/Compiler_Project.dir/phase_one/automaton/Automaton.cpp.obj CMakeFiles/Compiler_Project.dir/phase_one/automaton/State.cpp.obj CMakeFiles/Compiler_Project.dir/phase_one/automaton/Utilities.cpp.obj CMakeFiles/Compiler_Project.dir/phase_one/automaton/Conversions.cpp.obj CMakeFiles/Compiler_Project.dir/phase_one/creation/Constants.cpp.obj CMakeFiles/Compiler_Project.dir/phase_one/creation/InfixToPostfix.cpp.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\Compiler_Project.dir

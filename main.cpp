@@ -1,42 +1,40 @@
 #include <iostream>
 #include <set>
 #include <list>
-#include <vector>
-#include "phase_one/Automaton/State.h"
 #include "phase_one/Automaton/Automaton.h"
 #include "phase_one/Automaton/Utilities.h"
 #include "phase_one/Automaton/Conversions.h"
+#include "phase_one/creation/InfixToPostfix.h"
 
 Conversions conversions;
+InfixToPostfix infixToPostfix;
 
-void test1();
+void infix_to_postfix_test();
 
-void test0();
+void automaton_test();
 
 std::unordered_map<std::string, std::shared_ptr<Automaton>> getAutomata();
 
 int main() {
-    test1();
-//    test0();
-}
-
-void test0() {
-    std::shared_ptr<Automaton> a = std::make_shared<Automaton>("a", "", "");
-    std::shared_ptr<Automaton> b = std::make_shared<Automaton>("b", "", "");
-    std::cout << a->toString() << std::endl;
-    std::cout << b->toString() << std::endl;
-
-    std::vector<std::shared_ptr<Automaton>> v = {a, b};
-    std::shared_ptr<Automaton> ab = Utilities::unionAutomataSet(v);
-    std::cout << ab->toString() << std::endl;
-//    ab.giveNewIdsAll(-19,false);
-//    std::cout << a.toString() << std::endl;
-//    std::cout << b.toString() << std::endl;
-//    std::cout << ab.toString() << std::endl;
+//    automaton_test();
+    infix_to_postfix_test();
 }
 
 
-void test1() {
+void infix_to_postfix_test() {
+    std::string regex = "(hello|hi)+(and|or)(welcome|out!)(infinite_loop)*";
+    std::string concat_explicit = infixToPostfix.concatExplicit(regex);
+    std::string postfix = infixToPostfix.infixToPostfix(concat_explicit);
+    std::string evaluated_regex = infixToPostfix.evaluatePostfix(postfix);
+    std::cout << "regex    : " << regex << std::endl;
+    std::cout << "concat   : " << concat_explicit << std::endl;
+    std::cout << "postfix  : " << postfix << std::endl;
+    std::cout << "evaluated: " << evaluated_regex << std::endl;
+
+}
+
+
+void automaton_test() {
     std::unordered_map<std::string, std::shared_ptr<Automaton>> automata = getAutomata();
     std::shared_ptr<Automaton> aP = Utilities::positiveClosure(automata["a"], "");
     std::shared_ptr<Automaton> bK = Utilities::kleeneClosure(automata["b"], "");

@@ -14,4 +14,6 @@ add_executable(Compiler_Project main.cpp
         phase_one/automaton/Conversions.h
         phase_one/creation/Constants.cpp
         phase_one/creation/Constants.h
+        phase_one/creation/InfixToPostfix.cpp
+        phase_one/creation/InfixToPostfix.h
 )

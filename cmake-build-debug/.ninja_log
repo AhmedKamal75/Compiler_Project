@@ -6,8 +6,14 @@
 56	2362	7214356774384531	CMakeFiles/Compiler_Project.dir/phase_one/Automaton/State.cpp.obj	23bb1703eb739785
 66	3389	7214100010177953	CMakeFiles/Compiler_Project.dir/phase_one/Automaton/tests.cpp.obj	a7804ed008173f52
 6	1928	7216928582984892	CMakeFiles/Compiler_Project.dir/phase_one/Automaton/Utilities.cpp.obj	cf32eecb5cfabff0
-2	1872	7216965676448356	build.ninja	28f03fa374b1f30f
+2	1872	7216971364153204	build.ninja	28f03fa374b1f30f
 49	1437	7216964552326853	CMakeFiles/Compiler_Project.dir/phase_one/automaton/State.cpp.obj	18ca19988795cb54
 5	2256	7216964560498126	CMakeFiles/Compiler_Project.dir/phase_one/automaton/Utilities.cpp.obj	6aed1c9abba2e765
 38	3053	7216964568476042	CMakeFiles/Compiler_Project.dir/phase_one/automaton/Automaton.cpp.obj	f8ec8a786980b612
 13	3236	7216964570314937	CMakeFiles/Compiler_Project.dir/phase_one/automaton/Conversions.cpp.obj	e672150aff7f04a7
+12	2641	7216988131468506	CMakeFiles/Compiler_Project.dir/phase_one/creation/Constants.cpp.obj	188101a1c3862a16
+17	2655	7216988131598431	CMakeFiles/Compiler_Project.dir/phase_one/creation/InfixToPostfix.cpp.obj	cb84983b572cd0fd
+5	2692	7216988131988195	CMakeFiles/Compiler_Project.dir/main.cpp.obj	d17d59ef3a06985d
+2693	4701	7216988152038791	Compiler_Project.exe	d472737bb908bde5
+4	1578	7216988850843897	CMakeFiles/Compiler_Project.dir/main.cpp.obj	d17d59ef3a06985d
+1578	3082	7216988865804994	Compiler_Project.exe	d472737bb908bde5
