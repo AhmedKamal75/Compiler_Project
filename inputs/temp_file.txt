@@ -1,1 +1,5 @@
 letter = a-z | A-Z
+digit = 0 - 9
+{boolean int float}
+{ if else while }
+[; , \( \) { }]

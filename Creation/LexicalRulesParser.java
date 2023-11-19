@@ -49,7 +49,7 @@ public class LexicalRulesHandler {
                 String[] parts = line.split(":");
                 String name = parts[0].trim();
                 String rd = parts[1].trim().replaceAll("\\s+", "");
-                Automaton a = parsing.regularDefinitionToMinDFA(rd, automata, epsilonSymbol);
+                Automaton a = parsing.regular_definition_to_min_dfa(rd, automata, epsilonSymbol);
                 a.setRegex(a.getToken());
                 a.setTokenAll(name);
                 automata.put(name, a);
@@ -58,7 +58,7 @@ public class LexicalRulesHandler {
                 String[] parts = line.split("=");
                 String name = parts[0].trim();
                 String regex = parts[1].trim().replaceAll("\\s+", "");
-                Automaton a = parsing.regexToMinDFA(regex, epsilonSymbol);
+                Automaton a = parsing.regex_to_minimized_dfa(regex, epsilonSymbol);
                 a.setRegex(a.getToken());
                 a.setToken(name);
                 automata.put(name, a);

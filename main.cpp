@@ -1,6 +1,7 @@
 #include <iostream>
 #include <set>
 #include <list>
+#include <fstream>
 #include "phase_one/Automaton/Automaton.h"
 #include "phase_one/Automaton/Utilities.h"
 #include "phase_one/Automaton/Conversions.h"
@@ -22,16 +23,18 @@ void infix_to_postfix_test();
 void automaton_test();
 
 
-
 std::unordered_map<std::string, std::shared_ptr<Automaton>> getAutomata();
 
+
 int main() {
-    to_automaton_test();
+    input_handler();
+    return 0;
 }
 
 void input_handler() {
-    std::string filename = "inputs/temp_file.txt";
+    std::string filename = R"(C:\Users\Delta\CLionProjects\Compiler_Project\inputs\temp_file.txt)";
     std::unordered_map<std::string, std::shared_ptr<Automaton>> automata = handler.handleFile(filename);
+    std::cout << "################# after handing #################" << std::endl;
     std::cout << filename << std::endl;
     for (const auto &pair: automata) {
         std::cout << "token: " << pair.first << std::endl;
@@ -40,10 +43,13 @@ void input_handler() {
 }
 
 void to_automaton_test() {
-    std::string regex1 = "hello";
-    std::shared_ptr<Automaton> automaton = toAutomaton.regexToMinDFA(regex1, "\\L");
-    std::cout << regex1 << std::endl;
-    std::cout << automaton->to_string() << std::endl;
+    std::string regex0 = R"((a*)(a|b)abc)";
+    std::string regex1 = R"(hello)";
+    // take too much time to compute
+    std::string regex2 = R"(((a-z)|(A-Z))((a-z)|(A-Z)|(0-9)|(\.))*@((a-z)|(A-Z)|(0-9))+\.((a-z)|(A-Z))+)";
+    const std::string &regex = regex2;
+    std::shared_ptr<Automaton> automaton = toAutomaton.regex_to_minimized_dfa(regex, "\\L");
+    std::cout << "regex: " << regex << std::endl;
     std::cout << automaton->to_string() << std::endl;
 }
 
@@ -54,7 +60,7 @@ void infix_to_postfix_test() {
     std::string regex3 = R"(((a-z)|(A-Z))((a-z)|(A-Z)|(0-9)|(\.))*@((a-z)|(A-Z)|(0-9))+\.((a-z)|(A-Z))+)";
     std::string concat_explicit = infixToPostfix.concat_explicit(regex3);
     std::string postfix = infixToPostfix.regex_infix_to_postfix(regex3);
-    std::string evaluated_regex = infixToPostfix.evaluate_postfix(postfix);
+    std::string evaluated_regex = infixToPostfix.regex_evaluate_postfix(postfix);
     std::cout << "regex    : " << regex3 << std::endl;
     std::cout << "concat   : " << concat_explicit << std::endl;
     std::cout << "postfix  : " << postfix << std::endl;

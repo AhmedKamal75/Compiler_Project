@@ -8,13 +8,13 @@ LexicalRulesHandler::LexicalRulesHandler() = default;
 
 [[maybe_unused]] std::unordered_map<std::string, std::shared_ptr<Automaton>>
 LexicalRulesHandler::handleFile(const std::string &filename) {
-    std::unordered_map<std::string, std::shared_ptr<Automaton>> automata;
+    std::unordered_map<std::string, std::shared_ptr<Automaton>> automata{};
     std::ifstream file(filename);
-    std::string line;
+    std::string line{};
     while (std::getline(file, line)) {
         line = line.substr(line.find_first_not_of(" \n\r\t"), std::string::npos);
         std::string non_terminal = line.substr(0, line.find_first_of(" \n\r\t"));
-        bool isRegularDefinition = non_terminal.back() == ':';
+        bool is_regular_definition = non_terminal.back() == ':';
 
         std::string s = line.substr(1, line.length() - 2);
         if (line.front() == '{') { // done
@@ -22,7 +22,7 @@ LexicalRulesHandler::handleFile(const std::string &filename) {
             std::istringstream ss(s);
             std::string keyword;
             while (ss >> keyword) {
-                std::shared_ptr<Automaton> a = toAutomaton.regexToMinDFA(keyword, epsilonSymbol);
+                std::shared_ptr<Automaton> a = toAutomaton.regex_to_minimized_dfa(keyword, epsilonSymbol);
                 a->set_regex(a->get_token());
                 a->set_token(keyword);
                 automata[keyword] = a;
@@ -32,17 +32,22 @@ LexicalRulesHandler::handleFile(const std::string &filename) {
             std::istringstream ss(s);
             std::string punctuation;
             while (ss >> punctuation) {
-                std::shared_ptr<Automaton> a = toAutomaton.regexToMinDFA(punctuation, epsilonSymbol);
+                std::shared_ptr<Automaton> a = toAutomaton.regex_to_minimized_dfa(punctuation, epsilonSymbol);
                 a->set_regex(a->get_token());
                 a->set_token(punctuation);
                 automata[punctuation] = a;
             }
-        } else if (isRegularDefinition) {
+        } else if (is_regular_definition) {
             // This is a regular definition
             std::string name = line.substr(0, line.find(':'));
             std::string rd = line.substr(line.find(':') + 1);
             rd.erase(remove_if(rd.begin(), rd.end(), isspace), rd.end());
-            std::shared_ptr<Automaton> a = toAutomaton.regularDefinitionToMinDFA(rd, automata, epsilonSymbol);
+            /*
+             * TODO: implement the regular_definition_to_min_dfa method and then uncomment the following line and remove the line after it.
+             * */
+            // std::shared_ptr<Automaton> a = toAutomaton.regular_definition_to_min_dfa(rd, automata, epsilonSymbol);
+            std::shared_ptr<Automaton> a = toAutomaton.regex_to_minimized_dfa(rd, epsilonSymbol);
+
             a->set_regex(a->get_token());
             a->set_token(name);
             automata[name] = a;
@@ -51,7 +56,7 @@ LexicalRulesHandler::handleFile(const std::string &filename) {
             std::string name = line.substr(0, line.find('='));
             std::string regex = line.substr(line.find('=') + 1);
             regex.erase(remove_if(regex.begin(), regex.end(), isspace), regex.end());
-            std::shared_ptr<Automaton> a = toAutomaton.regexToMinDFA(regex, epsilonSymbol);
+            std::shared_ptr<Automaton> a = toAutomaton.regex_to_minimized_dfa(regex, epsilonSymbol);
             a->set_regex(a->get_token());
             a->set_token(name);
             automata[name] = a;

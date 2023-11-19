@@ -24,7 +24,7 @@ public:
     std::string regex_infix_to_postfix(std::string regex);
 
     // This method evaluates the postfix expression, i.e. from postfix to infix
-    std::string evaluate_postfix(std::string postfix);
+    std::string regex_evaluate_postfix(std::string postfix);
 
 };
 

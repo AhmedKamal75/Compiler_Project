@@ -19,13 +19,13 @@ public:
      * @param epsilonSymbol The symbol representing epsilon transitions.
      * @return The automaton equivalent of the regular expression.
      */
-    std::shared_ptr<Automaton> regexToMinDFA(std::string regex, const std::string &epsilonSymbol);
+    std::shared_ptr<Automaton> regex_to_minimized_dfa(std::string regex, const std::string &epsilonSymbol);
 
 
     std::shared_ptr<Automaton>
-    regularDefinitionToMinDFA(std::string regularDefinition,
-                              std::unordered_map<std::string, std::shared_ptr<Automaton>> map,
-                              const std::string &epsilonSymbol);
+    regular_definition_to_min_dfa(std::string regularDefinition,
+                                  std::unordered_map<std::string, std::shared_ptr<Automaton>> map,
+                                  const std::string &epsilonSymbol);
 
 private:
 
@@ -38,11 +38,12 @@ private:
     /**
      * Converts a regular expression into a minimized DFA.
      *
-     * @param regex         The regular expression to be converted.
+     * @param postfix         The regular expression to be converted, in the postfix notation.
      * @param epsilonSymbol The symbol representing epsilon transitions.
      * @return The minimized DFA equivalent of the regular expression.
      */
-    std::shared_ptr<Automaton> parseRegex(std::string regex, const std::string &epsilonSymbol);
+    std::shared_ptr<Automaton>
+    get_automaton_from_regex_postfix(const std::string &postfix, const std::string &epsilonSymbol);
 };
 
 
