@@ -3,7 +3,6 @@
 
 
 #include <string>
-#include <functional>
 
 /**
  * This class represents a state in an automaton.

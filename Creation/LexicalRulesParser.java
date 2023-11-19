@@ -10,15 +10,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class LexicalRulesParser {
+public class LexicalRulesHandler {
     private final String epsilonSymbol = "\\L";
     private final Parsing parsing;
 
-    public LexicalRulesParser() {
+    public LexicalRulesHandler() {
         this.parsing = new Parsing();
     }
 
-    public Map<String, Automaton> parseFile(String filename) throws IOException {
+    public Map<String, Automaton> handleFile(String filename) throws IOException {
         Map<String, Automaton> automata = new HashMap<>();
         BufferedReader reader = new BufferedReader(new FileReader(filename));
         String line;
@@ -49,7 +49,7 @@ public class LexicalRulesParser {
                 String[] parts = line.split(":");
                 String name = parts[0].trim();
                 String rd = parts[1].trim().replaceAll("\\s+", "");
-                Automaton a = parsing.parseRegularDefinition(rd, automata, epsilonSymbol);
+                Automaton a = parsing.regularDefinitionToMinDFA(rd, automata, epsilonSymbol);
                 a.setRegex(a.getToken());
                 a.setTokenAll(name);
                 automata.put(name, a);
@@ -58,7 +58,7 @@ public class LexicalRulesParser {
                 String[] parts = line.split("=");
                 String name = parts[0].trim();
                 String regex = parts[1].trim().replaceAll("\\s+", "");
-                Automaton a = parsing.regexToMinimizedDFA(regex, epsilonSymbol);
+                Automaton a = parsing.regexToMinDFA(regex, epsilonSymbol);
                 a.setRegex(a.getToken());
                 a.setToken(name);
                 automata.put(name, a);

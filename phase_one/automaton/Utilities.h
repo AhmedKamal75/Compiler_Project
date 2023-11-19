@@ -2,13 +2,11 @@
 #define COMPILER_PROJECT_UTILITIES_H
 
 
-#include <set>
-#include <map>
-#include <string>
-#include "State.h"
+#include <vector>
 #include "Automaton.h"
 
 class Utilities {
+
 public:
     /**
      * Creates a deep copy of the given automaton.
@@ -37,8 +35,7 @@ public:
      * // Do something with automaton...
      * delete automaton;
      */
-    static std::shared_ptr<Automaton>
-    unionAutomata(std::shared_ptr<Automaton> &a1, std::shared_ptr<Automaton> &a2, const std::string &newToken);
+    static std::shared_ptr<Automaton> unionAutomata(std::shared_ptr<Automaton> &a1, std::shared_ptr<Automaton> &a2);
 
     /**
      * Combines two automata using the concatenation operation.
@@ -54,7 +51,7 @@ public:
      * delete automaton;
      * */
     static std::shared_ptr<Automaton>
-    concatAutomaton(std::shared_ptr<Automaton> &a1, std::shared_ptr<Automaton> &a2, const std::string &newToken);
+    concatAutomaton(std::shared_ptr<Automaton> &a1, std::shared_ptr<Automaton> &a2);
 
     /**
      * Creates the Kleene closure of an automaton.
@@ -68,21 +65,22 @@ public:
      * // Do something with automaton...
      * delete automaton;
      * */
-    static std::shared_ptr<Automaton> kleeneClosure(std::shared_ptr<Automaton> &a, const std::string &newToken);
+
+    static std::shared_ptr<Automaton> kleeneClosure(std::shared_ptr<Automaton> &a);
 
     /**
-     * Creates the positive closure of an automaton.
-     *
-     * @param a            the automaton
-     * @param newTokenName the token name for the new automaton
-     * @return a new automaton that is the positive closure of a
-     *
-     * remember to:
-     * automaton* automaton = utilities.positiveClosure(a1, newToken);
-     * // Do something with automaton...
-     * delete automaton;
-     */
-    static std::shared_ptr<Automaton> positiveClosure(std::shared_ptr<Automaton> &a, const std::string &newToken);
+    * Creates the positive closure of an automaton.
+    *
+    * @param a            the automaton
+    * @param newTokenName the token name for the new automaton
+    * @return a new automaton that is the positive closure of a
+    *
+    * remember to:
+    * automaton* automaton = utilities.positiveClosure(a1, newToken);
+    * // Do something with automaton...
+    * delete automaton;
+    */
+    static std::shared_ptr<Automaton> positiveClosure(std::shared_ptr<Automaton> &a);
 
     /**
      * Creates a new automaton that represents the union of a set of automata.
@@ -114,6 +112,8 @@ public:
      */
     static bool vector_equal(std::vector<std::shared_ptr<State>> &x, std::vector<std::shared_ptr<State>> &y);
 
+    static bool set_equal(const Types::state_set_t &x, const Types::state_set_t &y);
+
     /**
      * @brief Adds unique states from one vector to another.
      *
@@ -127,13 +127,13 @@ public:
      * @param to A reference to the vector of shared pointers to State objects to add to.
      * @param from A const reference to the vector of shared pointers to State objects to add from.
      */
-    static void addAll(std::vector<std::shared_ptr<State>> &to, std::vector<std::shared_ptr<State>> &from);
+    static void add_all(Types::state_set_t &to, Types::state_set_t &from);
 
-    static bool group_equal(std::vector<std::vector<std::shared_ptr<State>>> &g1,
-                     std::vector<std::vector<std::shared_ptr<State>>> &g2);
+    static bool group_equal(std::vector<Types::state_set_t> &g1, std::vector<Types::state_set_t> &g2);
 
-    static void group_string(std::vector<std::vector<std::shared_ptr<State>>> &group);
+    static void group_string(std::vector<Types::state_set_t> &group);
+
 };
 
 
-#endif //COMPILER_PROJECT_UTILITIES_H
+#endif

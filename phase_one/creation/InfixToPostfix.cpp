@@ -4,7 +4,7 @@
 
 InfixToPostfix::InfixToPostfix() : constants() {}
 
-std::string InfixToPostfix::concatExplicit(std::string regex) {
+std::string InfixToPostfix::concat_explicit(std::string regex) {
     std::string newRegex;
     for (int i = 0; i < regex.length() - 1; i++) {
         char c1 = regex[i];
@@ -25,10 +25,10 @@ std::string InfixToPostfix::concatExplicit(std::string regex) {
 }
 
 
-std::string InfixToPostfix::infixToPostfix(std::string regex) {
+std::string InfixToPostfix::regex_infix_to_postfix(std::string regex) {
     std::string postfix;
     std::stack<char> stack;
-    std::string formattedRegex = concatExplicit(std::move(regex));
+    std::string formattedRegex = concat_explicit(std::move(regex));
     for (int i = 0; i < formattedRegex.length(); i++) {
         char c = formattedRegex[i];
         if (!constants.isOperator(c)) {
@@ -68,7 +68,7 @@ std::string InfixToPostfix::infixToPostfix(std::string regex) {
 }
 
 
-std::string InfixToPostfix::evaluatePostfix(std::string postfix) {
+std::string InfixToPostfix::evaluate_postfix(std::string postfix) {
     std::stack<std::string> stack;
     for (int i = 0; i < postfix.length(); i++) {
         char c = postfix[i];
@@ -80,29 +80,31 @@ std::string InfixToPostfix::evaluatePostfix(std::string postfix) {
                 stack.push("(" + std::string(1, c1) + c + ")");
                 i++;
             } else if (c == constants.KLEENE_CLOSURE) {
-                stack.push("(" + stack.top() + ")*"); // replace with your own operation
+                stack.push("(" + stack.top() + ")*");
                 stack.pop();
             } else if (c == constants.POSITIVE_CLOSURE) {
-                stack.push("(" + stack.top() + ")+"); // replace with your own operation
+                stack.push("(" + stack.top() + ")+");
                 stack.pop();
             } else if (c == constants.RANGE) {
                 std::string operand2 = stack.top();
                 stack.pop();
                 std::string operand1 = stack.top();
                 stack.pop();
-                stack.push("(" + operand1 + "-" + operand2 + ")"); // replace with your own operation
+                std::string temp = "(" + operand1 + "-" + operand2 + ")";
+                stack.push(temp);
             } else if (c == constants.CONCATENATION) {
                 std::string operand2 = stack.top();
                 stack.pop();
                 std::string operand1 = stack.top();
                 stack.pop();
-                stack.push("(" + operand1 + "." + operand2 + ")"); // replace with your own operation
+                std::string temp = "(" + operand1 + "." + operand2 + ")";
+                stack.push(temp);
             } else if (c == constants.UNION) {
                 std::string operand2 = stack.top();
                 stack.pop();
                 std::string operand1 = stack.top();
                 stack.pop();
-                stack.push("(" + operand1 + "|" + operand2 + ")"); // replace with your own operation
+                stack.push("(" + operand1 + "|" + operand2 + ")");
             } else if (c == constants.ESCAPE) {
                 char c1 = postfix[i - 1];
                 stack.pop();

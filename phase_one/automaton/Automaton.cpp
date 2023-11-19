@@ -1,61 +1,57 @@
-#include <sstream>
 #include <algorithm>
-#include <utility>
+#include <sstream>
+#include <vector>
 #include "Automaton.h"
 
+
 Automaton::Automaton() {
-    this->states = std::vector<std::shared_ptr<State>>();
-    this->alphabets = std::vector<std::string>();
-    this->transitions = std::map<std::pair<std::shared_ptr<State>, std::string>, std::vector<std::shared_ptr<State>>>();
-    this->accepting = std::vector<std::shared_ptr<State>>();
+    this->states = Types::state_set_t();
+    this->alphabets = std::unordered_set<std::string>();
+    this->transitions = Types::transitions_t();
+    this->accepting = Types::state_set_t();
     this->start.reset();
-//    this->start = std::make_shared<State>();
     this->epsilonSymbol = BUILT_IN_EPSILON_SYMBOL;
+    this->regex = "";
 }
 
-Automaton::Automaton(const std::string &alphabet, const std::string &tokenName, const std::string &epsilonSymbol) {
+Automaton::Automaton(const std::string &alphabet, const std::string &token, const std::string &epsilonSymbol) {
     // Create the states
     auto q0 = std::make_shared<State>(0, false, "");
-    auto q1 = std::make_shared<State>(1, true, (tokenName.empty()) ? alphabet : tokenName);
+    auto q1 = std::make_shared<State>(1, true, (token.empty()) ? alphabet : token);
 
     // Initialize the fields
-    this->states = {q0, q1};
-    this->alphabets = {alphabet};
+    this->states.insert(q0);
+    this->states.insert(q1);
+    this->alphabets.insert(alphabet);
     this->start = q0;
-    this->accepting = {q1};
+    this->accepting.insert(q1);
     this->epsilonSymbol = (epsilonSymbol.empty()) ? this->BUILT_IN_EPSILON_SYMBOL : epsilonSymbol;
 
     // Add the transition
-    this->addTransitions(q0, alphabet, {q1});
+    Types::key_t key = std::make_pair(q0, alphabet);
+    Types::state_set_t value = {q1};
+    this->transitions.insert({key, value});
 }
 
-void Automaton::addTransitions(const std::shared_ptr<State> &currentState, const std::string &transitionSymbol,
-                               const std::vector<std::shared_ptr<State>> &nextStates) {
-    std::vector<std::shared_ptr<State>> tempNextStates = getNextStates(currentState, transitionSymbol);
+void Automaton::add_transitions(const std::shared_ptr<State> &currentState, const std::string &transitionSymbol,
+                                const Types::state_set_t &nextStates) {
+    Types::key_t transitionKey = std::make_pair(currentState, transitionSymbol);
+    Types::state_set_t &tempNextStates = this->transitions[transitionKey];
     for (const std::shared_ptr<State> &state: nextStates) {
-        auto it = std::find_if(tempNextStates.begin(), tempNextStates.end(),
-                               [&state](auto ptr) { return *ptr == *state; });
-        if (it == tempNextStates.end()) {
-            tempNextStates.push_back(state);
-        }
+        tempNextStates.insert(state);
     }
-    std::pair<std::shared_ptr<State>, std::string> transitionKey(currentState, transitionSymbol);
-    this->transitions[transitionKey] = tempNextStates;
 }
 
-void Automaton::addTransitions(
-        const std::map<std::pair<std::shared_ptr<State>, std::string>, std::vector<std::shared_ptr<State>>> &extraTransitions) {
+void Automaton::add_transitions(const Types::transitions_t &extraTransitions) {
     for (auto &entry: extraTransitions) {
-        this->addTransitions(entry.first.first, entry.first.second, entry.second);
+        this->add_transitions(entry.first.first, entry.first.second, entry.second);
     }
 }
 
-std::vector<std::shared_ptr<State>>
-Automaton::getNextStates(const std::shared_ptr<State> &currentState, const std::string &transitionSymbol) {
-    auto it = std::find_if(this->transitions.begin(), this->transitions.end(),
-                           [&currentState, &transitionSymbol](const auto &pair) {
-                               return (*(pair.first.first) == *currentState) && (pair.first.second == transitionSymbol);
-                           });
+Types::state_set_t
+Automaton::get_next_states(const std::shared_ptr<State> &currentState, const std::string &transitionSymbol) {
+    Types::key_t transitionKey = std::make_pair(currentState, transitionSymbol);
+    auto it = this->transitions.find(transitionKey);
     if (it != this->transitions.end()) {
         return it->second;
     } else {
@@ -63,197 +59,165 @@ Automaton::getNextStates(const std::shared_ptr<State> &currentState, const std::
     }
 }
 
-void Automaton::giveNewIdsAll() {
-    this->giveNewIdsAll(0, true);
+std::shared_ptr<State> Automaton::get_state_using_id(int id) {
+    auto it = std::find_if(this->states.begin(), this->states.end(),
+                           [id](const std::shared_ptr<State> &state_ptr) { return state_ptr->getId() == id; }
+    );
+
+    if (it != this->states.end()) {
+        return *it;
+    }
+    // If the state with the given ID is not found, throw an exception.
+    throw std::runtime_error("State with given ID not found");
 }
 
-void Automaton::giveNewIdsAll(int fromId, bool positive) {
+Types::transitions_dfa_t Automaton::get_transitions_dfa_format() {
+    Types::transitions_dfa_t dfa_transitions;
+    for (auto &entry: this->transitions) {
+        if (!entry.second.empty()) {
+            std::shared_ptr<State> nextState = *entry.second.begin();
+            dfa_transitions[entry.first] = nextState;
+        }
+    }
+    return dfa_transitions;
+}
+
+void Automaton::set_transitions_dfa_format(const Types::transitions_dfa_t &new_transitions) {
+    Types::transitions_t temp_transitions;
+    for (auto &entry: new_transitions) {
+        temp_transitions[entry.first] = {entry.second};
+    }
+    this->transitions = temp_transitions;
+}
+
+void Automaton::give_new_ids_all() {
+    this->give_new_ids_all(0, true);
+}
+
+void Automaton::give_new_ids_all(int fromId, bool positive) {
     int i = fromId;
-    for (std::shared_ptr<State> &state: this->states) {
-        state->setId(i);
+    /*
+     * By changing the loop variable from a reference to a copy
+     * (std::shared_ptr<State> state_ptr instead of std::shared_ptr<State>& state),
+     * I am  creating a copy of the shared pointer, not the State object it points to.
+     * This allows me to modify the State object without modifying the shared pointer
+     */
+    for (std::shared_ptr<State> state_ptr: this->states) {
+        state_ptr->setId(i);
         i = (positive) ? (i + 1) : (i - 1);
     }
 }
 
-void Automaton::setToken(const std::string &tokenName) {
-    for (std::shared_ptr<State> &state: this->accepting) {
+void Automaton::set_token(const std::string &tokenName) {
+    // the same happened here like in the give_new_ids_all
+    for (std::shared_ptr<State> state: this->accepting) {
         state->setAccepting(true);
         state->setToken(tokenName);
     }
 }
 
-std::map<std::pair<std::shared_ptr<State>, std::string>, std::shared_ptr<State>> Automaton::getTransitionsDFAFormat() {
-    std::map<std::pair<std::shared_ptr<State>, std::string>, std::shared_ptr<State>> dfaTransitions;
-    for (auto &entry: this->transitions) {
-        if (!entry.second.empty()) {
-            std::shared_ptr<State> nextState = *entry.second.begin();
-            dfaTransitions[entry.first] = nextState;
-        }
-    }
-
-    return dfaTransitions;
-}
-
-void Automaton::setTransitionsDFAFormat(
-        const std::map<std::pair<std::shared_ptr<State>, std::string>, std::shared_ptr<State>> &newTransitions) {
-    std::map<std::pair<std::shared_ptr<State>, std::string>, std::vector<std::shared_ptr<State>>> tempTransitions;
-    for (auto &entry: newTransitions) {
-        tempTransitions[entry.first] = {entry.second};
-    }
-    this->transitions = tempTransitions;
-}
-
-
-std::string Automaton::getTokens() {
+std::string Automaton::get_tokens() {
     std::ostringstream tokens;
     tokens << "{";
     for (const auto &finalState: this->accepting) {
         tokens << "\"" << finalState->getToken() << "\", ";
     }
 
-    std::string tokensStr = tokens.str();
+    std::string string_tokens = tokens.str();
     // Remove the trailing comma and space, then add the closing brace
-    if (!tokensStr.empty()) {
-        tokensStr = tokensStr.substr(0, tokensStr.length() - 2);
+    if (!string_tokens.empty()) {
+        string_tokens = string_tokens.substr(0, string_tokens.length() - 2);
     }
-    tokensStr += "}";
-    return tokensStr;
+    string_tokens += "}";
+    return string_tokens;
 }
 
-
-std::string Automaton::getToken() {
-    return this->accepting[0]->getToken();
+std::string Automaton::get_token() {
+    return (*(this->accepting.begin()))->getToken();
 }
 
-
-std::shared_ptr<State> Automaton::getStateById(int id) {
-    auto it = std::find_if(this->states.begin(), this->states.end(), [id](auto ptr) {
-        return ptr->getId() == id;
-    });
-
-    if (it != this->states.end()) {
-        return *it;
-    }
-//    for (auto &state: this->states) {
-//        if (state->getId() == id) {
-//            return state;
-//        }
-//    }
-    // If the state with the given ID is not found, throw an exception.
-    throw std::runtime_error("State with given ID not found");
+void Automaton::add_state(const std::shared_ptr<State> &statePtr) {
+    this->states.insert(statePtr);
 }
 
-void Automaton::addState(const std::shared_ptr<State> &statePtr) {
-    auto it = std::find_if(this->states.begin(), this->states.end(), [&statePtr](auto ptr) {
-        return *ptr == *statePtr;
-    });
-    if (it == this->states.end()) {
-        this->states.push_back(statePtr);
+void Automaton::add_states(const Types::state_set_t &extraStates) {
+    for (const auto &state_ptr: extraStates) {
+        this->add_state(state_ptr);
     }
 }
 
-void Automaton::addStates(const std::vector<std::shared_ptr<State>> &extraStates) {
-    for (const auto &statePtr: extraStates) {
-        auto it = std::find_if(this->states.begin(), this->states.end(), [&statePtr](auto ptr) {
-            return *ptr == *statePtr;
-        });
-        if (it == this->states.end()) {
-            this->states.push_back(statePtr);
-        }
+void Automaton::add_accepting_state(const std::shared_ptr<State> &state) {
+    this->accepting.insert(state);
+}
+
+void Automaton::add_accepting_states(const Types::state_set_t &extraStates) {
+    for (const auto &state_ptr: extraStates) {
+        this->add_accepting_state(state_ptr);
     }
 }
 
-void Automaton::addFinal(const std::shared_ptr<State> &state) {
-    auto it = std::find_if(this->accepting.begin(), this->accepting.end(), [&state](auto ptr) {
-        return *ptr == *state;
-    });
-    if (it == this->accepting.end()) {
-        this->accepting.push_back(state);
-    }
-}
-
-
-[[maybe_unused]] void Automaton::addFinals(const std::vector<std::shared_ptr<State>> &extraStates) {
-    for (const auto &state: extraStates) {
-        this->addFinal(state);
-    }
-}
-
-std::vector<std::shared_ptr<State>> &Automaton::getStates() {
+Types::state_set_t &Automaton::get_states() {
     return this->states;
 }
 
-std::vector<std::string> &Automaton::getAlphabets() {
+std::unordered_set<std::string> &Automaton::get_alphabets() {
     return this->alphabets;
 }
 
-void Automaton::addAlphabets(const std::vector<std::string> &extraAlphabets) {
+void Automaton::add_alphabet(const std::string &alphabet) {
+    this->alphabets.insert(alphabet);
+}
+
+void Automaton::add_alphabets(const std::unordered_set<std::string> &extraAlphabets) {
     for (const std::string &alphabet: extraAlphabets) {
-        this->alphabets.push_back(alphabet);
+        this->add_alphabet(alphabet);
     }
 }
 
-void Automaton::addAlphabet(const std::string &alphabet) {
-    auto it = std::find_if(this->alphabets.begin(), this->alphabets.end(),
-                           [alphabet](auto ptr) { return ptr == alphabet; });
-    if (it == this->alphabets.end()) {
-        this->alphabets.push_back(alphabet);
-    }
-}
-
-std::shared_ptr<State> &Automaton::getStart() {
+std::shared_ptr<State> &Automaton::get_start() {
     return this->start;
 }
 
-void Automaton::setStart(const std::shared_ptr<State> &state) {
+void Automaton::set_start(const std::shared_ptr<State> &state) {
     this->start = state;
 }
 
-
-std::map<std::pair<std::shared_ptr<State>, std::string>, std::vector<std::shared_ptr<State>>> &
-Automaton::getTransitions() {
+Types::transitions_t &Automaton::get_transitions() {
     return this->transitions;
 }
 
-std::vector<std::shared_ptr<State>> &Automaton::getAccepting() {
+Types::state_set_t &Automaton::get_accepting_states() {
     return this->accepting;
 }
 
-bool Automaton::hasAcceptingState(std::vector<std::shared_ptr<State>>& states_vector){
-    return std::any_of(states_vector.begin(), states_vector.end(), [this] (std::shared_ptr<State> &state_ptr){
-            return this->isAcceptingState(state_ptr);
-    });
-//    for (const std::shared_ptr<State>& state_ptr:states_vector){
-//        if (isAcceptingState(state_ptr)){
-//            return true;
-//        }
-//    }
-//    return false;
+bool Automaton::has_accepting_state(Types::state_set_t &states_set) {
+    return std::any_of(states_set.begin(), states_set.end(),
+                       [this](const std::shared_ptr<State> &state_ptr) {
+                           return this->accepting.find(state_ptr) != this->accepting.end();
+                       });
 }
 
-bool Automaton::isAcceptingState(const std::shared_ptr<State> &state) {
-    auto it = std::find_if(this->accepting.begin(), this->accepting.end(),
-                           [&state](auto ptr) { return *ptr == *state; });
-    return it != this->accepting.end();
+bool Automaton::is_accepting_state(const std::shared_ptr<State> &state_ptr) {
+    return this->accepting.find(state_ptr) != this->accepting.end();
 }
 
-std::string Automaton::getEpsilonSymbol() const {
+std::string Automaton::get_epsilon_symbol() const {
     return this->epsilonSymbol;
 }
 
-void Automaton::setEpsilonSymbol(std::string symbol) {
+void Automaton::set_epsilon_symbol(std::string symbol) {
     this->epsilonSymbol = std::move(symbol);
 }
 
-void Automaton::setRegex(std::string string) {
+void Automaton::set_regex(std::string string) {
     this->regex = std::move(string);
 }
 
-std::string Automaton::getRegex() {
+std::string Automaton::get_regex() {
     return this->regex;
 }
 
-std::string Automaton::toJson() {
+std::string Automaton::to_json() {
     std::ostringstream sb;
 
     sb << R"({"type":"DFA","dfa":{"transitions":{)";
@@ -290,7 +254,7 @@ std::string Automaton::toJson() {
     return sb.str();
 }
 
-std::string Automaton::toString() {
+std::string Automaton::to_string() {
     std::stringstream ss;
 
     ss << "States: ";
@@ -315,17 +279,17 @@ std::string Automaton::toString() {
 
     ss << "Transition Function: \n";
     // Create a vector of the map's pairs
-    std::vector<std::pair<std::pair<std::shared_ptr<State>, std::string>, std::vector<std::shared_ptr<State>>>> sortedTransitions(
+    std::vector<std::pair<Types::key_t, Types::state_set_t>> sorted_transitions(
             this->transitions.begin(),
             this->transitions.end());
     // Sort the vector
-    std::sort(sortedTransitions.begin(), sortedTransitions.end(),
-              [](std::pair<std::pair<std::shared_ptr<State>, std::string>, std::vector<std::shared_ptr<State>>> a,
-                 std::pair<std::pair<std::shared_ptr<State>, std::string>, std::vector<std::shared_ptr<State>>> b) {
+    std::sort(sorted_transitions.begin(), sorted_transitions.end(),
+              [](std::pair<Types::key_t, Types::state_set_t> &a,
+                 std::pair<Types::key_t, Types::state_set_t> &b) {
                   return a.first.first->getId() < b.first.first->getId();
               });
 
-    for (const auto &entry: sortedTransitions) {
+    for (const auto &entry: sorted_transitions) {
         ss << "f(" << entry.first.first->getId() << ", " << entry.first.second << ") = ";
         for (const auto &state: entry.second) {
             ss << state->getId() << " ";
@@ -334,7 +298,16 @@ std::string Automaton::toString() {
     }
 
     // add the token
-    ss << "Token: " << this->getToken() << "\n";
+    ss << "Token: " << this->get_token() << "\n";
 
     return ss.str();
+}
+
+bool Automaton::equals(const Automaton &other) const {
+    return states == other.states &&
+           alphabets == other.alphabets &&
+           *start == *(other.start) &&
+           accepting == other.accepting &&
+           transitions == other.transitions &&
+           epsilonSymbol == other.epsilonSymbol;
 }

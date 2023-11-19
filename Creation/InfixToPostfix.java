@@ -33,10 +33,10 @@ public class InfixToPostfix {
      * @param regex infix notation
      * @return postfix notation
      */
-    public String infixToPostfix(String regex) {
+    public String regex_infix_to_postfix(String regex) {
         StringBuilder postfix = new StringBuilder();
         Stack<Character> stack = new Stack<>();
-        String formattedRegex = concatExplicit(regex);
+        String formattedRegex = concat_explicit(regex);
         for (int i = 0; i < formattedRegex.length(); i++) {
             Character c = formattedRegex.charAt(i);
             if (!constants.isOperator(c)) {
@@ -72,7 +72,7 @@ public class InfixToPostfix {
     }
 
     // This method evaluates the postfix expression, i.e. from postfix to infix
-    public String evaluatePostfix(String postfix) {
+    public String evaluate_postfix(String postfix) {
         Stack<String> stack = new Stack<>();
         for (int i = 0; i < postfix.length(); i++) {
             char c = postfix.charAt(i);

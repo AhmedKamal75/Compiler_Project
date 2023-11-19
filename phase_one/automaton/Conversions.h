@@ -2,13 +2,8 @@
 #define COMPILER_PROJECT_CONVERSIONS_H
 
 
-#include "Automaton.h"
-#include "Utilities.h"
 #include <vector>
-#include <unordered_map>
-#include <unordered_set>
-#include <queue>
-#include <stack>
+#include "Automaton.h"
 
 /**
  * This class provides methods for converting automata.
@@ -40,7 +35,7 @@ public:
      * @param state the state
      * @return the epsilon-closure of the state
      */
-    std::vector<std::shared_ptr<State>> epsilonClosure(std::shared_ptr<Automaton> &a, std::shared_ptr<State> state_ptr);
+    Types::state_set_t epsilonClosure(std::shared_ptr<Automaton> &a, const std::shared_ptr<State> &state_ptr);
 
     /**
      * IMPORTANT NOTE: don't use this method it was tested and didn't work correctly.
@@ -71,7 +66,7 @@ public:
      * The function first creates a copy of the NFA and a new automaton object for the DFA. It then copies the alphabets and epsilon symbol from the NFA to the DFA.
      * It prepares the NFA for conversion by calling the `prepareForAutomaton` method. This method ensures that the NFA is in the correct format for conversion.
      * It then computes the epsilon closure of the start state of the NFA and adds it to a queue. This queue is used to keep track of the states that need to be processed.
-     * The function then enters a loop where it processes each state in the queue. For each state, it retrieves the corresponding DFA state using the `getDFAState` method. If no such state exists, it creates a new DFA state using the `createDFAState` method and adds it to the DFA.
+     * The function then enters a loop where it processes each state in the queue. For each state, it retrieves the corresponding DFA state using the `get_dfa_state` method. If no such state exists, it creates a new DFA state using the `create_dfa_state` method and adds it to the DFA.
      * It then checks if the current state is the start state of the NFA. If it is, it sets the corresponding DFA state as the start state of the DFA.
      * For each symbol in the alphabet, it computes the set of states that can be reached from the current state using that symbol. It then computes the epsilon closure of these states. This gives the set of states that can be reached from the current state using the symbol, taking into account epsilon transitions.
      * It then retrieves the DFA state that corresponds to this set of states. If no such state exists, it creates a new DFA state. It then adds a transition from the current DFA state to the new DFA state using the symbol.
@@ -83,9 +78,9 @@ public:
      * The token assigned to the accepting states in the DFA is the same as the token of the NFA.
      * This ensures that the DFA accepts the same language as the NFA.
      * The DFA is adjusted according to its new state, which means the transitions of the DFA are updated to include transitions from the new state to other states based on the transitions of the states in `state_vector` in the NFA.
-     * This is typically done in a separate function that is called after `createDFAState`.
+     * This is typically done in a separate function that is called after `create_dfa_state`.
      */
-    std::shared_ptr<Automaton> convertToDFA(std::shared_ptr<Automaton> &automaton);
+    [[maybe_unused]]  std::shared_ptr<Automaton> convertToDFA(std::shared_ptr<Automaton> &automaton);
 
     /**
      * This method minimizes a given DFA (Deterministic Finite LexicalAnalysisGenerator.automaton) using Hopcroft's algorithm.
@@ -96,32 +91,33 @@ public:
      * @param automaton The DFA to be minimized.
      * @return The minimized DFA.
      */
-    std::shared_ptr<Automaton> minimizeDFA(std::shared_ptr<Automaton> &automaton);
+    [[maybe_unused]] std::shared_ptr<Automaton> minimizeDFA(std::shared_ptr<Automaton> &automaton);
 
 
 private:
-    std::vector<std::pair<std::shared_ptr<State>, std::vector<std::shared_ptr<State>>>> epsilon_closures;
 
-    int counter;
+    Types::epsilon_closure_map_t epsilon_closures{};
+
+    int counter{};
 
     /**
-     * @brief Creates a new "dead" state in the automaton.
+     * @brief Creates dfa new "dead" state in the automaton.
      *
-     * @param a A shared pointer to the automaton object that represents the DFA.
+     * @param dfa A shared pointer to the automaton object that represents the DFA.
      *
      * @return A shared pointer to the newly created "dead" State object in the DFA.
      *
-     * The function first creates a new State object with a unique ID and adds it to the DFA. This state is a "dead" state, meaning that any transition to this state will not lead to an accepting state.
-     * It then iterates over each symbol in the alphabet of the automaton. For each symbol, it adds a transition from the "dead" state to itself. This means that once the automaton transitions to the "dead" state, it will stay in the "dead" state regardless of the input symbol.
-     * Finally, it returns a shared pointer to the newly created "dead" State object.
+     * The function first creates dfa new State object with dfa unique ID and adds it to the DFA. This state is dfa "dead" state, meaning that any transition to this state will not lead to an accepting state.
+     * It then iterates over each symbol in the alphabet of the automaton. For each symbol, it adds dfa transition from the "dead" state to itself. This means that once the automaton transitions to the "dead" state, it will stay in the "dead" state regardless of the input symbol.
+     * Finally, it returns dfa shared pointer to the newly created "dead" State object.
      *
-     * This function is part of the process of converting an NFA to a DFA.
-     * It helps in handling the case where there is no valid transition for a given state and input symbol in the NFA.
-     * In the DFA, such cases are handled by transitioning to a "dead" state.
-     * The "dead" state is a non-accepting state, and once the automaton transitions to the "dead" state, it cannot transition to any other state.
-     * This ensures that the DFA is complete, meaning that it has a valid transition for every state and input symbol.
+     * This function is part of the process of converting an NFA to dfa DFA.
+     * It helps in handling the case where there is no valid transition for dfa given state and input symbol in the NFA.
+     * In the DFA, such cases are handled by transitioning to dfa "dead" state.
+     * The "dead" state is dfa non-accepting state, and once the automaton transitions to the "dead" state, it cannot transition to any other state.
+     * This ensures that the DFA is complete, meaning that it has dfa valid transition for every state and input symbol.
      */
-    [[maybe_unused]] std::shared_ptr<State> createDeadState(std::shared_ptr<Automaton> &a);
+    std::shared_ptr<State> create_dead_state(std::shared_ptr<Automaton> &dfa);
 
     /**
      * @brief Retrieves the DFA state corresponding to a vector of NFA states.
@@ -141,8 +137,9 @@ private:
      * This is useful when creating the transitions of the DFA based on the transitions of the NFA.
      * For each transition in the NFA, the function can be used to find the corresponding transition in the DFA.
      */
-    [[maybe_unused]] static std::shared_ptr<State> getDFAState(std::vector<std::shared_ptr<State>> &state_vector,
-                                                               std::vector<std::pair<std::vector<std::shared_ptr<State>>, std::shared_ptr<State>>> &dfa_states);
+    static std::shared_ptr<State> get_dfa_state(Types::state_set_t &state_set,
+                                                std::vector<std::pair<Types::state_set_t, std::shared_ptr<State>>> &dfa_states);
+
 
     /**
      * @brief Creates a new state in the DFA from a vector of states in the NFA and adjusts the DFA according to its new state.
@@ -165,28 +162,24 @@ private:
      * The token assigned to the accepting states in the DFA is the same as the token of the NFA.
      * This ensures that the DFA accepts the same language as the NFA.
      * The DFA is adjusted according to its new state, which means the transitions of the DFA are updated to include transitions from the new state to other states based on the transitions of the states in `state_vector` in the NFA.
-     * This is typically done in a separate function that is called after `createDFAState`.
+     * This is typically done in a separate function that is called after `create_dfa_state`.
      */
-    std::shared_ptr<State>
-    createDFAState(std::vector<std::shared_ptr<State>> &state_vector, std::shared_ptr<Automaton> &a,
-                   std::shared_ptr<Automaton> &dfa);
+    std::shared_ptr<State> create_dfa_state(Types::state_set_t &state_set, std::shared_ptr<Automaton> &a,
+                                            std::shared_ptr<Automaton> &dfa);
 
 
-    static std::vector<std::vector<std::shared_ptr<State>>>
-    getNextEquivalence(std::vector<std::vector<std::shared_ptr<State>>> &previous_equivalence,
-                       std::shared_ptr<Automaton> &dfa);
+    static std::vector<Types::state_set_t>
+    get_next_equivalence(std::vector<Types::state_set_t> &entry, std::shared_ptr<Automaton> &dfa);
 
 
-    static std::pair<std::vector<std::shared_ptr<State>>, std::pair<std::shared_ptr<State>, std::vector<std::shared_ptr<State>>>>
-    getNewStatesAndSpecialStates(std::vector<std::vector<std::shared_ptr<State>>> &group,
-                                 std::shared_ptr<Automaton> &a);
+    static std::pair<Types::state_set_t, std::pair<std::shared_ptr<State>, Types::state_set_t>>
+    get_special_data(std::vector<Types::state_set_t> &group, std::shared_ptr<Automaton> &dfa);
 
-    [[maybe_unused]] static std::map<std::pair<std::shared_ptr<State>, std::string>, std::shared_ptr<State>>
-    getNewTransitions(std::shared_ptr<Automaton> &oldDFA,
-                      std::vector<std::vector<std::shared_ptr<State>>> &group,
-                      std::vector<std::shared_ptr<State>> &newStates);
+    static void create_transitions(std::shared_ptr<Automaton> &oldDFA,
+                                   std::shared_ptr<Automaton> &newDFA,
+                                   std::vector<Types::state_set_t> &group);
 
 
 };
 
-#endif //COMPILER_PROJECT_CONVERSIONS_H
+#endif

@@ -33,9 +33,9 @@ public class Parsing {
      * @param epsilonSymbol The symbol representing epsilon transitions.
      * @return The minimized DFA equivalent of the regular expression.
      */
-    public Automaton regexToMinimizedDFA(String regex, String epsilonSymbol) {
+    public Automaton regexToMinDFA(String regex, String epsilonSymbol) {
         // Parse the regex and construct the corresponding automaton
-        String postfix = infixToPostfix.infixToPostfix(regex);
+        String postfix = infixToPostfix.regex_infix_to_postfix(regex);
         // parse the postfix regex (easier) to an Automaton
         Automaton regexAutomaton = parseRegex(postfix, epsilonSymbol);
         // Convert the regex automaton to a DFA and minimize it
@@ -93,7 +93,7 @@ public class Parsing {
         return stack.pop();
     }
 
-    public Automaton parseRegularDefinition(String regularDefinition, Map<String, Automaton> map, String epsilonSymbol) {
+    public Automaton regularDefinitionToMinDFA(String regularDefinition, Map<String, Automaton> map, String epsilonSymbol) {
         Stack<Automaton> stack = new Stack<>();
         String name = "";
         boolean build = true;
