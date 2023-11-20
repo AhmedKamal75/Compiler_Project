@@ -38,8 +38,10 @@ void input_handler() {
     std::cout << filename << std::endl;
     for (const auto &pair: automata) {
         std::cout << "token: " << pair.first << std::endl;
+        std::cout << "regex: " << pair.second->get_regex() << std::endl;
         std::cout << "Automaton: " << pair.second->to_string() << std::endl;
     }
+    std::cout << "################# file is read #################" << std::endl;
 }
 
 void to_automaton_test() {
@@ -49,6 +51,7 @@ void to_automaton_test() {
     std::string regex2 = R"(((a-z)|(A-Z))((a-z)|(A-Z)|(0-9)|(\.))*@((a-z)|(A-Z)|(0-9))+\.((a-z)|(A-Z))+)";
     const std::string &regex = regex2;
     std::shared_ptr<Automaton> automaton = toAutomaton.regex_to_minimized_dfa(regex, "\\L");
+
     std::cout << "regex: " << regex << std::endl;
     std::cout << automaton->to_string() << std::endl;
 }

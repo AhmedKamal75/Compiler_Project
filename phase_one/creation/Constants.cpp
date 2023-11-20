@@ -13,12 +13,31 @@ Constants::Constants() {
 }
 
 int Constants::priority(char operatorChar) {
-    if (isOperator(operatorChar)) {
+    if (is_operator(operatorChar)) {
         return priorities[operatorChar];
     }
     return -1;
 }
 
-bool Constants::isOperator(char c) {
+int Constants::priority(std::string operatorChar) {
+    if (is_operator(operatorChar)) {
+        return priorities[operatorChar.at(0)];
+    }
+    return -1;
+}
+
+bool Constants::is_operator(std::string c) {
+    if (c.length() > 1) return false;
+
+    return priorities.find(c.at(0)) != priorities.end();
+}
+
+
+bool Constants::is_operator(char c) {
     return priorities.find(c) != priorities.end();
+}
+
+bool Constants::is_operator(const std::string &str, const char &op) {
+    if (str.length() > 1) return false;
+    return str.at(0) == op;
 }

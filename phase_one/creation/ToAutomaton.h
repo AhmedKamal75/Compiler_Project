@@ -16,16 +16,17 @@ public:
      * Parses a regular expression and constructs the corresponding automaton.
      *
      * @param regex         The regular expression to be parsed.
-     * @param epsilonSymbol The symbol representing epsilon transitions.
+     * @param epsilon_symbol The symbol representing epsilon transitions.
      * @return The automaton equivalent of the regular expression.
      */
-    std::shared_ptr<Automaton> regex_to_minimized_dfa(std::string regex, const std::string &epsilonSymbol);
+    std::shared_ptr<Automaton> regex_to_minimized_dfa(std::string regex, const std::string &epsilon_symbol);
 
 
     std::shared_ptr<Automaton>
-    regular_definition_to_min_dfa(std::string regularDefinition,
-                                  std::unordered_map<std::string, std::shared_ptr<Automaton>> map,
-                                  const std::string &epsilonSymbol);
+    regular_definition_to_minimized_dfa(const std::string &regular_definition,
+                                        const std::unordered_map<std::string, std::shared_ptr<Automaton>> &automaton,
+                                        const std::string &epsilon_symbol);
+
 
 private:
 
@@ -44,6 +45,14 @@ private:
      */
     std::shared_ptr<Automaton>
     get_automaton_from_regex_postfix(const std::string &postfix, const std::string &epsilonSymbol);
+
+    std::shared_ptr<Automaton> get_automaton_from_regular_definition(std::vector<std::string> postfix_tokens,
+                                                                     const std::unordered_map<std::string, std::shared_ptr<Automaton>> &map,
+                                                                     const std::string &epsilonSymbol);
+
+    std::shared_ptr<Automaton> get_automaton_from_map(const std::string &token,
+                                                      const std::unordered_map<std::string, std::shared_ptr<Automaton>> &map,
+                                                      const std::string &epsilonSymbol);
 };
 
 

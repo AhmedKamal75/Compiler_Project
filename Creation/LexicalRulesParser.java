@@ -49,7 +49,7 @@ public class LexicalRulesHandler {
                 String[] parts = line.split(":");
                 String name = parts[0].trim();
                 String rd = parts[1].trim().replaceAll("\\s+", "");
-                Automaton a = parsing.regular_definition_to_min_dfa(rd, automata, epsilonSymbol);
+                Automaton a = parsing.get_automaton_from_regular_definition(rd, automata, epsilonSymbol);
                 a.setRegex(a.getToken());
                 a.setTokenAll(name);
                 automata.put(name, a);

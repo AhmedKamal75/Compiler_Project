@@ -41,13 +41,7 @@ LexicalRulesHandler::handleFile(const std::string &filename) {
             // This is a regular definition
             std::string name = line.substr(0, line.find(':'));
             std::string rd = line.substr(line.find(':') + 1);
-            rd.erase(remove_if(rd.begin(), rd.end(), isspace), rd.end());
-            /*
-             * TODO: implement the regular_definition_to_min_dfa method and then uncomment the following line and remove the line after it.
-             * */
-            // std::shared_ptr<Automaton> a = toAutomaton.regular_definition_to_min_dfa(rd, automata, epsilonSymbol);
-            std::shared_ptr<Automaton> a = toAutomaton.regex_to_minimized_dfa(rd, epsilonSymbol);
-
+            std::shared_ptr<Automaton> a = toAutomaton.regular_definition_to_minimized_dfa(rd, automata, epsilonSymbol);
             a->set_regex(a->get_token());
             a->set_token(name);
             automata[name] = a;

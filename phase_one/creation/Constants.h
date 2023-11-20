@@ -19,10 +19,17 @@ public:
     std::unordered_map<char, int> priorities;
 
     Constants();
-    int priority(char operatorChar);
-    bool isOperator(char c);
-};
 
+    int priority(char operatorChar);
+
+    int priority(std::string operatorChar);
+
+    bool is_operator(char c);
+
+    bool is_operator(std::string c);
+
+    bool is_operator(const std::string &str, const char &op);
+};
 
 
 #endif //COMPILER_PROJECT_CONSTANTS_H
