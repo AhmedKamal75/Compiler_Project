@@ -136,6 +136,8 @@ public:
 
     std::string to_string();
 
+    std::string to_string_transition_table();
+
     std::string to_json();
 
     bool equals(const Automaton &other) const;

@@ -1,6 +1,8 @@
 #include <algorithm>
 #include <sstream>
 #include <vector>
+#include <set>
+#include <map>
 #include "Automaton.h"
 
 
@@ -289,13 +291,38 @@ std::string Automaton::to_string() {
                   return a.first.first->getId() < b.first.first->getId();
               });
 
-    for (const auto &entry: sorted_transitions) {
-        ss << "f(" << entry.first.first->getId() << ", " << entry.first.second << ") = ";
-        for (const auto &state: entry.second) {
-            ss << state->getId() << " ";
-        }
-        ss << "\n";
-    }
+//    ss << "Transition Table: \n";
+
+    // Print the header row
+//    ss << "\t";
+//    for (const auto &symbol: this->alphabets) {
+//        ss << symbol << "\t";
+//    }
+//    ss << "\n";
+//
+//    // Print each row of the table
+//    for (const auto &state: this->states) {
+//        ss << state->getId() << "\t";
+//        for (const auto &symbol: this->alphabets) {
+//            auto it = this->transitions.find({state, symbol});
+//            if (it != this->transitions.end()) {
+//                for (const auto &next_state: it->second) {
+//                    ss << next_state->getId() << " ";
+//                }
+//            }
+//            ss << "\t";
+//        }
+//        ss << "\n";
+//    }
+
+
+//    for (const auto &entry: sorted_transitions) {
+//        ss << "f(" << entry.first.first->getId() << ", " << entry.first.second << ") = ";
+//        for (const auto &state: entry.second) {
+//            ss << state->getId() << " ";
+//        }
+//        ss << "\n";
+//    }
 
     // add the token
     ss << "Token: " << this->get_token() << "\n";
@@ -310,4 +337,53 @@ bool Automaton::equals(const Automaton &other) const {
            accepting == other.accepting &&
            transitions == other.transitions &&
            epsilonSymbol == other.epsilonSymbol;
+}
+
+std::string Automaton::to_string_transition_table() {
+    std::stringstream ss;
+
+    // Print the start state
+    ss << "Start State: " << this->start->getId() << "\n";
+
+    // Print the final states
+    ss << "Final States: ";
+    for (const auto &state: this->accepting) {
+        ss << state->getId() << " ";
+    }
+    ss << "\n";
+
+    // First, we need to find all unique symbols
+    std::set<std::string> unique_symbols;
+    for (const auto &entry: this->transitions) {
+        unique_symbols.insert(entry.first.second);
+    }
+
+    // Then, we create a map to store the transition table
+    std::map<int, std::map<std::string, int>> transition_table;
+    for (const auto &entry: this->transitions) {
+        for (const auto &state: entry.second) {
+            transition_table[entry.first.first->getId()][entry.first.second] = state->getId();
+        }
+    }
+
+    // Now, we can print the transition table
+    ss << "\t";
+    for (const auto &symbol: unique_symbols) {
+        ss << symbol << "\t";
+    }
+    ss << "\n";
+
+    for (const auto &row: transition_table) {
+        ss << row.first << "\t";
+        for (const auto &symbol: unique_symbols) {
+            if (row.second.count(symbol)) {
+                ss << row.second.at(symbol) << "\t";
+            } else {
+                ss << "-\t";  // Use '-' or any symbol to denote no transition
+            }
+        }
+        ss << "\n";
+    }
+
+    return ss.str();
 }

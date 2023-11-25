@@ -1,5 +1,6 @@
 #include <stack>
 #include <utility>
+#include <stdexcept>
 #include "InfixToPostfix.h"
 
 InfixToPostfix::InfixToPostfix() : constants() {}

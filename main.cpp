@@ -2,9 +2,9 @@
 #include <set>
 #include <list>
 #include <fstream>
-#include "phase_one/Automaton/Automaton.h"
-#include "phase_one/Automaton/Utilities.h"
-#include "phase_one/Automaton/Conversions.h"
+#include "phase_one/automaton/Automaton.h"
+#include "phase_one/automaton/Utilities.h"
+#include "phase_one/automaton/Conversions.h"
 #include "phase_one/creation/InfixToPostfix.h"
 #include "phase_one/creation/ToAutomaton.h"
 #include "phase_one/creation/LexicalRulesHandler.h"
@@ -32,14 +32,14 @@ int main() {
 }
 
 void input_handler() {
-    std::string filename = R"(C:\Users\Delta\CLionProjects\Compiler_Project\inputs\temp_file.txt)";
+    std::string filename = R"(/home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/inputs/temp_file.txt)";
     std::unordered_map<std::string, std::shared_ptr<Automaton>> automata = handler.handleFile(filename);
     std::cout << "################# after handing #################" << std::endl;
     std::cout << filename << std::endl;
     for (const auto &pair: automata) {
         std::cout << "token: " << pair.first << std::endl;
         std::cout << "regex: " << pair.second->get_regex() << std::endl;
-        std::cout << "Automaton: " << pair.second->to_string() << std::endl;
+        std::cout << "Automaton: " << pair.second->to_string_transition_table() << std::endl;
     }
     std::cout << "################# file is read #################" << std::endl;
 }

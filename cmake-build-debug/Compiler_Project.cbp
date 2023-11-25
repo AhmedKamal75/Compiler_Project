@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="Compiler_Project"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j8 -f &quot;/home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/gmake -j8 -f &quot;/home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j8 -f &quot;/home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j8 -f &quot;/home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="Compiler_Project">
+				<Option output="/home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/cmake-build-debug/Compiler_Project" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/c++/13"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/13"/>
+					<Add directory="/usr/include/c++/13/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/13/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j8 -f &quot;/home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/cmake-build-debug/Makefile&quot;  VERBOSE=1 Compiler_Project"/>
+					<CompileFile command="/usr/bin/gmake -j8 -f &quot;/home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j8 -f &quot;/home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j8 -f &quot;/home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="Compiler_Project/fast">
+				<Option output="/home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/cmake-build-debug/Compiler_Project" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/c++/13"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/13"/>
+					<Add directory="/usr/include/c++/13/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/13/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j8 -f &quot;/home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/cmake-build-debug/Makefile&quot;  VERBOSE=1 Compiler_Project/fast"/>
+					<CompileFile command="/usr/bin/gmake -j8 -f &quot;/home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j8 -f &quot;/home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j8 -f &quot;/home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j8 -f &quot;/home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/gmake -j8 -f &quot;/home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j8 -f &quot;/home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j8 -f &quot;/home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j8 -f &quot;/home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/gmake -j8 -f &quot;/home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j8 -f &quot;/home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j8 -f &quot;/home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/main.cpp">
+			<Option target="Compiler_Project"/>
+		</Unit>
+		<Unit filename="/home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_one/automaton/Automaton.cpp">
+			<Option target="Compiler_Project"/>
+		</Unit>
+		<Unit filename="/home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_one/automaton/Automaton.h">
+			<Option target="Compiler_Project"/>
+		</Unit>
+		<Unit filename="/home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_one/automaton/Conversions.cpp">
+			<Option target="Compiler_Project"/>
+		</Unit>
+		<Unit filename="/home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_one/automaton/Conversions.h">
+			<Option target="Compiler_Project"/>
+		</Unit>
+		<Unit filename="/home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_one/automaton/State.cpp">
+			<Option target="Compiler_Project"/>
+		</Unit>
+		<Unit filename="/home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_one/automaton/State.h">
+			<Option target="Compiler_Project"/>
+		</Unit>
+		<Unit filename="/home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_one/automaton/Types.cpp">
+			<Option target="Compiler_Project"/>
+		</Unit>
+		<Unit filename="/home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_one/automaton/Types.h">
+			<Option target="Compiler_Project"/>
+		</Unit>
+		<Unit filename="/home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_one/automaton/Utilities.cpp">
+			<Option target="Compiler_Project"/>
+		</Unit>
+		<Unit filename="/home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_one/automaton/Utilities.h">
+			<Option target="Compiler_Project"/>
+		</Unit>
+		<Unit filename="/home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_one/creation/Constants.cpp">
+			<Option target="Compiler_Project"/>
+		</Unit>
+		<Unit filename="/home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_one/creation/Constants.h">
+			<Option target="Compiler_Project"/>
+		</Unit>
+		<Unit filename="/home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_one/creation/InfixToPostfix.cpp">
+			<Option target="Compiler_Project"/>
+		</Unit>
+		<Unit filename="/home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_one/creation/InfixToPostfix.h">
+			<Option target="Compiler_Project"/>
+		</Unit>
+		<Unit filename="/home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_one/creation/LexicalRulesHandler.cpp">
+			<Option target="Compiler_Project"/>
+		</Unit>
+		<Unit filename="/home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_one/creation/LexicalRulesHandler.h">
+			<Option target="Compiler_Project"/>
+		</Unit>
+		<Unit filename="/home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_one/creation/ToAutomaton.cpp">
+			<Option target="Compiler_Project"/>
+		</Unit>
+		<Unit filename="/home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_one/creation/ToAutomaton.h">
+			<Option target="Compiler_Project"/>
+		</Unit>
+		<Unit filename="/home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

@@ -101,18 +101,30 @@ std::shared_ptr<Automaton> ToAutomaton::get_automaton_from_regular_definition(st
         if (!constants.is_operator(token)) {
             if ((i < postfix_tokens.size() - 1) && constants.is_operator(postfix_tokens[i + 1], constants.ESCAPE)) {
                 std::string temp = postfix_tokens[i + 1];
-                /*TODO: see if you will do something with the escape character that is temp (i did nothing).*/
-                stack.push(get_automaton_from_map(token, map, epsilonSymbol));
+                /*TODO: see if you will do something with the escape character that is temp (I did nothing).*/
+                std::shared_ptr<Automaton> a = get_automaton_from_map(token, map, epsilonSymbol);
+                if (a == nullptr) { // that mean that the tokens needs a token that is not defined yet
+                    return nullptr;
+                }
+                stack.push(a);
                 i++;
             } else {
-                stack.push(get_automaton_from_map(token, map, epsilonSymbol));
+                std::shared_ptr<Automaton> a = get_automaton_from_map(token, map, epsilonSymbol);
+                if (a == nullptr) { // that mean that the tokens needs a token that is not defined yet
+                    return nullptr;
+                }
+                stack.push(a);
             }
         } else {
             if ((i < postfix_tokens.size() - 1) &&
                 (constants.is_operator(postfix_tokens[i + 1], constants.ESCAPE) && constants.is_operator(token))) {
                 /*TODO: see if you will uncomment the next line*/
                 //std::string token = postfix_tokens[i+1] + token;
-                stack.push(get_automaton_from_map(token, map, epsilonSymbol));
+                std::shared_ptr<Automaton> a = get_automaton_from_map(token, map, epsilonSymbol);
+                if (a == nullptr) { // that mean that the tokens needs a token that is not defined yet
+                    return nullptr;
+                }
+                stack.push(a);
                 i++;
             } else if (constants.is_operator(token, constants.KLEENE_CLOSURE)) {
                 std::shared_ptr<Automaton> a = Utilities::kleeneClosure(stack.top());
@@ -163,7 +175,13 @@ std::shared_ptr<Automaton> ToAutomaton::get_automaton_from_map(const std::string
         // If the token exists in the map, return the corresponding Automaton
         return it->second;
     } else {
-        // If the token does not exist in the map, create a new Automaton and return it
+
+        // If the token does not exist in the map:
+        if (token.size() > 1) {
+            // if its size is bigger than 1, then that means that it is a token to be defined in the future.
+            return nullptr;
+        }
+        // create a new Automaton and return it
         return std::make_shared<Automaton>(token, token, epsilonSymbol);
     }
 }
