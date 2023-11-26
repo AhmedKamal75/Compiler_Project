@@ -203,6 +203,24 @@ CMakeFiles/Compiler_Project.dir/main.cpp.o: /home/ahmed-kamal/Projects/cpp_proje
   /usr/include/x86_64-linux-gnu/c++/13/bits/basic_file.h \
   /usr/include/x86_64-linux-gnu/c++/13/bits/c++io.h \
   /usr/include/c++/13/bits/fstream.tcc \
+  /usr/include/unistd.h \
+  /usr/include/x86_64-linux-gnu/bits/posix_opt.h \
+  /usr/include/x86_64-linux-gnu/bits/environments.h \
+  /usr/include/x86_64-linux-gnu/bits/confname.h \
+  /usr/include/x86_64-linux-gnu/bits/getopt_posix.h \
+  /usr/include/x86_64-linux-gnu/bits/getopt_core.h \
+  /usr/include/x86_64-linux-gnu/bits/unistd_ext.h \
+  /usr/include/linux/close_range.h \
+  /usr/include/c++/13/climits \
+  /usr/lib/gcc/x86_64-linux-gnu/13/include/limits.h \
+  /usr/lib/gcc/x86_64-linux-gnu/13/include/syslimits.h \
+  /usr/include/limits.h \
+  /usr/include/x86_64-linux-gnu/bits/posix1_lim.h \
+  /usr/include/x86_64-linux-gnu/bits/local_lim.h \
+  /usr/include/linux/limits.h \
+  /usr/include/x86_64-linux-gnu/bits/posix2_lim.h \
+  /usr/include/x86_64-linux-gnu/bits/xopen_lim.h \
+  /usr/include/x86_64-linux-gnu/bits/uio_lim.h \
   /home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_one/automaton/Automaton.h \
   /home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_one/automaton/Types.h \
   /usr/include/c++/13/memory \
@@ -463,6 +481,44 @@ CMakeFiles/Compiler_Project.dir/phase_one/automaton/Automaton.cpp.o: /home/ahmed
   /usr/include/c++/13/map \
   /usr/include/c++/13/bits/stl_map.h \
   /usr/include/c++/13/bits/stl_multimap.h \
+  /usr/include/c++/13/fstream \
+  /usr/include/c++/13/bits/codecvt.h \
+  /usr/include/x86_64-linux-gnu/c++/13/bits/basic_file.h \
+  /usr/include/x86_64-linux-gnu/c++/13/bits/c++io.h \
+  /usr/include/c++/13/bits/fstream.tcc \
+  /usr/include/c++/13/regex \
+  /usr/include/c++/13/bitset \
+  /usr/include/c++/13/locale \
+  /usr/include/c++/13/bits/locale_facets_nonio.h \
+  /usr/include/c++/13/ctime \
+  /usr/include/x86_64-linux-gnu/c++/13/bits/time_members.h \
+  /usr/include/x86_64-linux-gnu/c++/13/bits/messages_members.h \
+  /usr/include/libintl.h \
+  /usr/include/c++/13/bits/locale_facets_nonio.tcc \
+  /usr/include/c++/13/bits/locale_conv.h \
+  /usr/include/c++/13/stack \
+  /usr/include/c++/13/deque \
+  /usr/include/c++/13/bits/stl_deque.h \
+  /usr/include/c++/13/bits/deque.tcc \
+  /usr/include/c++/13/bits/stl_stack.h \
+  /usr/include/c++/13/bits/shared_ptr.h \
+  /usr/include/c++/13/bits/shared_ptr_base.h \
+  /usr/include/c++/13/bits/allocated_ptr.h \
+  /usr/include/c++/13/bits/unique_ptr.h \
+  /usr/include/c++/13/ext/concurrence.h \
+  /usr/include/c++/13/bits/std_function.h \
+  /usr/include/c++/13/bits/regex_constants.h \
+  /usr/include/c++/13/bits/regex_error.h \
+  /usr/include/c++/13/bits/regex_automaton.h \
+  /usr/include/c++/13/bits/regex_automaton.tcc \
+  /usr/include/c++/13/bits/regex_scanner.h \
+  /usr/include/c++/13/bits/regex_scanner.tcc \
+  /usr/include/c++/13/bits/regex_compiler.h \
+  /usr/include/c++/13/bits/regex_compiler.tcc \
+  /usr/include/c++/13/bits/regex.h \
+  /usr/include/c++/13/bits/regex.tcc \
+  /usr/include/c++/13/bits/regex_executor.h \
+  /usr/include/c++/13/bits/regex_executor.tcc \
   /home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_one/automaton/Automaton.h \
   /home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_one/automaton/Types.h \
   /usr/include/c++/13/iostream \
@@ -472,11 +528,6 @@ CMakeFiles/Compiler_Project.dir/phase_one/automaton/Automaton.cpp.o: /home/ahmed
   /usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h \
   /usr/include/stdint.h \
   /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h \
-  /usr/include/c++/13/bits/unique_ptr.h \
-  /usr/include/c++/13/bits/shared_ptr.h \
-  /usr/include/c++/13/bits/shared_ptr_base.h \
-  /usr/include/c++/13/bits/allocated_ptr.h \
-  /usr/include/c++/13/ext/concurrence.h \
   /usr/include/c++/13/bits/shared_ptr_atomic.h \
   /usr/include/c++/13/bits/atomic_base.h \
   /usr/include/c++/13/bits/atomic_lockfree_defines.h \
@@ -1578,8 +1629,6 @@ CMakeFiles/Compiler_Project.dir/phase_one/creation/InfixToPostfix.cpp.o: /home/a
   /usr/include/c++/13/bits/uses_allocator_args.h \
   /usr/include/c++/13/tuple \
   /usr/include/c++/13/bits/stl_stack.h \
-  /usr/include/c++/13/utility \
-  /usr/include/c++/13/bits/stl_relops.h \
   /usr/include/c++/13/stdexcept \
   /usr/include/c++/13/exception \
   /usr/include/c++/13/bits/exception_ptr.h \
@@ -2168,9 +2217,9 @@ CMakeFiles/Compiler_Project.dir/phase_one/creation/ToAutomaton.cpp.o: /home/ahme
   /home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_one/automaton/Utilities.h
 
 
-/home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_one/creation/LexicalRulesHandler.cpp:
-
 /usr/include/c++/13/bits/stl_relops.h:
+
+/home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_one/creation/LexicalRulesHandler.cpp:
 
 /home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_one/creation/InfixToPostfix.cpp:
 
@@ -2180,9 +2229,35 @@ CMakeFiles/Compiler_Project.dir/phase_one/creation/ToAutomaton.cpp.o: /home/ahme
 
 /home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_one/automaton/Types.cpp:
 
-/usr/include/c++/13/bits/stl_stack.h:
+/usr/include/c++/13/bits/regex_executor.h:
+
+/usr/include/c++/13/bits/regex.tcc:
+
+/usr/include/c++/13/bits/regex.h:
+
+/usr/include/c++/13/bits/regex_compiler.tcc:
+
+/usr/include/c++/13/bits/regex_compiler.h:
+
+/usr/include/c++/13/bits/regex_scanner.tcc:
+
+/usr/include/c++/13/bits/regex_error.h:
+
+/usr/include/c++/13/bits/std_function.h:
 
 /usr/include/c++/13/stack:
+
+/usr/include/c++/13/bits/locale_conv.h:
+
+/usr/include/c++/13/bits/stl_stack.h:
+
+/usr/include/c++/13/bits/locale_facets_nonio.tcc:
+
+/usr/include/x86_64-linux-gnu/c++/13/bits/time_members.h:
+
+/usr/include/c++/13/bits/locale_facets_nonio.h:
+
+/usr/include/c++/13/regex:
 
 /usr/include/c++/13/bits/stl_multimap.h:
 
@@ -2190,11 +2265,11 @@ CMakeFiles/Compiler_Project.dir/phase_one/creation/ToAutomaton.cpp.o: /home/ahme
 
 /usr/include/c++/13/pstl/glue_algorithm_defs.h:
 
-/usr/include/c++/13/bits/algorithmfwd.h:
-
 /usr/include/c++/13/bits/stl_algo.h:
 
 /usr/include/c++/13/algorithm:
+
+/usr/include/c++/13/bitset:
 
 /home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_one/automaton/Automaton.cpp:
 
@@ -2222,8 +2297,6 @@ CMakeFiles/Compiler_Project.dir/phase_one/creation/ToAutomaton.cpp.o: /home/ahme
 
 /home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_one/automaton/Utilities.h:
 
-/usr/include/c++/13/bits/unordered_map.h:
-
 /usr/include/c++/13/bits/enable_special_members.h:
 
 /usr/include/c++/13/bits/unordered_set.h:
@@ -2240,21 +2313,47 @@ CMakeFiles/Compiler_Project.dir/phase_one/creation/ToAutomaton.cpp.o: /home/ahme
 
 /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h:
 
-/usr/include/stdint.h:
-
 /usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h:
 
 /usr/include/c++/13/bits/align.h:
-
-/usr/include/c++/13/bits/stl_raw_storage_iter.h:
 
 /usr/include/c++/13/bits/stl_tempbuf.h:
 
 /usr/include/c++/13/memory:
 
+/usr/include/x86_64-linux-gnu/bits/uio_lim.h:
+
+/usr/include/c++/13/bits/unordered_map.h:
+
+/usr/include/x86_64-linux-gnu/bits/xopen_lim.h:
+
+/usr/include/c++/13/bits/algorithmfwd.h:
+
+/usr/include/x86_64-linux-gnu/bits/local_lim.h:
+
+/usr/include/x86_64-linux-gnu/bits/posix1_lim.h:
+
+/usr/include/stdint.h:
+
+/usr/include/limits.h:
+
+/usr/lib/gcc/x86_64-linux-gnu/13/include/limits.h:
+
+/usr/include/c++/13/bits/stl_raw_storage_iter.h:
+
+/usr/include/c++/13/climits:
+
+/usr/include/x86_64-linux-gnu/bits/getopt_core.h:
+
+/usr/include/x86_64-linux-gnu/bits/posix_opt.h:
+
+/usr/include/unistd.h:
+
 /home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_one/automaton/State.h:
 
 /usr/include/c++/13/bits/fstream.tcc:
+
+/usr/include/c++/13/ctime:
 
 /home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_one/automaton/Automaton.h:
 
@@ -2269,6 +2368,8 @@ CMakeFiles/Compiler_Project.dir/phase_one/creation/ToAutomaton.cpp.o: /home/ahme
 /usr/include/c++/13/bits/stl_set.h:
 
 /usr/include/c++/13/bits/node_handle.h:
+
+/usr/include/x86_64-linux-gnu/c++/13/bits/messages_members.h:
 
 /usr/include/c++/13/ext/aligned_buffer.h:
 
@@ -2352,6 +2453,8 @@ CMakeFiles/Compiler_Project.dir/phase_one/creation/ToAutomaton.cpp.o: /home/ahme
 
 /usr/include/x86_64-linux-gnu/bits/types/FILE.h:
 
+/usr/include/x86_64-linux-gnu/bits/unistd_ext.h:
+
 /usr/include/wchar.h:
 
 /usr/include/c++/13/clocale:
@@ -2382,15 +2485,21 @@ CMakeFiles/Compiler_Project.dir/phase_one/creation/ToAutomaton.cpp.o: /home/ahme
 
 /usr/include/c++/13/bits/functexcept.h:
 
+/usr/include/c++/13/bits/regex_automaton.h:
+
 /usr/include/c++/13/bits/stl_algobase.h:
 
 /usr/include/c++/13/utility:
 
 /usr/include/c++/13/cctype:
 
+/usr/include/x86_64-linux-gnu/bits/environments.h:
+
 /usr/include/x86_64-linux-gnu/c++/13/bits/c++locale.h:
 
 /usr/include/c++/13/pstl/glue_memory_defs.h:
+
+/usr/lib/gcc/x86_64-linux-gnu/13/include/syslimits.h:
 
 /usr/include/c++/13/exception:
 
@@ -2432,6 +2541,8 @@ CMakeFiles/Compiler_Project.dir/phase_one/creation/ToAutomaton.cpp.o: /home/ahme
 
 /usr/include/alloca.h:
 
+/usr/include/c++/13/locale:
+
 /usr/include/c++/13/bits/stl_multiset.h:
 
 /usr/include/x86_64-linux-gnu/bits/setjmp.h:
@@ -2460,6 +2571,8 @@ CMakeFiles/Compiler_Project.dir/phase_one/creation/ToAutomaton.cpp.o: /home/ahme
 
 /usr/include/c++/13/bits/localefwd.h:
 
+/usr/include/c++/13/bits/regex_scanner.h:
+
 /usr/include/x86_64-linux-gnu/c++/13/bits/os_defines.h:
 
 /usr/include/pthread.h:
@@ -2486,9 +2599,13 @@ CMakeFiles/Compiler_Project.dir/phase_one/creation/ToAutomaton.cpp.o: /home/ahme
 
 /usr/include/c++/13/bits/ostream_insert.h:
 
+/usr/include/x86_64-linux-gnu/bits/confname.h:
+
 /usr/include/x86_64-linux-gnu/bits/types/__fpos64_t.h:
 
 /usr/include/c++/13/bits/basic_string.h:
+
+/usr/include/linux/limits.h:
 
 /usr/include/c++/13/iosfwd:
 
@@ -2552,6 +2669,8 @@ CMakeFiles/Compiler_Project.dir/phase_one/creation/ToAutomaton.cpp.o: /home/ahme
 
 /usr/include/c++/13/bits/uses_allocator.h:
 
+/usr/include/c++/13/bits/regex_automaton.tcc:
+
 /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/clockid_t.h:
@@ -2562,9 +2681,13 @@ CMakeFiles/Compiler_Project.dir/phase_one/creation/ToAutomaton.cpp.o: /home/ahme
 
 /usr/include/x86_64-linux-gnu/bits/atomic_wide_counter.h:
 
+/usr/include/linux/close_range.h:
+
 /usr/include/c++/13/list:
 
 /usr/include/x86_64-linux-gnu/bits/struct_rwlock.h:
+
+/usr/include/libintl.h:
 
 /usr/include/c++/13/bits/memory_resource.h:
 
@@ -2576,13 +2699,19 @@ CMakeFiles/Compiler_Project.dir/phase_one/creation/ToAutomaton.cpp.o: /home/ahme
 
 /usr/include/x86_64-linux-gnu/c++/13/bits/atomic_word.h:
 
+/usr/include/c++/13/bits/regex_constants.h:
+
 /usr/include/c++/13/bits/locale_classes.h:
 
 /usr/include/c++/13/ext/string_conversions.h:
 
 /usr/include/c++/13/bits/allocator.h:
 
+/usr/include/x86_64-linux-gnu/bits/getopt_posix.h:
+
 /usr/include/c++/13/bits/new_allocator.h:
+
+/usr/include/x86_64-linux-gnu/bits/posix2_lim.h:
 
 /usr/include/wctype.h:
 
@@ -2647,6 +2776,8 @@ CMakeFiles/Compiler_Project.dir/phase_one/creation/ToAutomaton.cpp.o: /home/ahme
 /usr/include/c++/13/tuple:
 
 /usr/include/x86_64-linux-gnu/bits/stdint-intn.h:
+
+/usr/include/c++/13/bits/regex_executor.tcc:
 
 /usr/include/endian.h:
 

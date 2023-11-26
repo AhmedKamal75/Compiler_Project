@@ -11,6 +11,6 @@
 -- Check for working CXX compiler: /usr/bin/c++ - skipped
 -- Detecting CXX compile features
 -- Detecting CXX compile features - done
--- Configuring done (1.0s)
+-- Configuring done (1.4s)
 -- Generating done (0.0s)
 -- Build files have been written to: /home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/cmake-build-debug
