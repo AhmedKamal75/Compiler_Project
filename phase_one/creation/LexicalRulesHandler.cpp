@@ -10,16 +10,15 @@ LexicalRulesHandler::LexicalRulesHandler() = default;
 
 
 void LexicalRulesHandler::export_automata(std::vector<std::shared_ptr<Automaton>> &automata,
-                                          const std::string &output_directory_path) {
+                                          const std::string &output_file_path) {
     std::shared_ptr<Automaton> nfa = Utilities::unionAutomataSet(automata);
     std::shared_ptr<Automaton> dfa = conversions.convertToDFA(nfa, true);
     std::shared_ptr<Automaton> minimized_dfa = conversions.minimizeDFA(dfa);
     /*TODO: make some test to see if the state --> tokens relationship is correct. */
-
-    std::cout << nfa->to_string() << std::endl;
-    std::cout << dfa->to_string() << std::endl;
-    std::cout << minimized_dfa->to_string() << std::endl;
+//    std::cout << minimized_dfa->to_string_transition_table() << std::endl;
     /*TODO:  make the logic that will output the minimized_dfa to output_directory_path + rules_automaton + .txt */
+
+    minimized_dfa->export_to_file(output_file_path);
 }
 
 [[maybe_unused]] std::unordered_map<std::string, std::shared_ptr<Automaton>>

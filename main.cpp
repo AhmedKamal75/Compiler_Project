@@ -29,15 +29,21 @@ std::unordered_map<std::string, std::shared_ptr<Automaton>> getAutomata();
 
 
 int main() {
-//    input_handler();
     std::string input_file_path = R"(/home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/inputs/temp_file.txt)";
     std::string data_directory_path = R"(/home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/data/)";
+    // generate automata
     std::unordered_map<std::string, std::shared_ptr<Automaton>> automata = handler.handleFile(input_file_path);
+
     std::vector<std::shared_ptr<Automaton>> vector_automata{};
     for (const auto& pair:automata){
         vector_automata.push_back(pair.second);
     }
-    handler.export_automata(vector_automata,data_directory_path);
+    // export final automaton (union all)
+    handler.export_automata(vector_automata,data_directory_path + "final.txt");
+
+    // import final automaton ()
+    std::shared_ptr<Automaton> loaded_automaton = Automaton::import_from_file(data_directory_path + "final.txt");
+    std::cout << loaded_automaton->to_string() << '\n';
 
     return 0;
 }

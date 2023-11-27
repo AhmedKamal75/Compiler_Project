@@ -142,17 +142,19 @@ public:
 
     Types::string_set_t get_tokens(const std::shared_ptr<State> &state_ptr);
 
-    void set_tokens(const Types::state_to_string_set_map_t& new_tokens);
+    void set_tokens(const Types::state_to_string_set_map_t &new_tokens);
 
     void add_tokens(const std::shared_ptr<State> &state_ptr, const Types::string_set_t &token_set);
 
-    Types::state_to_string_set_map_t  get_tokens();
+    Types::state_to_string_set_map_t get_tokens();
 
     std::string to_string_transition_table();
 
     std::string to_json();
 
-    bool equals(const Automaton &other) const;
+    void export_to_file(const std::string &filename);
+
+    static std::shared_ptr<Automaton> import_from_file(const std::string &filename);
 };
 
 

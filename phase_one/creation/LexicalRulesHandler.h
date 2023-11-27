@@ -14,7 +14,7 @@ public:
     LexicalRulesHandler();
 
     // will make a union on the automata and then output them to the output file path
-    void export_automata(std::vector<std::shared_ptr<Automaton>> &automata, const std::string &output_directory_path);
+    void export_automata(std::vector<std::shared_ptr<Automaton>> &automata, const std::string &output_file_path);
 
     [[maybe_unused]] std::unordered_map<std::string, std::shared_ptr<Automaton>>
     handleFile(const std::string &filename);
