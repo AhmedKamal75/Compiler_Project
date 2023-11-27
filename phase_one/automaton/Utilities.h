@@ -133,6 +133,8 @@ public:
 
     static void group_string(std::vector<Types::state_set_t> &group);
 
+    static std::shared_ptr<Automaton> get_epsilon_automaton(const std::string &epsilonSymbol);
+
 };
 
 

@@ -25,7 +25,6 @@ LexicalRulesHandler::handleFile(const std::string &filename) {
             std::string keyword;
             while (ss >> keyword) {
                 std::shared_ptr<Automaton> a = toAutomaton.regex_to_minimized_dfa(keyword, epsilonSymbol);
-                a->set_regex(a->get_token());
                 a->set_token(keyword);
                 automata[keyword] = a;
             }
@@ -35,7 +34,6 @@ LexicalRulesHandler::handleFile(const std::string &filename) {
             std::string punctuation;
             while (ss >> punctuation) {
                 std::shared_ptr<Automaton> a = toAutomaton.regex_to_minimized_dfa(punctuation, epsilonSymbol);
-                a->set_regex(a->get_token());
                 a->set_token(punctuation);
                 automata[punctuation] = a;
             }
@@ -48,10 +46,7 @@ LexicalRulesHandler::handleFile(const std::string &filename) {
             std::shared_ptr<Automaton> a = toAutomaton.regular_definition_to_minimized_dfa(rd, automata, epsilonSymbol);
             if (a == nullptr) {
                 backlog.emplace(name, rd);
-            } else
-//            if (a != nullptr)
-            {
-                a->set_regex(a->get_token());
+            } else {
                 a->set_token(name);
                 automata[name] = a;
             }
@@ -63,10 +58,7 @@ LexicalRulesHandler::handleFile(const std::string &filename) {
             this->trim(regex);
             regex.erase(remove_if(regex.begin(), regex.end(), isspace), regex.end());
             std::shared_ptr<Automaton> a = toAutomaton.regex_to_minimized_dfa(regex, epsilonSymbol);
-            a->set_regex(a->get_token());
             a->set_token(name);
-
-
             automata[name] = a;
         }
     }
@@ -97,7 +89,6 @@ void LexicalRulesHandler::handle_backlog(std::unordered_map<std::string, std::sh
                 backlog.emplace(name, rd);
             }
         } else {
-            a->set_regex(a->get_token());
             a->set_token(name);
             automata[name] = a;
         }

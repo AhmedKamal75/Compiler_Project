@@ -28,6 +28,7 @@ Automaton::Automaton(const std::string &alphabet, const std::string &token, cons
     this->start = q0;
     this->accepting.insert(q1);
     this->epsilonSymbol = (epsilonSymbol.empty()) ? this->BUILT_IN_EPSILON_SYMBOL : epsilonSymbol;
+    this->set_regex("(" + q1->getToken() + ")");
 
     // Add the transition
     Types::key_t key = std::make_pair(q0, alphabet);

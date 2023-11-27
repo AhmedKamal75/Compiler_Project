@@ -77,7 +77,7 @@ std::shared_ptr<Automaton> Utilities::unionAutomata(std::shared_ptr<Automaton> &
 
 
     // Update the token names of the accepting states
-    unionAutomaton->set_token(("(" + tempA1->get_token() + "|" + tempA2->get_token() + ")"));
+    unionAutomaton->set_regex(("(" + tempA1->get_regex() + "|" + tempA2->get_regex() + ")"));
     unionAutomaton->give_new_ids_all();
 
     return unionAutomaton;
@@ -120,7 +120,7 @@ std::shared_ptr<Automaton> Utilities::concatAutomaton(std::shared_ptr<Automaton>
 
 
     // Update the token names of the accepting states
-    concatAutomaton->set_token(("(" + tempA1->get_token() + tempA2->get_token() + ")"));
+    concatAutomaton->set_regex(("(" + tempA1->get_regex() + tempA2->get_regex() + ")"));
     concatAutomaton->give_new_ids_all();
 
     return concatAutomaton;
@@ -168,7 +168,7 @@ std::shared_ptr<Automaton> Utilities::kleeneClosure(std::shared_ptr<Automaton> &
     }
 
     // Update the token names of the accepting states
-    kleeneAutomaton->set_token(("(" + tempA->get_token() + ")*"));
+    kleeneAutomaton->set_regex(("(" + tempA->get_regex() + ")*"));
     kleeneAutomaton->give_new_ids_all();
 
     return kleeneAutomaton;
@@ -213,7 +213,7 @@ std::shared_ptr<Automaton> Utilities::positiveClosure(std::shared_ptr<Automaton>
     positiveAutomaton->add_transitions(new_accepting_state, positiveAutomaton->get_epsilon_symbol(), {new_start_state});
 
     // Update the token names of the accepting states
-    positiveAutomaton->set_token(("(" + tempA->get_token() + ")+"));
+    positiveAutomaton->set_regex(("(" + tempA->get_regex() + ")+"));
     positiveAutomaton->give_new_ids_all();
 
     return positiveAutomaton;
@@ -263,10 +263,10 @@ std::shared_ptr<Automaton> Utilities::unionAutomataSet(std::vector<std::shared_p
         if (!regex.empty()) {
             regex += "|";
         }
-        regex += "(" + a->get_token() + ")";
+        regex += "(" + a->get_regex() + ")";
     }
 
-    unionAutomaton->set_token("(" + regex + ")");
+    unionAutomaton->set_regex("(" + regex + ")");
 
     // Give new IDs to all states in the union automaton
     unionAutomaton->give_new_ids_all();
@@ -342,4 +342,22 @@ void Utilities::group_string(std::vector<Types::state_set_t> &group) {
     }
     ss << std::endl;
     std::cout << ss.str();
+}
+
+
+std::shared_ptr<Automaton> Utilities::get_epsilon_automaton(const std::string &epsilonSymbol) {
+    std::shared_ptr<Automaton> a = std::make_shared<Automaton>();
+    // Create the states
+    std::shared_ptr<State> q0 = std::make_shared<State>(0, false, "");
+    std::shared_ptr<State> q1 = std::make_shared<State>(1, true, epsilonSymbol);
+
+    // Initialize the fields
+    a->add_states({q0, q1});
+    a->set_start(q0);
+    a->add_accepting_state(q1);
+    a->set_epsilon_symbol(epsilonSymbol);
+    a->add_transitions(q0, epsilonSymbol, {q1});
+    a->set_regex("(" + epsilonSymbol + ")");
+
+    return a;
 }

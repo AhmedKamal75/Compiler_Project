@@ -9,18 +9,20 @@ std::shared_ptr<Automaton> ToAutomaton::regex_to_minimized_dfa(std::string regex
     // Parse the regex and construct the corresponding postfix
     std::string postfix = infixToPostfix.regex_infix_to_postfix(std::move(regex));
     // parse the postfix regex (easier) to an Automaton
-    std::shared_ptr<Automaton> regexAutomaton = get_automaton_from_regex_postfix(postfix, epsilon_symbol);
+    std::shared_ptr<Automaton> nfa = get_automaton_from_regex_postfix(postfix, epsilon_symbol);
     // Convert the regex automaton to a DFA and minimize it
-    std::shared_ptr<Automaton> dfa = conversions.convertToDFA(regexAutomaton);
+    std::shared_ptr<Automaton> dfa = conversions.convertToDFA(nfa);
     // return the minimized dfa
     std::shared_ptr<Automaton> minDFa = conversions.minimizeDFA(dfa);
-    //TODO
-    // delete or comment the following line
+    /*
+     *TODO: see which type of regex do you want the automaton to have
+     * this:
+     */
     minDFa->set_regex(infixToPostfix.regex_evaluate_postfix(postfix));
     /*TODO:
-     * uncomment the following line.
+     * or this:
      */
-//    minDFa->setRegex(regex);
+//    minDFa->set_regex(nfa->get_regex());
     return minDFa;
 }
 
@@ -35,6 +37,15 @@ std::shared_ptr<Automaton> ToAutomaton::regular_definition_to_minimized_dfa(cons
     std::shared_ptr<Automaton> nfa = get_automaton_from_regular_definition(rd_postfix, automata, epsilon_symbol);
     std::shared_ptr<Automaton> dfa = conversions.convertToDFA(nfa);
     std::shared_ptr<Automaton> minimized_dfa = conversions.minimizeDFA(dfa);
+    /*
+     *TODO: see which type of regex do you want the automaton to have
+     * this:
+     */
+//    minimized_dfa->set_regex(infixToPostfix.regular_definition_evaluate_postfix(rd_postfix));
+    /*TODO:
+     * or this:
+     */
+    minimized_dfa->set_regex(nfa->get_regex());
 
     return minimized_dfa;
 }
@@ -102,7 +113,13 @@ std::shared_ptr<Automaton> ToAutomaton::get_automaton_from_regular_definition(st
             if ((i < postfix_tokens.size() - 1) && constants.is_operator(postfix_tokens[i + 1], constants.ESCAPE)) {
                 std::string temp = postfix_tokens[i + 1];
                 /*TODO: see if you will do something with the escape character that is temp (I did nothing).*/
-                std::shared_ptr<Automaton> a = get_automaton_from_map(token, map, epsilonSymbol);
+                std::shared_ptr<Automaton> a = std::make_shared<Automaton>();
+                if (token == "L") {
+
+                    a = Utilities::get_epsilon_automaton(epsilonSymbol);
+                } else {
+                    a = get_automaton_from_map(token, map, epsilonSymbol);
+                }
                 if (a == nullptr) { // that mean that the tokens needs a token that is not defined yet
                     return nullptr;
                 }
