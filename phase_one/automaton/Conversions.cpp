@@ -223,7 +223,26 @@ std::shared_ptr<State> Conversions::get_dfa_state(Types::state_set_t &state_set,
         }
     }
 
-    dfa->set_token(a->get_token());
+    // fix tokens in new stats
+    for (const std::pair<Types::state_set_t, std::shared_ptr<State>> &pair: dfa_states) {
+        // Get the set of NFA states and the corresponding DFA state
+        const Types::state_set_t &nfa_states = pair.first;
+        const std::shared_ptr<State> &dfa_state = pair.second;
+
+        // Check if the DFA state is an accepting state
+        if (dfa->is_accepting_state(dfa_state)) {
+            // Iterate over the NFA states
+            for (const std::shared_ptr<State> &nfa_state: nfa_states) {
+                // If the NFA state is an accepting state, add its tokens to the DFA state
+                if (a->is_accepting_state(nfa_state)) {
+                    dfa->add_tokens(dfa_state, {nfa_state->getToken()});
+                }
+            }
+        }
+    }
+
+
+    dfa->set_regex(a->get_regex());
     dfa->give_new_ids_all();
 
     return dfa;
@@ -267,7 +286,8 @@ std::shared_ptr<State> Conversions::get_dfa_state(Types::state_set_t &state_set,
 
     create_transitions(dfa, minDFA, current_group);
 
-    minDFA->set_token(dfa->get_token());
+    minDFA->set_tokens(dfa->get_tokens());
+    minDFA->set_regex(dfa->get_regex());
     minDFA->give_new_ids_all();
 
     return minDFA;

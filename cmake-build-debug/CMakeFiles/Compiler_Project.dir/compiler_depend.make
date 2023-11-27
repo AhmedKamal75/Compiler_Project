@@ -1919,6 +1919,7 @@ CMakeFiles/Compiler_Project.dir/phase_one/creation/LexicalRulesHandler.cpp.o: /h
   /home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_one/creation/InfixToPostfix.h \
   /home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_one/automaton/Conversions.h \
   /home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_one/automaton/Automaton.h \
+  /home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_one/automaton/Utilities.h \
   /usr/include/c++/13/fstream \
   /usr/include/c++/13/bits/codecvt.h \
   /usr/include/x86_64-linux-gnu/c++/13/bits/basic_file.h \

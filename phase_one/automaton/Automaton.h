@@ -33,6 +33,10 @@ private:
     // The regular expression of the automaton.
     std::string regex;
 
+    // maps state (accepting) to their tokens
+    // needed in the case where every state has more that on possible token, (final union of automata)
+    Types::state_to_string_set_map_t tokens{};
+
     // The built-in epsilon symbol.
     const std::string BUILT_IN_EPSILON_SYMBOL = "\\L";
 
@@ -72,7 +76,7 @@ public:
     void set_transitions_dfa_format(const Types::transitions_dfa_t &new_transitions);
 
     // Returns the tokens of the automaton.
-    std::string get_tokens();
+    std::string get_tokens_string();
 
     // Returns the token of the automaton.
     std::string get_token();
@@ -135,6 +139,14 @@ public:
     std::string get_regex();
 
     std::string to_string();
+
+    Types::string_set_t get_tokens(const std::shared_ptr<State> &state_ptr);
+
+    void set_tokens(const Types::state_to_string_set_map_t& new_tokens);
+
+    void add_tokens(const std::shared_ptr<State> &state_ptr, const Types::string_set_t &token_set);
+
+    Types::state_to_string_set_map_t  get_tokens();
 
     std::string to_string_transition_table();
 

@@ -66,6 +66,22 @@ public:
         }
     };
 
+    struct string_hash {
+        std::size_t operator()(const std::string &str) const {
+            return std::hash<std::string>{}(str);
+        }
+    };
+
+    struct string_equal {
+        bool operator()(const std::string &a, const std::string &b) const {
+            return a == b;
+        }
+    };
+
+    using string_set_t = std::unordered_set<std::string, string_hash, string_equal>;
+
+    using state_to_string_set_map_t = std::unordered_map<std::shared_ptr<State>, string_set_t, Types::map_hash, Types::map_equal>;
+
     using state_set_t = std::unordered_set<std::shared_ptr<State>, Hash, Equal>;
 
     using transitions_t = std::unordered_map<key_t, state_set_t, pair_hash, pair_equal>;

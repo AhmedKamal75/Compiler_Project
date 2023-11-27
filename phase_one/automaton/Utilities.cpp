@@ -240,7 +240,7 @@ std::shared_ptr<Automaton> Utilities::unionAutomataSet(std::vector<std::shared_p
     // Add the new start state to the set of states
     unionAutomaton->add_state(newStartState);
 
-    std::string regex;
+    std::string regex{};
 
     // Iterate over the automata in the vector
     for (std::shared_ptr<Automaton> &tempA: automata) {
@@ -325,7 +325,6 @@ bool Utilities::group_equal(std::vector<Types::state_set_t> &g1, std::vector<Typ
     return true;
 }
 
-
 void Utilities::group_string(std::vector<Types::state_set_t> &group) {
     std::stringstream ss;
     for (const Types::state_set_t &g: group) {
@@ -343,7 +342,6 @@ void Utilities::group_string(std::vector<Types::state_set_t> &group) {
     ss << std::endl;
     std::cout << ss.str();
 }
-
 
 std::shared_ptr<Automaton> Utilities::get_epsilon_automaton(const std::string &epsilonSymbol) {
     std::shared_ptr<Automaton> a = std::make_shared<Automaton>();

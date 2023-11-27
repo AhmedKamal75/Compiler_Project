@@ -1,4 +1,5 @@
 #include "LexicalRulesHandler.h"
+#include "../automaton/Utilities.h"
 #include <fstream>
 #include <sstream>
 #include <algorithm>
@@ -6,6 +7,25 @@
 
 
 LexicalRulesHandler::LexicalRulesHandler() = default;
+
+
+void LexicalRulesHandler::export_automata(std::vector<std::shared_ptr<Automaton>> &automata,
+                                          const std::string &output_directory_path) {
+    std::shared_ptr<Automaton> nfa = Utilities::unionAutomataSet(automata);
+    std::cout << nfa->get_tokens_string() << '\n';
+    std::cout << nfa->get_regex() << '\n';
+    std::shared_ptr<Automaton> dfa = conversions.convertToDFA(nfa);
+    std::cout << dfa->get_tokens_string() << '\n';
+    std::cout << dfa->get_regex() << '\n';
+    std::shared_ptr<Automaton> minimized_dfa = conversions.minimizeDFA(dfa);
+    std::cout << minimized_dfa->get_tokens_string() << '\n';
+    std::cout << minimized_dfa->get_regex() << '\n';
+
+    /*TODO:
+     * make the logic that will output the minimized_dfa to output_directory_path + rules_automaton + .txt
+     *
+     */
+}
 
 [[maybe_unused]] std::unordered_map<std::string, std::shared_ptr<Automaton>>
 LexicalRulesHandler::handleFile(const std::string &filename) {

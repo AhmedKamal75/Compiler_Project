@@ -14,6 +14,8 @@ InfixToPostfix infixToPostfix;
 ToAutomaton toAutomaton;
 LexicalRulesHandler handler;
 
+// all these functions are for testing and debugging the code while I writing it.
+
 void input_handler();
 
 void to_automaton_test();
@@ -27,7 +29,16 @@ std::unordered_map<std::string, std::shared_ptr<Automaton>> getAutomata();
 
 
 int main() {
-    input_handler();
+//    input_handler();
+    std::string input_file_path = R"(/home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/inputs/temp_file.txt)";
+    std::string data_directory_path = R"(/home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/data/)";
+    std::unordered_map<std::string, std::shared_ptr<Automaton>> automata = handler.handleFile(input_file_path);
+    std::vector<std::shared_ptr<Automaton>> vector_automata{};
+    for (const auto& pair:automata){
+        vector_automata.push_back(pair.second);
+    }
+    handler.export_automata(vector_automata,data_directory_path);
+
     return 0;
 }
 
@@ -38,7 +49,6 @@ void input_handler() {
     std::cout << filename << std::endl;
     for (const auto &pair: automata) {
         std::cout << "token: " << pair.first << std::endl;
-        std::cout << "regex: " << pair.second->get_regex() << std::endl;
         std::cout << "Automaton: " << pair.second->to_string_transition_table() << std::endl;
     }
     std::cout << "################# file is read #################" << std::endl;

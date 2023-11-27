@@ -119,20 +119,31 @@ void Automaton::set_token(const std::string &tokenName) {
     }
 }
 
-std::string Automaton::get_tokens() {
-    std::ostringstream tokens;
-    tokens << "{";
-    for (const auto &finalState: this->accepting) {
-        tokens << "\"" << finalState->getToken() << "\", ";
+std::string Automaton::get_tokens_string() {
+    std::unordered_set<std::string> unique_strings;
+
+    // If tokens are not empty, insert all tokens into the unique_strings set
+    if (!tokens.empty()) {
+        for (const auto &pair: this->tokens) {
+            unique_strings.insert(pair.second.begin(), pair.second.end());
+        }
+    } else {
+        // If tokens are empty, insert tokens from accepting states into the unique_strings set
+        for (const std::shared_ptr<State> &state_ptr: this->accepting) {
+            unique_strings.insert(state_ptr->getToken());
+        }
     }
 
-    std::string string_tokens = tokens.str();
-    // Remove the trailing comma and space, then add the closing brace
-    if (!string_tokens.empty()) {
-        string_tokens = string_tokens.substr(0, string_tokens.length() - 2);
+    // Convert the unique_strings set to a comma-separated string
+    std::stringstream ss;
+    for (const auto &str: unique_strings) {
+        if (!ss.str().empty()) {
+            ss << ", ";
+        }
+        ss << str;
     }
-    string_tokens += "}";
-    return string_tokens;
+
+    return ss.str();
 }
 
 std::string Automaton::get_token() {
@@ -220,6 +231,41 @@ std::string Automaton::get_regex() {
     return this->regex;
 }
 
+
+Types::string_set_t Automaton::get_tokens(const std::shared_ptr<State> &state_ptr) {
+    auto it = this->tokens.find(state_ptr);
+    if (it != this->tokens.end()) {
+        return it->second;
+    }
+    return {};
+}
+
+void Automaton::set_tokens(const Types::state_to_string_set_map_t &new_tokens) {
+    this->tokens = {};
+    for (const auto & pair:new_tokens){
+        if (this->accepting.find(pair.first) != this->accepting.end()){
+            this->tokens.insert(std::make_pair(pair.first,pair.second));
+        }
+    }
+//    this->tokens = new_tokens;
+}
+
+void Automaton::add_tokens(const std::shared_ptr<State> &state_ptr, const Types::string_set_t &token_set) {
+    auto it = this->tokens.find(state_ptr);
+    if (it != this->tokens.end()) {
+        // State exists in the map, insert new tokens into existing set
+        it->second.insert(token_set.begin(), token_set.end());
+    } else {
+        // State doesn't exist in the map, add it with the new token set
+        this->tokens.insert(std::make_pair(state_ptr, token_set));
+    }
+}
+
+Types::state_to_string_set_map_t Automaton::get_tokens() {
+    return this->tokens;
+}
+
+
 std::string Automaton::to_json() {
     std::ostringstream sb;
 
@@ -292,41 +338,20 @@ std::string Automaton::to_string() {
                   return a.first.first->getId() < b.first.first->getId();
               });
 
-//    ss << "Transition Table: \n";
 
-    // Print the header row
-//    ss << "\t";
-//    for (const auto &symbol: this->alphabets) {
-//        ss << symbol << "\t";
-//    }
-//    ss << "\n";
-//
-//    // Print each row of the table
-//    for (const auto &state: this->states) {
-//        ss << state->getId() << "\t";
-//        for (const auto &symbol: this->alphabets) {
-//            auto it = this->transitions.find({state, symbol});
-//            if (it != this->transitions.end()) {
-//                for (const auto &next_state: it->second) {
-//                    ss << next_state->getId() << " ";
-//                }
-//            }
-//            ss << "\t";
-//        }
-//        ss << "\n";
-//    }
-
-
-//    for (const auto &entry: sorted_transitions) {
-//        ss << "f(" << entry.first.first->getId() << ", " << entry.first.second << ") = ";
-//        for (const auto &state: entry.second) {
-//            ss << state->getId() << " ";
-//        }
-//        ss << "\n";
-//    }
+    for (const auto &entry: sorted_transitions) {
+        ss << "f(" << entry.first.first->getId() << ", " << entry.first.second << ") = ";
+        for (const auto &state: entry.second) {
+            ss << state->getId() << " ";
+        }
+        ss << "\n";
+    }
 
     // add the token
     ss << "Token: " << this->get_token() << "\n";
+
+    // add the token
+    ss << "Regex: " << this->get_regex() << "\n";
 
     return ss.str();
 }
@@ -367,6 +392,7 @@ std::string Automaton::to_string_transition_table() {
         }
     }
 
+    ss << "Transition Table: \n";
     // Now, we can print the transition table
     ss << "\t";
     for (const auto &symbol: unique_symbols) {
@@ -385,6 +411,13 @@ std::string Automaton::to_string_transition_table() {
         }
         ss << "\n";
     }
+
+    // add the token
+    ss << "Token: " << this->get_token() << "\n";
+
+    // add the token
+    ss << "Regex: " << this->get_regex() << "\n";
+
 
     return ss.str();
 }
