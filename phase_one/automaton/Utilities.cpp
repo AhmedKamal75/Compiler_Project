@@ -35,6 +35,15 @@ std::shared_ptr<Automaton> Utilities::copyAutomaton(std::shared_ptr<Automaton> &
         }
         copy->add_transitions(from_state_ptr, symbol, to_states);
     }
+    // add tokens;
+    if (!originalAutomaton->get_tokens().empty()){
+        Types::state_to_string_set_map_t copy_tokens{};
+        for (const auto &pair: originalAutomaton->get_tokens()) {
+            copy_tokens.insert(std::make_pair(copy->get_state_using_id(pair.first->getId()), pair.second));
+        }
+        copy->set_tokens(copy_tokens);
+    }
+
 
 
     copy->set_regex(originalAutomaton->get_regex());

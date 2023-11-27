@@ -347,11 +347,18 @@ std::string Automaton::to_string() {
         ss << "\n";
     }
 
-    // add the token
-    ss << "Token: " << this->get_token() << "\n";
+    // add the regex
+    ss << "Regex: " << this->get_regex() << "\n";
 
     // add the token
-    ss << "Regex: " << this->get_regex() << "\n";
+    ss << "Tokens: " << this->get_tokens_string() << "\n";
+    for (const auto &pair: this->tokens) {
+        ss<< pair.first->toString() << ": ";
+        for (const auto &str: pair.second) {
+            ss << str << ", ";
+        }
+        ss << '\n';
+    }
 
     return ss.str();
 }
@@ -412,12 +419,17 @@ std::string Automaton::to_string_transition_table() {
         ss << "\n";
     }
 
-    // add the token
-    ss << "Token: " << this->get_token() << "\n";
-
-    // add the token
+    // add the regex
     ss << "Regex: " << this->get_regex() << "\n";
 
-
+    // add the token
+    ss << "Tokens: " << this->get_tokens_string() << "\n";
+    for (const auto &pair: this->tokens) {
+        ss<< pair.first->toString() << ": ";
+        for (const auto &str: pair.second) {
+            ss << str << ", ";
+        }
+        ss << '\n';
+    }
     return ss.str();
 }

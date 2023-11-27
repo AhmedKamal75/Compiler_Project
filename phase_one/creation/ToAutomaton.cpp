@@ -11,7 +11,7 @@ std::shared_ptr<Automaton> ToAutomaton::regex_to_minimized_dfa(std::string regex
     // parse the postfix regex (easier) to an Automaton
     std::shared_ptr<Automaton> nfa = get_automaton_from_regex_postfix(postfix, epsilon_symbol);
     // Convert the regex automaton to a DFA and minimize it
-    std::shared_ptr<Automaton> dfa = conversions.convertToDFA(nfa);
+    std::shared_ptr<Automaton> dfa = conversions.convertToDFA(nfa, false);
     // return the minimized dfa
     std::shared_ptr<Automaton> minDFa = conversions.minimizeDFA(dfa);
     /*
@@ -35,7 +35,7 @@ std::shared_ptr<Automaton> ToAutomaton::regular_definition_to_minimized_dfa(cons
     std::vector<std::string> rd_postfix = infixToPostfix.regular_definition_infix_to_postfix(tokens);
 
     std::shared_ptr<Automaton> nfa = get_automaton_from_regular_definition(rd_postfix, automata, epsilon_symbol);
-    std::shared_ptr<Automaton> dfa = conversions.convertToDFA(nfa);
+    std::shared_ptr<Automaton> dfa = conversions.convertToDFA(nfa, false);
     std::shared_ptr<Automaton> minimized_dfa = conversions.minimizeDFA(dfa);
     /*
      *TODO: see which type of regex do you want the automaton to have

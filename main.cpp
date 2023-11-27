@@ -96,7 +96,7 @@ void automaton_test() {
     std::shared_ptr<Automaton> nfa = Utilities::copyAutomaton(aPbKaPUbK);
     std::cout << "nfa:" << std::endl;
     std::cout << nfa->to_string() << std::endl;
-    std::shared_ptr<Automaton> dfa = conversions.convertToDFA(nfa);
+    std::shared_ptr<Automaton> dfa = conversions.convertToDFA(nfa, false);
     std::cout << "dfa:" << std::endl;
     std::cout << dfa->to_string() << std::endl;
     std::shared_ptr<Automaton> minDFA = conversions.minimizeDFA(dfa);

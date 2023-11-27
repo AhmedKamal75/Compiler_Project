@@ -60,6 +60,8 @@ public:
      * @brief Converts a given NFA (Non-deterministic Finite automaton) to a DFA (Deterministic Finite automaton).
      *
      * @param automaton A shared pointer to the automaton object that represents the NFA.
+     * @param is_final tells the method if the automaton is a final one (at which a final state can have more than one token)
+     * so that the method can calculate those tokens an store them in a->tokens
      *
      * @return A shared pointer to the newly created automaton object that represents the DFA.
      *
@@ -80,7 +82,8 @@ public:
      * The DFA is adjusted according to its new state, which means the transitions of the DFA are updated to include transitions from the new state to other states based on the transitions of the states in `state_vector` in the NFA.
      * This is typically done in a separate function that is called after `create_dfa_state`.
      */
-    [[maybe_unused]]  std::shared_ptr<Automaton> convertToDFA(std::shared_ptr<Automaton> &automaton);
+    [[maybe_unused]]  std::shared_ptr<Automaton>
+    convertToDFA(std::shared_ptr<Automaton> &automaton, const bool &is_final);
 
     /**
      * This method minimizes a given DFA (Deterministic Finite LexicalAnalysisGenerator.automaton) using Hopcroft's algorithm.
@@ -173,7 +176,8 @@ private:
 
 
     static std::pair<Types::state_set_t, std::pair<std::shared_ptr<State>, Types::state_set_t>>
-    get_special_data(std::vector<Types::state_set_t> &group, std::shared_ptr<Automaton> &dfa);
+    get_special_data(std::vector<Types::state_set_t> &group, std::shared_ptr<Automaton> &dfa,
+                     const std::shared_ptr<Automaton> &minimized_dfa);
 
     static void create_transitions(std::shared_ptr<Automaton> &oldDFA,
                                    std::shared_ptr<Automaton> &newDFA,

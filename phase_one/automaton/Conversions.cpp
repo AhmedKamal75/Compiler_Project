@@ -131,7 +131,7 @@ std::shared_ptr<State> Conversions::get_dfa_state(Types::state_set_t &state_set,
     return it->second;
 }
 
-[[maybe_unused]] std::shared_ptr<Automaton> Conversions::convertToDFA(std::shared_ptr<Automaton> &automaton) {
+[[maybe_unused]] std::shared_ptr<Automaton> Conversions::convertToDFA(std::shared_ptr<Automaton> &automaton, const bool &is_final) {
     // Create a copy of this
     std::shared_ptr<Automaton> a = Utilities::copyAutomaton(automaton);
 
@@ -224,18 +224,20 @@ std::shared_ptr<State> Conversions::get_dfa_state(Types::state_set_t &state_set,
     }
 
     // fix tokens in new stats
-    for (const std::pair<Types::state_set_t, std::shared_ptr<State>> &pair: dfa_states) {
-        // Get the set of NFA states and the corresponding DFA state
-        const Types::state_set_t &nfa_states = pair.first;
-        const std::shared_ptr<State> &dfa_state = pair.second;
+    if (is_final){
+        for (const std::pair<Types::state_set_t, std::shared_ptr<State>> &pair: dfa_states) {
+            // Get the set of NFA states and the corresponding DFA state
+            const Types::state_set_t &nfa_states = pair.first;
+            const std::shared_ptr<State> &dfa_state = pair.second;
 
-        // Check if the DFA state is an accepting state
-        if (dfa->is_accepting_state(dfa_state)) {
-            // Iterate over the NFA states
-            for (const std::shared_ptr<State> &nfa_state: nfa_states) {
-                // If the NFA state is an accepting state, add its tokens to the DFA state
-                if (a->is_accepting_state(nfa_state)) {
-                    dfa->add_tokens(dfa_state, {nfa_state->getToken()});
+            // Check if the DFA state is an accepting state
+            if (dfa->is_accepting_state(dfa_state)) {
+                // Iterate over the NFA states
+                for (const std::shared_ptr<State> &nfa_state: nfa_states) {
+                    // If the NFA state is an accepting state, add its tokens to the DFA state
+                    if (a->is_accepting_state(nfa_state)) {
+                        dfa->add_tokens(dfa_state, {nfa_state->getToken()});
+                    }
                 }
             }
         }
@@ -251,7 +253,9 @@ std::shared_ptr<State> Conversions::get_dfa_state(Types::state_set_t &state_set,
 [[maybe_unused]] std::shared_ptr<Automaton> Conversions::minimizeDFA(std::shared_ptr<Automaton> &automaton) {
     // Step 0: Create a copy of the original automaton because it might encounter change.
     std::shared_ptr<Automaton> dfa = Utilities::copyAutomaton(automaton);
-
+//    if (!automaton->get_tokens().empty()){
+//
+//    }
     // Step 1: Create a list of groups of states. Initially, there are two sets: accepting states and non-accepting states.
     std::vector<Types::state_set_t> current_group{};
     current_group.push_back(dfa->get_accepting_states());
@@ -279,14 +283,14 @@ std::shared_ptr<State> Conversions::get_dfa_state(Types::state_set_t &state_set,
     minDFA->add_alphabets(dfa->get_alphabets());
     // calculating the states.
     std::pair<Types::state_set_t, std::pair<std::shared_ptr<State>, Types::state_set_t>> special_data = get_special_data(
-            current_group, dfa);
+            current_group, dfa, minDFA);
     minDFA->add_states(special_data.first);
     minDFA->set_start(special_data.second.first);
     minDFA->add_accepting_states(special_data.second.second);
 
     create_transitions(dfa, minDFA, current_group);
 
-    minDFA->set_tokens(dfa->get_tokens());
+//    minDFA->set_tokens(dfa->get_tokens());
     minDFA->set_regex(dfa->get_regex());
     minDFA->give_new_ids_all();
 
@@ -346,7 +350,7 @@ std::vector<Types::state_set_t> Conversions::get_next_equivalence(std::vector<Ty
 
 std::pair<Types::state_set_t, std::pair<std::shared_ptr<State>, Types::state_set_t>>
 Conversions::get_special_data(std::vector<Types::state_set_t> &group,
-                              std::shared_ptr<Automaton> &dfa) {
+                              std::shared_ptr<Automaton> &dfa, const std::shared_ptr<Automaton> &minimized_dfa) {
     Types::state_set_t new_states{};
     std::shared_ptr<State> new_start;
     new_start.reset();
@@ -369,6 +373,13 @@ Conversions::get_special_data(std::vector<Types::state_set_t> &group,
             representativeState->setAccepting(true);
             representativeState->setToken(dfa->get_token());
             new_accepting.insert(representativeState);
+
+            // handle tokens
+            if (!dfa->get_tokens().empty()) {
+                for (const std::shared_ptr<State> &state_ptr: g) {
+                    minimized_dfa->add_tokens(representativeState, dfa->get_tokens(state_ptr));
+                }
+            }
         }
 
     }
