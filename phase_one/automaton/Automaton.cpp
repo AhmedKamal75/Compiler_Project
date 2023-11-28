@@ -594,3 +594,40 @@ std::shared_ptr<Automaton> Automaton::import_from_file(const std::string &filena
         return nullptr;
     }
 }
+
+std::vector<std::vector<std::shared_ptr<State>>> Automaton::matrix_representation() {
+    // Get the number of states
+    int num_states = (int) this->states.size();
+
+    // Initialize the matrix with null pointers
+    std::vector<std::vector<std::shared_ptr<State>>> matrix(num_states,
+                                                            std::vector<std::shared_ptr<State>>(
+                                                                    this->alphabets.size(), nullptr));
+
+    // Create a sorted vector of symbols
+    std::vector<std::string> symbols(this->alphabets.begin(), this->alphabets.end());
+    std::sort(symbols.begin(), symbols.end());
+
+    // Fill the matrix with the transitions
+    for (const auto &entry: this->transitions) {
+        int from_id = entry.first.first->getId();
+        std::string symbol = entry.first.second;
+
+        // Find the index of the symbol in the sorted vector
+        auto it = std::find(symbols.begin(), symbols.end(), symbol);
+        if (it == symbols.end()) {
+            continue;  // Skip if the symbol is not found
+        }
+        int index = (int) std::distance(symbols.begin(), it);
+
+        // For each destination state, add it to the matrix
+        for (const auto &state: entry.second) {
+            matrix[from_id][index] = state;
+            // Assuming deterministic transitions, break after the first state
+            break;
+        }
+    }
+
+    return matrix;
+}
+

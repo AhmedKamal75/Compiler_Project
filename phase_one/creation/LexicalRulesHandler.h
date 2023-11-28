@@ -6,12 +6,20 @@
 #include <memory>
 #include <string>
 #include <queue>
+#include <map>
 #include "../automaton/Automaton.h"
 #include "ToAutomaton.h"
 
 class LexicalRulesHandler {
 public:
     LexicalRulesHandler();
+
+    static void export_priorities(const std::map<std::string, int> &p, const std::string &filename);
+
+    static std::map<std::string, int> import_priorities(const std::string& filename);
+
+    // call this method only after you have called handleFile
+    std::map<std::string, int> get_priorities();
 
     // will make a union on the automata and then output them to the output file path
     void export_automata(std::vector<std::shared_ptr<Automaton>> &automata, const std::string &output_file_path);
@@ -24,6 +32,7 @@ private:
     std::string epsilonSymbol = "\\L";
     ToAutomaton toAutomaton;
     Conversions conversions;
+    std::vector<std::string> priorities{};
     std::unordered_map<std::string, int> attempts{};
     const int MAX_ATTEMPTS = 100;
 

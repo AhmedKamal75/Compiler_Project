@@ -149,7 +149,14 @@ CMakeFiles/Compiler_Project.dir/main.cpp.o: \
  /usr/include/c++/13/bits/locale_facets.tcc \
  /usr/include/c++/13/bits/basic_ios.tcc \
  /usr/include/c++/13/bits/ostream.tcc /usr/include/c++/13/istream \
- /usr/include/c++/13/bits/istream.tcc /usr/include/c++/13/set \
+ /usr/include/c++/13/bits/istream.tcc /usr/include/c++/13/algorithm \
+ /usr/include/c++/13/bits/stl_algo.h \
+ /usr/include/c++/13/bits/algorithmfwd.h \
+ /usr/include/c++/13/bits/stl_heap.h \
+ /usr/include/c++/13/bits/uniform_int_dist.h \
+ /usr/include/c++/13/bits/stl_tempbuf.h \
+ /usr/include/c++/13/pstl/glue_algorithm_defs.h \
+ /usr/include/c++/13/pstl/execution_defs.h /usr/include/c++/13/set \
  /usr/include/c++/13/bits/stl_tree.h \
  /usr/include/c++/13/ext/aligned_buffer.h \
  /usr/include/c++/13/bits/node_handle.h \
@@ -165,8 +172,7 @@ CMakeFiles/Compiler_Project.dir/main.cpp.o: \
  /usr/include/c++/13/bits/fstream.tcc \
  /home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_one/automaton/Automaton.h \
  /home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_one/automaton/Types.h \
- /usr/include/c++/13/memory /usr/include/c++/13/bits/stl_tempbuf.h \
- /usr/include/c++/13/bits/stl_uninitialized.h \
+ /usr/include/c++/13/memory /usr/include/c++/13/bits/stl_uninitialized.h \
  /usr/include/c++/13/bits/stl_raw_storage_iter.h \
  /usr/include/c++/13/bits/align.h \
  /usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h /usr/include/stdint.h \
@@ -180,7 +186,6 @@ CMakeFiles/Compiler_Project.dir/main.cpp.o: \
  /usr/include/c++/13/bits/atomic_lockfree_defines.h \
  /usr/include/c++/13/backward/auto_ptr.h \
  /usr/include/c++/13/pstl/glue_memory_defs.h \
- /usr/include/c++/13/pstl/execution_defs.h \
  /usr/include/c++/13/unordered_set \
  /usr/include/c++/13/bits/unordered_set.h \
  /usr/include/c++/13/bits/hashtable.h \
@@ -189,12 +194,11 @@ CMakeFiles/Compiler_Project.dir/main.cpp.o: \
  /usr/include/c++/13/unordered_map \
  /usr/include/c++/13/bits/unordered_map.h \
  /home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_one/automaton/State.h \
- /home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_one/automaton/Utilities.h \
  /usr/include/c++/13/vector /usr/include/c++/13/bits/stl_vector.h \
  /usr/include/c++/13/bits/stl_bvector.h \
  /usr/include/c++/13/bits/vector.tcc \
- /home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_one/automaton/Automaton.h \
  /home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_one/automaton/Conversions.h \
+ /home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_one/automaton/Automaton.h \
  /home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_one/creation/InfixToPostfix.h \
  /home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_one/creation/Constants.h \
  /home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_one/creation/ToAutomaton.h \
@@ -203,6 +207,10 @@ CMakeFiles/Compiler_Project.dir/main.cpp.o: \
  /home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_one/creation/LexicalRulesHandler.h \
  /usr/include/c++/13/queue /usr/include/c++/13/deque \
  /usr/include/c++/13/bits/stl_deque.h /usr/include/c++/13/bits/deque.tcc \
- /usr/include/c++/13/bits/stl_heap.h /usr/include/c++/13/bits/stl_queue.h \
+ /usr/include/c++/13/bits/stl_queue.h /usr/include/c++/13/map \
+ /usr/include/c++/13/bits/stl_map.h \
+ /usr/include/c++/13/bits/stl_multimap.h \
  /home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_one/creation/../automaton/Automaton.h \
- /home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_one/creation/ToAutomaton.h
+ /home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_one/creation/ToAutomaton.h \
+ /home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_one/prediction/Predictor.h \
+ /home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_one/prediction/../automaton/Automaton.h

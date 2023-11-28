@@ -8,21 +8,59 @@
 
 LexicalRulesHandler::LexicalRulesHandler() = default;
 
+void LexicalRulesHandler::export_priorities(const std::map<std::string, int>& p, const std::string& filename) {
+    std::ofstream file(filename);
+    if (file.is_open()) {
+        for (const auto& pair : p) {
+            file << pair.first << " " << pair.second << "\n";
+        }
+        file.close();
+    } else {
+        std::cout << "Unable to open file for writing.\n";
+    }
+}
+
+std::map<std::string, int> LexicalRulesHandler::import_priorities(const std::string& filename) {
+    std::map<std::string, int> p;
+    std::ifstream file(filename);
+    if (file.is_open()) {
+        std::string key;
+        int value;
+        while (file >> key >> value) {
+            p[key] = value;
+        }
+        file.close();
+    } else {
+        std::cout << "Unable to open file for reading.\n";
+    }
+    return p;
+}
+
+
+
+std::map<std::string, int> LexicalRulesHandler::get_priorities() {
+    std::map<std::string, int> priorities_map{};
+    int size = (int) this->priorities.size();
+    for (const std::string &token: this->priorities) {
+        priorities_map[token] = size--;
+    }
+    return priorities_map;
+}
 
 void LexicalRulesHandler::export_automata(std::vector<std::shared_ptr<Automaton>> &automata,
                                           const std::string &output_file_path) {
     std::shared_ptr<Automaton> nfa = Utilities::unionAutomataSet(automata);
     std::shared_ptr<Automaton> dfa = conversions.convertToDFA(nfa, true);
-    std::shared_ptr<Automaton> minimized_dfa = conversions.minimizeDFA(dfa);
-    /*TODO: make some test to see if the state --> tokens relationship is correct. */
-//    std::cout << minimized_dfa->to_string_transition_table() << std::endl;
-    /*TODO:  make the logic that will output the minimized_dfa to output_directory_path + rules_automaton + .txt */
-
-    minimized_dfa->export_to_file(output_file_path);
+    dfa->export_to_file(output_file_path);
+    /*TODO: i don't know why yet, but you shouldn't minimize the dfa as it will lose details about the
+     * tokens identification */
+//    std::shared_ptr<Automaton> minimized_dfa = conversions.minimizeDFA(dfa);
+//    minimized_dfa->export_to_file(output_file_path);
 }
 
 [[maybe_unused]] std::unordered_map<std::string, std::shared_ptr<Automaton>>
 LexicalRulesHandler::handleFile(const std::string &filename) {
+    this->priorities = {};
     std::unordered_map<std::string, std::shared_ptr<Automaton>> automata{};
     std::queue<std::pair<std::string, std::string>> backlog;
     std::ifstream file(filename);
@@ -41,6 +79,7 @@ LexicalRulesHandler::handleFile(const std::string &filename) {
                 std::shared_ptr<Automaton> a = toAutomaton.regex_to_minimized_dfa(keyword, epsilonSymbol);
                 a->set_token(keyword);
                 automata[keyword] = a;
+                this->priorities.push_back(keyword);
             }
         } else if (line.front() == '[') {
             // These are punctuation
@@ -50,6 +89,7 @@ LexicalRulesHandler::handleFile(const std::string &filename) {
                 std::shared_ptr<Automaton> a = toAutomaton.regex_to_minimized_dfa(punctuation, epsilonSymbol);
                 a->set_token(punctuation);
                 automata[punctuation] = a;
+                this->priorities.push_back(punctuation);
             }
         } else if (is_regular_definition) {
             // This is a regular definition
@@ -64,6 +104,7 @@ LexicalRulesHandler::handleFile(const std::string &filename) {
                 a->set_token(name);
                 automata[name] = a;
             }
+            this->priorities.push_back(name);
         } else if (line.find('=') != std::string::npos) {
             // This is a regular definition
             std::string name = line.substr(0, line.find('='));
@@ -74,6 +115,7 @@ LexicalRulesHandler::handleFile(const std::string &filename) {
             std::shared_ptr<Automaton> a = toAutomaton.regex_to_minimized_dfa(regex, epsilonSymbol);
             a->set_token(name);
             automata[name] = a;
+            this->priorities.push_back(name);
         }
     }
     file.close();

@@ -162,7 +162,9 @@ CMakeFiles/Compiler_Project.dir/phase_one/creation/LexicalRulesHandler.cpp.o: \
  /usr/include/c++/13/bits/stl_vector.h \
  /usr/include/c++/13/bits/stl_bvector.h \
  /usr/include/c++/13/bits/vector.tcc /usr/include/c++/13/bits/stl_heap.h \
- /usr/include/c++/13/bits/stl_queue.h \
+ /usr/include/c++/13/bits/stl_queue.h /usr/include/c++/13/map \
+ /usr/include/c++/13/bits/stl_tree.h /usr/include/c++/13/bits/stl_map.h \
+ /usr/include/c++/13/bits/stl_multimap.h \
  /home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_one/creation/../automaton/Automaton.h \
  /home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_one/creation/../automaton/Types.h \
  /usr/include/c++/13/iostream /usr/include/c++/13/ostream \

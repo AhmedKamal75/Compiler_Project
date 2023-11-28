@@ -24,4 +24,6 @@ add_executable(Compiler_Project main.cpp
         phase_one/automaton/Utilities.h
         phase_one/automaton/Conversions.cpp
         phase_one/automaton/Conversions.h
+        phase_one/prediction/Predictor.cpp
+        phase_one/prediction/Predictor.h
 )

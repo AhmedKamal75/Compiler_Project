@@ -19,6 +19,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/Compiler_Project.dir/phase_one/creation/LexicalRulesHandler.cpp.o.d"
   "CMakeFiles/Compiler_Project.dir/phase_one/creation/ToAutomaton.cpp.o"
   "CMakeFiles/Compiler_Project.dir/phase_one/creation/ToAutomaton.cpp.o.d"
+  "CMakeFiles/Compiler_Project.dir/phase_one/prediction/Predictor.cpp.o"
+  "CMakeFiles/Compiler_Project.dir/phase_one/prediction/Predictor.cpp.o.d"
   "Compiler_Project"
   "Compiler_Project.pdb"
 )

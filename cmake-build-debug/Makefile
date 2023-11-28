@@ -369,6 +369,30 @@ phase_one/creation/ToAutomaton.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Compiler_Project.dir/build.make CMakeFiles/Compiler_Project.dir/phase_one/creation/ToAutomaton.cpp.s
 .PHONY : phase_one/creation/ToAutomaton.cpp.s
 
+phase_one/prediction/Predictor.o: phase_one/prediction/Predictor.cpp.o
+.PHONY : phase_one/prediction/Predictor.o
+
+# target to build an object file
+phase_one/prediction/Predictor.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Compiler_Project.dir/build.make CMakeFiles/Compiler_Project.dir/phase_one/prediction/Predictor.cpp.o
+.PHONY : phase_one/prediction/Predictor.cpp.o
+
+phase_one/prediction/Predictor.i: phase_one/prediction/Predictor.cpp.i
+.PHONY : phase_one/prediction/Predictor.i
+
+# target to preprocess a source file
+phase_one/prediction/Predictor.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Compiler_Project.dir/build.make CMakeFiles/Compiler_Project.dir/phase_one/prediction/Predictor.cpp.i
+.PHONY : phase_one/prediction/Predictor.cpp.i
+
+phase_one/prediction/Predictor.s: phase_one/prediction/Predictor.cpp.s
+.PHONY : phase_one/prediction/Predictor.s
+
+# target to generate assembly for a file
+phase_one/prediction/Predictor.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Compiler_Project.dir/build.make CMakeFiles/Compiler_Project.dir/phase_one/prediction/Predictor.cpp.s
+.PHONY : phase_one/prediction/Predictor.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -408,6 +432,9 @@ help:
 	@echo "... phase_one/creation/ToAutomaton.o"
 	@echo "... phase_one/creation/ToAutomaton.i"
 	@echo "... phase_one/creation/ToAutomaton.s"
+	@echo "... phase_one/prediction/Predictor.o"
+	@echo "... phase_one/prediction/Predictor.i"
+	@echo "... phase_one/prediction/Predictor.s"
 .PHONY : help
 
 

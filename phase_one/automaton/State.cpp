@@ -39,7 +39,9 @@ void State::setAccepting(bool value) {
 }
 
 bool State::operator==(const State &other) const {
-    return (this->id == other.id) && (this->isAccepting == other.isAccepting) && (this->token == other.token);
+    return (this->id == other.id);
+//    && (this->isAccepting == other.isAccepting);
+//    && (this->token == other.token);
 }
 
 bool State::operator!=(const State &other) const {
@@ -51,11 +53,12 @@ bool State::operator<(const State &other) const {
         return true;
     if (this->id > other.id)
         return false;
-    if (this->isAccepting < other.isAccepting)
-        return true;
-    if (this->isAccepting > other.isAccepting)
-        return false;
-    return this->token < other.token;
+    return this->isAccepting < other.isAccepting;
+//    if (this->isAccepting < other.isAccepting)
+//        return true;
+//    if (this->isAccepting > other.isAccepting)
+//        return false;
+//    return this->token < other.token;
 }
 
 bool State::operator>(const State &other) const {
@@ -63,17 +66,18 @@ bool State::operator>(const State &other) const {
         return true;
     if (this->id < other.id)
         return false;
-    if (this->isAccepting > other.isAccepting)
-        return true;
-    if (this->isAccepting < other.isAccepting)
-        return false;
-    return this->token > other.token;
+    return this->isAccepting > other.isAccepting;
+//    if (this->isAccepting > other.isAccepting)
+//        return true;
+//    if (this->isAccepting < other.isAccepting)
+//        return false;
+//    return this->token > other.token;
 }
 
 std::size_t State::hash() const {
-    return std::hash<int>()(id) ^
-           std::hash<bool>()(isAccepting) ^
-           std::hash<std::string>()(token);
+    return std::hash<int>()(id);
+//            ^std::hash<bool>()(isAccepting) ^
+//           std::hash<std::string>()(token);
 }
 
 std::string State::toString() const {

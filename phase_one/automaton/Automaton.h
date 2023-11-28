@@ -3,6 +3,7 @@
 
 
 #include "Types.h"
+#include <vector>
 
 /**
  * This class represents a finite automaton.
@@ -155,6 +156,9 @@ public:
     void export_to_file(const std::string &filename);
 
     static std::shared_ptr<Automaton> import_from_file(const std::string &filename);
+
+    std::vector<std::vector<std::shared_ptr<State>>> matrix_representation();
+
 };
 
 
