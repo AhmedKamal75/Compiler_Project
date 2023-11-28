@@ -14,3 +14,7 @@ This project is a compiler built with C++17.
 3. Enter the `cmake-build-debug` directory with `cd cmake-build-debug`.
 4. Build the project with the `make` command.
 5. Run the project with `./Compiler_Project`, like this command `./Compiler_Project ../output/token_list.txt ../inputs/test_program.txt ../inputs/temp_file.txtls`
+
+
+## Phases done:
+1. lexical analysis (in progress).
