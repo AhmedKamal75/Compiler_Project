@@ -10,7 +10,7 @@ $ $
 id while
 \( (
 id pass
-relop =
+relop !=
 digits 10
 \) )
 { {

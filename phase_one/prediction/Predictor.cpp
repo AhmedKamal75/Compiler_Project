@@ -56,6 +56,8 @@ std::pair<std::string, std::string> Predictor::get_next_token() {
             index++;
             break;
         }
+        // character is appended to the end of the token as we now know that it isn't a space character or end on input.
+        token += std::string(1, c);
         std::shared_ptr<State> next_state = this->get_next_state(current_state, std::string(1, c));
         if (next_state == nullptr) {
             index++;
@@ -78,7 +80,7 @@ std::pair<std::string, std::string> Predictor::get_next_token() {
                     taken_token = t;
                 }
             }
-            token += std::string(1, c);
+//            token += std::string(1, c);
             token_stack.emplace(taken_token, token);
         }
         for (const std::shared_ptr<State> &dead_state_ptr: this->dead_states) {
@@ -94,7 +96,7 @@ std::pair<std::string, std::string> Predictor::get_next_token() {
         this->index++;
     }
     if (token_stack.empty()) {
-        if (this->index < this->program.size()){
+        if (this->index < this->program.size()) {
             return this->get_next_token();
         }
         return std::make_pair("", "");

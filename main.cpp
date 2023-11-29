@@ -20,12 +20,12 @@ void export_token_list_to_file(const std::vector<std::pair<std::string, std::str
 int main(int argc, char *argv[]) {
     if (argc < 4) {
         std::cerr << "Usage: " << argv[0]
-                  << " <output_token_path> <input_program_path> <input_rules_path> <data_directory_path>\n";
+                  << " <output_token_path> <input_program_path> <input_rules_path>\n";// <data_directory_path>\n";
         return 1;
     }
 //    std::string output_token_path = R"(../output/token_list.txt)";
-//    std::string input_program_path = R"(../inputs/test_program.txt)";
-//    std::string input_rules_path = R"(../inputs/temp_file.txt)";
+//    std::string input_program_path = R"(../inputs/temp_program.txt)";
+//    std::string input_rules_path = R"(../inputs/temp_rules.txt)";
     std::string data_directory_path = R"(../data/)";
 
     std::string output_token_path = argv[1];

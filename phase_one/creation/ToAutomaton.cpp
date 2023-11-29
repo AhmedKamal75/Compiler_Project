@@ -115,10 +115,14 @@ std::shared_ptr<Automaton> ToAutomaton::get_automaton_from_regular_definition(st
                 /*TODO: see if you will do something with the escape character that is temp (I did nothing).*/
                 std::shared_ptr<Automaton> a = std::make_shared<Automaton>();
                 if (token == "L") {
-
+                    // if it is the epsilon character.
                     a = Utilities::get_epsilon_automaton(epsilonSymbol);
                 } else {
-                    a = get_automaton_from_map(token, map, epsilonSymbol);
+                    if (token.size() == 1){
+                        a = std::make_shared<Automaton>(token,temp + token,epsilonSymbol);
+                    } else {
+                        a = get_automaton_from_map(token, map, epsilonSymbol);
+                    }
                 }
                 if (a == nullptr) { // that mean that the tokens needs a token that is not defined yet
                     return nullptr;
