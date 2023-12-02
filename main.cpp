@@ -84,7 +84,8 @@ void export_token_list_to_file(const std::vector<std::pair<std::string, std::str
     }
 
     for (const auto &pair: token_list) {
-        outfile << pair.first << " " << pair.second << "\n";
+        // outfile << pair.first << " " << pair.second << "\n";
+        outfile << pair.first << '\n';
     }
 
     outfile.close();

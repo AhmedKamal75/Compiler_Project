@@ -1,23 +1,21 @@
-id int
-id sum
-, ,
-id count
-, ,
-id pass
-, ,
-id mnt
-$ $
-id while
-\( (
-id pass
-relop !=
-digits 10
-\) )
-{ {
-id pass
-assign =
-id pass
-addop +
-digit 1
-$ $
-} }
+int
+id
+,
+id
+,
+id
+,
+id
+while
+\(
+id
+relop
+digits
+\)
+{
+id
+assign
+id
+addop
+digit
+}

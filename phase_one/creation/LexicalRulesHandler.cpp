@@ -88,6 +88,7 @@ LexicalRulesHandler::handleFile(const std::string &filename) {
             while (ss >> punctuation) {
                 std::shared_ptr<Automaton> a = toAutomaton.regex_to_minimized_dfa(punctuation, epsilonSymbol);
                 a->set_token(punctuation);
+                // TODO: see if you want to replace the next line with {automata["punctuation"].append(a);}
                 automata[punctuation] = a;
                 this->priorities.push_back(punctuation);
             }
