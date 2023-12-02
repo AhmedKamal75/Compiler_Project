@@ -17,4 +17,4 @@ This project is a compiler built with C++17.
 
 
 ## Phases done:
-1. lexical analysis (in progress).
+1. lexical analysis [a link](https://docs.google.com/document/d/1bXKkk5lQyoX6ByykcY85MEljZOS390rvbRw2BJxWUHE/edit?usp=sharing).
