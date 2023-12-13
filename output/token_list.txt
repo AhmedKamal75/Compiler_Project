@@ -6,6 +6,7 @@ id
 id
 ,
 id
+;
 while
 \(
 id
@@ -18,4 +19,5 @@ assign
 id
 addop
 num
+;
 }

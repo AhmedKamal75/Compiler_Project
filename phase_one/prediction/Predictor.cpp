@@ -81,7 +81,7 @@ std::pair<std::string, std::string> Predictor::next_token() {
     }
     if (token_stack.empty()) {
         if (this->index < this->program.size()) {
-            return this->get_next_token();
+            return this->next_token();
         }
         // done with the program
         return std::make_pair("", "");
