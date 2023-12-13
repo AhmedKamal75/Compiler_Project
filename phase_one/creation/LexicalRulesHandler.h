@@ -16,13 +16,14 @@ public:
 
     static void export_priorities(const std::map<std::string, int> &p, const std::string &filename);
 
-    static std::map<std::string, int> import_priorities(const std::string& filename);
+    static std::map<std::string, int> import_priorities(const std::string &filename);
 
     // call this method only after you have called handleFile
     std::map<std::string, int> get_priorities();
 
     // will make a union on the automata and then output them to the output file path
-    void export_automata(std::vector<std::shared_ptr<Automaton>> &automata, const std::string &output_file_path);
+    std::shared_ptr<Automaton>
+    export_automata(std::vector<std::shared_ptr<Automaton>> &automata, const std::string &output_file_path);
 
     [[maybe_unused]] std::unordered_map<std::string, std::shared_ptr<Automaton>>
     handleFile(const std::string &filename);
@@ -38,7 +39,8 @@ private:
 
 
     void handle_backlog(std::unordered_map<std::string, std::shared_ptr<Automaton>> &automata,
-                        std::queue<std::pair<std::string, std::string>> &backlog);
+                        std::queue<std::pair<std::string, std::string>> &backlog,
+                        const std::vector<std::string> &regex_tokens);
 
     // trim from start (in place)
     void ltrim(std::string &s);

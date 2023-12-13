@@ -8,10 +8,10 @@
 
 LexicalRulesHandler::LexicalRulesHandler() = default;
 
-void LexicalRulesHandler::export_priorities(const std::map<std::string, int>& p, const std::string& filename) {
+void LexicalRulesHandler::export_priorities(const std::map<std::string, int> &p, const std::string &filename) {
     std::ofstream file(filename);
     if (file.is_open()) {
-        for (const auto& pair : p) {
+        for (const auto &pair: p) {
             file << pair.first << " " << pair.second << "\n";
         }
         file.close();
@@ -20,7 +20,7 @@ void LexicalRulesHandler::export_priorities(const std::map<std::string, int>& p,
     }
 }
 
-std::map<std::string, int> LexicalRulesHandler::import_priorities(const std::string& filename) {
+std::map<std::string, int> LexicalRulesHandler::import_priorities(const std::string &filename) {
     std::map<std::string, int> p;
     std::ifstream file(filename);
     if (file.is_open()) {
@@ -36,8 +36,6 @@ std::map<std::string, int> LexicalRulesHandler::import_priorities(const std::str
     return p;
 }
 
-
-
 std::map<std::string, int> LexicalRulesHandler::get_priorities() {
     std::map<std::string, int> priorities_map{};
     int size = (int) this->priorities.size();
@@ -47,8 +45,8 @@ std::map<std::string, int> LexicalRulesHandler::get_priorities() {
     return priorities_map;
 }
 
-void LexicalRulesHandler::export_automata(std::vector<std::shared_ptr<Automaton>> &automata,
-                                          const std::string &output_file_path) {
+std::shared_ptr<Automaton> LexicalRulesHandler::export_automata(std::vector<std::shared_ptr<Automaton>> &automata,
+                                                                const std::string &output_file_path) {
     std::shared_ptr<Automaton> nfa = Utilities::unionAutomataSet(automata);
     std::shared_ptr<Automaton> dfa = conversions.convertToDFA(nfa, true);
     dfa->export_to_file(output_file_path);
@@ -56,12 +54,14 @@ void LexicalRulesHandler::export_automata(std::vector<std::shared_ptr<Automaton>
      * tokens identification */
 //    std::shared_ptr<Automaton> minimized_dfa = conversions.minimizeDFA(dfa);
 //    minimized_dfa->export_to_file(output_file_path);
+    return dfa;
 }
 
 [[maybe_unused]] std::unordered_map<std::string, std::shared_ptr<Automaton>>
 LexicalRulesHandler::handleFile(const std::string &filename) {
     this->priorities = {};
     std::unordered_map<std::string, std::shared_ptr<Automaton>> automata{};
+    std::vector<std::string> regex_tokens{};
     std::queue<std::pair<std::string, std::string>> backlog;
     std::ifstream file(filename);
     std::string line{};
@@ -117,19 +117,21 @@ LexicalRulesHandler::handleFile(const std::string &filename) {
             a->set_token(name);
             automata[name] = a;
             this->priorities.push_back(name);
+            regex_tokens.push_back(name);
         }
     }
     file.close();
 
     // After the while loop, process the pairs in the backlog
-    this->handle_backlog(automata, backlog);
+    this->handle_backlog(automata, backlog, regex_tokens);
 
 
     return automata;
 }
 
 void LexicalRulesHandler::handle_backlog(std::unordered_map<std::string, std::shared_ptr<Automaton>> &automata,
-                                         std::queue<std::pair<std::string, std::string>> &backlog) {
+                                         std::queue<std::pair<std::string, std::string>> &backlog,
+                                         const std::vector<std::string> &regex_tokens) {
     while (!backlog.empty()) {
         std::pair<std::string, std::string> pair = backlog.front();
         backlog.pop();
@@ -149,6 +151,10 @@ void LexicalRulesHandler::handle_backlog(std::unordered_map<std::string, std::sh
             a->set_token(name);
             automata[name] = a;
         }
+    }
+    // After processing the backlog, remove the automata for the regex tokens
+    for (const std::string &token: regex_tokens) {
+        automata.erase(token);
     }
 }
 

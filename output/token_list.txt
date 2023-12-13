@@ -10,12 +10,12 @@ while
 \(
 id
 relop
-digits
+num
 \)
 {
 id
 assign
 id
 addop
-digit
+num
 }

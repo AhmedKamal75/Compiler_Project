@@ -12,6 +12,8 @@ public:
 
     std::pair<std::string, std::string> get_next_token();
 
+    std::pair<std::string, std::string> next_token();
+
     static std::string read_file(const std::string &file_name);
 
     void find_dead_states();

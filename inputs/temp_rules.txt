@@ -1,11 +1,10 @@
 letter = a-z | A-Z
 digit = 0 - 9
+{boolean int float}
 { if else while }
 [; , \( \) { }]
-{boolean int float}
 id: letter (letter|digit)*
-digits: digit+
-num: digit+ | digit+ . digits ( \L | E digits)
+num: digit+ | digit+ . digit+ ( \L | E digit+)
 relop: \=\= | !\= | > | >\= | < | <\=
 assign: =
 addop: \+ | -
