@@ -393,29 +393,101 @@ phase_one/prediction/Predictor.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Compiler_Project.dir/build.make CMakeFiles/Compiler_Project.dir/phase_one/prediction/Predictor.cpp.s
 .PHONY : phase_one/prediction/Predictor.cpp.s
 
-phase_two/read/ReadCFG.o: phase_two/read/ReadCFG.cpp.o
-.PHONY : phase_two/read/ReadCFG.o
+phase_two/FirstFollow.o: phase_two/FirstFollow.cpp.o
+.PHONY : phase_two/FirstFollow.o
 
 # target to build an object file
-phase_two/read/ReadCFG.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Compiler_Project.dir/build.make CMakeFiles/Compiler_Project.dir/phase_two/read/ReadCFG.cpp.o
-.PHONY : phase_two/read/ReadCFG.cpp.o
+phase_two/FirstFollow.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Compiler_Project.dir/build.make CMakeFiles/Compiler_Project.dir/phase_two/FirstFollow.cpp.o
+.PHONY : phase_two/FirstFollow.cpp.o
 
-phase_two/read/ReadCFG.i: phase_two/read/ReadCFG.cpp.i
-.PHONY : phase_two/read/ReadCFG.i
+phase_two/FirstFollow.i: phase_two/FirstFollow.cpp.i
+.PHONY : phase_two/FirstFollow.i
 
 # target to preprocess a source file
-phase_two/read/ReadCFG.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Compiler_Project.dir/build.make CMakeFiles/Compiler_Project.dir/phase_two/read/ReadCFG.cpp.i
-.PHONY : phase_two/read/ReadCFG.cpp.i
+phase_two/FirstFollow.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Compiler_Project.dir/build.make CMakeFiles/Compiler_Project.dir/phase_two/FirstFollow.cpp.i
+.PHONY : phase_two/FirstFollow.cpp.i
 
-phase_two/read/ReadCFG.s: phase_two/read/ReadCFG.cpp.s
-.PHONY : phase_two/read/ReadCFG.s
+phase_two/FirstFollow.s: phase_two/FirstFollow.cpp.s
+.PHONY : phase_two/FirstFollow.s
 
 # target to generate assembly for a file
-phase_two/read/ReadCFG.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Compiler_Project.dir/build.make CMakeFiles/Compiler_Project.dir/phase_two/read/ReadCFG.cpp.s
-.PHONY : phase_two/read/ReadCFG.cpp.s
+phase_two/FirstFollow.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Compiler_Project.dir/build.make CMakeFiles/Compiler_Project.dir/phase_two/FirstFollow.cpp.s
+.PHONY : phase_two/FirstFollow.cpp.s
+
+phase_two/Parse.o: phase_two/Parse.cpp.o
+.PHONY : phase_two/Parse.o
+
+# target to build an object file
+phase_two/Parse.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Compiler_Project.dir/build.make CMakeFiles/Compiler_Project.dir/phase_two/Parse.cpp.o
+.PHONY : phase_two/Parse.cpp.o
+
+phase_two/Parse.i: phase_two/Parse.cpp.i
+.PHONY : phase_two/Parse.i
+
+# target to preprocess a source file
+phase_two/Parse.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Compiler_Project.dir/build.make CMakeFiles/Compiler_Project.dir/phase_two/Parse.cpp.i
+.PHONY : phase_two/Parse.cpp.i
+
+phase_two/Parse.s: phase_two/Parse.cpp.s
+.PHONY : phase_two/Parse.s
+
+# target to generate assembly for a file
+phase_two/Parse.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Compiler_Project.dir/build.make CMakeFiles/Compiler_Project.dir/phase_two/Parse.cpp.s
+.PHONY : phase_two/Parse.cpp.s
+
+phase_two/ReadCFG.o: phase_two/ReadCFG.cpp.o
+.PHONY : phase_two/ReadCFG.o
+
+# target to build an object file
+phase_two/ReadCFG.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Compiler_Project.dir/build.make CMakeFiles/Compiler_Project.dir/phase_two/ReadCFG.cpp.o
+.PHONY : phase_two/ReadCFG.cpp.o
+
+phase_two/ReadCFG.i: phase_two/ReadCFG.cpp.i
+.PHONY : phase_two/ReadCFG.i
+
+# target to preprocess a source file
+phase_two/ReadCFG.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Compiler_Project.dir/build.make CMakeFiles/Compiler_Project.dir/phase_two/ReadCFG.cpp.i
+.PHONY : phase_two/ReadCFG.cpp.i
+
+phase_two/ReadCFG.s: phase_two/ReadCFG.cpp.s
+.PHONY : phase_two/ReadCFG.s
+
+# target to generate assembly for a file
+phase_two/ReadCFG.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Compiler_Project.dir/build.make CMakeFiles/Compiler_Project.dir/phase_two/ReadCFG.cpp.s
+.PHONY : phase_two/ReadCFG.cpp.s
+
+phase_two/Table.o: phase_two/Table.cpp.o
+.PHONY : phase_two/Table.o
+
+# target to build an object file
+phase_two/Table.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Compiler_Project.dir/build.make CMakeFiles/Compiler_Project.dir/phase_two/Table.cpp.o
+.PHONY : phase_two/Table.cpp.o
+
+phase_two/Table.i: phase_two/Table.cpp.i
+.PHONY : phase_two/Table.i
+
+# target to preprocess a source file
+phase_two/Table.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Compiler_Project.dir/build.make CMakeFiles/Compiler_Project.dir/phase_two/Table.cpp.i
+.PHONY : phase_two/Table.cpp.i
+
+phase_two/Table.s: phase_two/Table.cpp.s
+.PHONY : phase_two/Table.s
+
+# target to generate assembly for a file
+phase_two/Table.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Compiler_Project.dir/build.make CMakeFiles/Compiler_Project.dir/phase_two/Table.cpp.s
+.PHONY : phase_two/Table.cpp.s
 
 # Help Target
 help:
@@ -459,9 +531,18 @@ help:
 	@echo "... phase_one/prediction/Predictor.o"
 	@echo "... phase_one/prediction/Predictor.i"
 	@echo "... phase_one/prediction/Predictor.s"
-	@echo "... phase_two/read/ReadCFG.o"
-	@echo "... phase_two/read/ReadCFG.i"
-	@echo "... phase_two/read/ReadCFG.s"
+	@echo "... phase_two/FirstFollow.o"
+	@echo "... phase_two/FirstFollow.i"
+	@echo "... phase_two/FirstFollow.s"
+	@echo "... phase_two/Parse.o"
+	@echo "... phase_two/Parse.i"
+	@echo "... phase_two/Parse.s"
+	@echo "... phase_two/ReadCFG.o"
+	@echo "... phase_two/ReadCFG.i"
+	@echo "... phase_two/ReadCFG.s"
+	@echo "... phase_two/Table.o"
+	@echo "... phase_two/Table.i"
+	@echo "... phase_two/Table.s"
 .PHONY : help
 
 

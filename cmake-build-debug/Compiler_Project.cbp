@@ -145,10 +145,28 @@
 		<Unit filename="/home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_one/prediction/Predictor.h">
 			<Option target="Compiler_Project"/>
 		</Unit>
-		<Unit filename="/home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_two/read/ReadCFG.cpp">
+		<Unit filename="/home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_two/FirstFollow.cpp">
 			<Option target="Compiler_Project"/>
 		</Unit>
-		<Unit filename="/home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_two/read/ReadCFG.h">
+		<Unit filename="/home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_two/FirstFollow.h">
+			<Option target="Compiler_Project"/>
+		</Unit>
+		<Unit filename="/home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_two/Parse.cpp">
+			<Option target="Compiler_Project"/>
+		</Unit>
+		<Unit filename="/home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_two/Parse.h">
+			<Option target="Compiler_Project"/>
+		</Unit>
+		<Unit filename="/home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_two/ReadCFG.cpp">
+			<Option target="Compiler_Project"/>
+		</Unit>
+		<Unit filename="/home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_two/ReadCFG.h">
+			<Option target="Compiler_Project"/>
+		</Unit>
+		<Unit filename="/home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_two/Table.cpp">
+			<Option target="Compiler_Project"/>
+		</Unit>
+		<Unit filename="/home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_two/Table.h">
 			<Option target="Compiler_Project"/>
 		</Unit>
 		<Unit filename="/home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/CMakeLists.txt">

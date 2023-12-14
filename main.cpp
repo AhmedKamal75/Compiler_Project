@@ -9,7 +9,7 @@
 #include "phase_one/creation/ToAutomaton.h"
 #include "phase_one/creation/LexicalRulesHandler.h"
 #include "phase_one/prediction/Predictor.h"
-#include "phase_two/read/ReadCFG.h"
+#include "phase_two/ReadCFG.h"
 
 LexicalRulesHandler handler;
 
