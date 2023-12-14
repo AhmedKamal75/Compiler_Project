@@ -87,6 +87,12 @@ LexicalRulesHandler::handleFile(const std::string &filename) {
             std::string punctuation;
             while (ss >> punctuation) {
                 std::shared_ptr<Automaton> a = toAutomaton.regex_to_minimized_dfa(punctuation, epsilonSymbol);
+                // TODO: remove the backslash of the punctuation tokens
+                if (punctuation.size() > 1) {
+                    if (punctuation.at(0) == '\\') {
+                        punctuation = punctuation.substr(1, punctuation.size());
+                    }
+                }
                 a->set_token(punctuation);
                 // TODO: see if you want to replace the next line with {automata["punctuation"].append(a);}
                 automata[punctuation] = a;
@@ -152,6 +158,8 @@ void LexicalRulesHandler::handle_backlog(std::unordered_map<std::string, std::sh
             automata[name] = a;
         }
     }
+    // remove \ at the start of every token
+
     // After processing the backlog, remove the automata for the regex tokens
     for (const std::string &token: regex_tokens) {
         automata.erase(token);

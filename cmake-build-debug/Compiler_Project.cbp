@@ -145,6 +145,12 @@
 		<Unit filename="/home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_one/prediction/Predictor.h">
 			<Option target="Compiler_Project"/>
 		</Unit>
+		<Unit filename="/home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_two/read/ReadCFG.cpp">
+			<Option target="Compiler_Project"/>
+		</Unit>
+		<Unit filename="/home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_two/read/ReadCFG.h">
+			<Option target="Compiler_Project"/>
+		</Unit>
 		<Unit filename="/home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>

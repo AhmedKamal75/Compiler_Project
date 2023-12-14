@@ -393,6 +393,30 @@ phase_one/prediction/Predictor.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Compiler_Project.dir/build.make CMakeFiles/Compiler_Project.dir/phase_one/prediction/Predictor.cpp.s
 .PHONY : phase_one/prediction/Predictor.cpp.s
 
+phase_two/read/ReadCFG.o: phase_two/read/ReadCFG.cpp.o
+.PHONY : phase_two/read/ReadCFG.o
+
+# target to build an object file
+phase_two/read/ReadCFG.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Compiler_Project.dir/build.make CMakeFiles/Compiler_Project.dir/phase_two/read/ReadCFG.cpp.o
+.PHONY : phase_two/read/ReadCFG.cpp.o
+
+phase_two/read/ReadCFG.i: phase_two/read/ReadCFG.cpp.i
+.PHONY : phase_two/read/ReadCFG.i
+
+# target to preprocess a source file
+phase_two/read/ReadCFG.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Compiler_Project.dir/build.make CMakeFiles/Compiler_Project.dir/phase_two/read/ReadCFG.cpp.i
+.PHONY : phase_two/read/ReadCFG.cpp.i
+
+phase_two/read/ReadCFG.s: phase_two/read/ReadCFG.cpp.s
+.PHONY : phase_two/read/ReadCFG.s
+
+# target to generate assembly for a file
+phase_two/read/ReadCFG.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Compiler_Project.dir/build.make CMakeFiles/Compiler_Project.dir/phase_two/read/ReadCFG.cpp.s
+.PHONY : phase_two/read/ReadCFG.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -435,6 +459,9 @@ help:
 	@echo "... phase_one/prediction/Predictor.o"
 	@echo "... phase_one/prediction/Predictor.i"
 	@echo "... phase_one/prediction/Predictor.s"
+	@echo "... phase_two/read/ReadCFG.o"
+	@echo "... phase_two/read/ReadCFG.i"
+	@echo "... phase_two/read/ReadCFG.s"
 .PHONY : help
 
 

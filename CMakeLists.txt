@@ -26,4 +26,6 @@ add_executable(Compiler_Project main.cpp
         phase_one/automaton/Conversions.h
         phase_one/prediction/Predictor.cpp
         phase_one/prediction/Predictor.h
+        phase_two/read/ReadCFG.cpp
+        phase_two/read/ReadCFG.h
 )

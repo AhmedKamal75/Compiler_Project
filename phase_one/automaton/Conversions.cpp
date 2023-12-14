@@ -37,7 +37,7 @@ Types::state_set_t Conversions::epsilonClosure(std::shared_ptr<Automaton> &a, co
 
 [[maybe_unused]] std::shared_ptr<Automaton>
 Conversions::removeEpsilonTransitions(std::shared_ptr<Automaton> &automaton) {
-    // create a copy of the parameter
+    // init a copy of the parameter
     std::shared_ptr<Automaton> a = Utilities::copyAutomaton(automaton);
 
     // Create a new automaton

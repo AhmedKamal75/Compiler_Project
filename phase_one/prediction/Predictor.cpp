@@ -25,7 +25,7 @@ std::string Predictor::read_file(const std::string &file_name) {
         throw std::runtime_error("Failed to open file: " + file_name);
     }
 
-    // Read the entire file into a string stream
+    // ReadCFG the entire file into a string stream
     std::stringstream ss;
     ss << inFile.rdbuf();
 

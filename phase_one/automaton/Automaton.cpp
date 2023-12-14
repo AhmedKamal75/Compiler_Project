@@ -386,7 +386,7 @@ std::string Automaton::to_string_transition_table() {
         unique_symbols.insert(entry.first.second);
     }
 
-    // Then, we create a map to store the transition table
+    // Then, we init a map to store the transition table
     std::map<int, std::map<std::string, int>> transition_table;
     for (const auto &entry: this->transitions) {
         for (const auto &state: entry.second) {
@@ -519,7 +519,7 @@ std::shared_ptr<Automaton> Automaton::import_from_file(const std::string &filena
             }
 
             if (line.substr(0, 20) == "Transition Function:") {
-                // Read the next lines until a line that doesn't match the format "f(fromState, symbol) = toState" is encountered
+                // ReadCFG the next lines until a line that doesn't match the format "f(fromState, symbol) = toState" is encountered
                 while (std::getline(file, line) && !line.empty()) {
                     // Trim the trailing spaces
                     line.erase(line.find_last_not_of(" \n\r\t") + 1);
@@ -557,7 +557,7 @@ std::shared_ptr<Automaton> Automaton::import_from_file(const std::string &filena
             }
 
             if (line.substr(0, 7) == "Tokens:") {
-                // Read the next lines until an empty line is encountered
+                // ReadCFG the next lines until an empty line is encountered
                 while (std::getline(file, line) && !line.empty()) {
                     // The line should be in the format "[number]: token1 token2 ..."
                     // Use a regular expression to parse this format

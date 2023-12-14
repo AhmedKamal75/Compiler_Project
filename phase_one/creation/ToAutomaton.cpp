@@ -202,7 +202,7 @@ std::shared_ptr<Automaton> ToAutomaton::get_automaton_from_map(const std::string
             // if its size is bigger than 1, then that means that it is a token to be defined in the future.
             return nullptr;
         }
-        // create a new Automaton and return it
+        // init a new Automaton and return it
         return std::make_shared<Automaton>(token, token, epsilonSymbol);
     }
 }
