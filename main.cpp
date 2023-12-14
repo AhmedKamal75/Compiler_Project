@@ -26,7 +26,7 @@ void export_token_list_to_file(const std::vector<std::pair<std::string, std::str
 int main(int argc, char *argv[]) {
     if (argc < 4) {
         std::cerr << "Usage: " << argv[0]
-                  << " <output_token_path> <input_program_path> <input_rules_path>\n";// <data_directory_path>\n";
+                  << " <output_token_path> <input_program_path> <input_rules_path> <input_cfg_path>\n";// <data_directory_path>\n";
         return 1;
     }
     // ############################## create export lexical data ##############################
