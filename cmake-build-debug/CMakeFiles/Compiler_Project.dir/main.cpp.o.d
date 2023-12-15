@@ -214,4 +214,5 @@ CMakeFiles/Compiler_Project.dir/main.cpp.o: \
  /home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_one/creation/ToAutomaton.h \
  /home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_one/prediction/Predictor.h \
  /home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_one/prediction/../automaton/Automaton.h \
- /home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_two/ReadCFG.h
+ /home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_two/ReadCFG.h \
+ /home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_two/Table.h
