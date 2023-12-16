@@ -1,6 +1,5 @@
 #include <iostream>
 #include <algorithm>
-#include <set>
 #include <list>
 #include <fstream>
 #include "phase_one/automaton/Automaton.h"
@@ -9,7 +8,7 @@
 #include "phase_one/creation/ToAutomaton.h"
 #include "phase_one/creation/LexicalRulesHandler.h"
 #include "phase_one/prediction/Predictor.h"
-#include "phase_two/ReadCFG.h"
+#include "phase_two/Table.h"
 
 LexicalRulesHandler handler;
 
@@ -41,7 +40,8 @@ int main(int argc, char *argv[]) {
     std::string tokens_priorities_path = data_directory_path + tokens_priorities_name;
 
     // init the DFA of rules and export its detains and priorities to ../data/final_dfa.txt and ../data/tokens_priorities.txt
-    std::shared_ptr<Automaton> final_dfa = init(input_rules_path, final_dfa_path, tokens_priorities_path, input_cfg_path);
+    std::shared_ptr<Automaton> final_dfa = init(input_rules_path, final_dfa_path, tokens_priorities_path,
+                                                input_cfg_path);
 
     // ############################## load lexical data ##############################
 
@@ -52,7 +52,7 @@ int main(int argc, char *argv[]) {
     // prediction
     Predictor predictor(loaded_automaton, priorities, input_program_path);
 
-    if (true){
+    if (false) {
         std::cout << "############################ Tokens ############################" << '\n';
         std::vector<std::pair<std::string, std::string >> token_list{};
         while (true) {
@@ -70,22 +70,7 @@ int main(int argc, char *argv[]) {
     }
 
     // ############################## load parser data ##############################
-    ReadCFG read_cfg{};
-    std::map<std::string, std::vector<std::vector<std::string>>> cfg = read_cfg.readCFG(input_cfg_path);
-    std::cout << "############################ CFG ############################" << '\n';
-    ReadCFG::printCFG(cfg);
-    std::cout << "terminals: ";
-    for (const auto& i:read_cfg.get_terminals()){
-        std::cout << i << ", ";
-    }
-    std::cout << '\n' << "non-terminals: ";
-    for (const auto& j: read_cfg.get_non_terminals()){
-        std::cout << j << ", ";
-    }
-    std::cout << '\n';
-    std::cout << "########################################################" << '\n';
-
-
+    Table table(input_cfg_path);
 
 
     return 0;

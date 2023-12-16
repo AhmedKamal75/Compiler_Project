@@ -1,23 +1,36 @@
-#ifndef COMPILER_PROJECT_FIRSTFOLLOW_H
-#define COMPILER_PROJECT_FIRSTFOLLOW_H
+#ifndef FIRSTFOLLOW_H
+#define FIRSTFOLLOW_H
 
-
-#include <set>
 #include <map>
-#include <string>
+#include <set>
 #include <vector>
+#include <memory>
+#include "ReadCFG.h"
 
 class FirstFollow {
 public:
-    static std::map<std::string, std::set<std::string>>
-    get_first(const std::map<std::string, std::vector<std::vector<std::string>>> &cfg,
-              const std::set<std::string> &terminals, const std::set<std::string> &non_terminals);
+    explicit FirstFollow(const std::shared_ptr<ReadCFG> &rules_obj);
 
-    static std::map<std::string, std::set<std::string>>
-    get_follow(const std::map<std::string, std::vector<std::vector<std::string>>> &cfg,
-               const std::set<std::string> &terminals, const std::set<std::string> &non_terminals);
+    std::set<std::string> get_first(const std::string &nt);
 
+    std::set<std::string> get_follow(const std::string &nt);
+
+    [[maybe_unused]] std::map<std::string, std::set<std::string>> get_first();
+
+    [[maybe_unused]] std::map<std::string, std::set<std::string>> get_follow();
+
+    std::set<std::string> get_first(const std::string &nt, const std::vector<std::string> &rule);
+
+    std::set<std::string> get_follow(const std::string &nt, const std::vector<std::string> &rule);
+
+    [[maybe_unused]] void print_first();
+
+    [[maybe_unused]] void print_follow();
+
+private:
+    std::shared_ptr<ReadCFG> rules_obj{};
+    std::map<std::string, std::set<std::string>> first{};
+    std::map<std::string, std::set<std::string>> follow{};
 };
-
 
 #endif

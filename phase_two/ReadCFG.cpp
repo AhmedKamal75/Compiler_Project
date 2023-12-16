@@ -6,9 +6,13 @@
 #include <algorithm>
 #include <iomanip>
 
-std::map<std::string, std::vector<std::vector<std::string>>> ReadCFG::readCFG(const std::string &filename) {
+ReadCFG::ReadCFG(const std::string &file_name) {
+    this->rules = readCFG(file_name);
+}
+
+std::map<std::string, std::vector<std::vector<std::string>>> ReadCFG::readCFG(const std::string &file_name) {
     std::map<std::string, std::vector<std::vector<std::string>>> cfg;
-    std::ifstream file(filename);
+    std::ifstream file(file_name);
     std::string line;
     std::string last_non_terminal;
 
@@ -18,7 +22,7 @@ std::map<std::string, std::vector<std::vector<std::string>>> ReadCFG::readCFG(co
             std::istringstream iss(line.substr(1));
             std::getline(iss, last_non_terminal, '=');
             trim(last_non_terminal);
-            this->non_terminals.insert(last_non_terminal);
+            this->non_terminals.push_back(last_non_terminal);
             line = line.substr(line.find('=') + 1);
         }
 
@@ -37,8 +41,6 @@ std::map<std::string, std::vector<std::vector<std::string>>> ReadCFG::readCFG(co
                 if (symbol[0] == '\'' && symbol[symbol.size() - 1] == '\'') {
                     symbol = symbol.substr(1, symbol.size() - 2);
                     terminals.insert(symbol);  // Add to terminals
-                } else {
-                    non_terminals.insert(symbol);  // Add to non_terminals
                 }
                 symbols.push_back(symbol);
             }
@@ -52,11 +54,11 @@ std::map<std::string, std::vector<std::vector<std::string>>> ReadCFG::readCFG(co
     return cfg;
 }
 
-
-void ReadCFG::printCFG(const std::map<std::string, std::vector<std::vector<std::string>>> &cfg) {
-    for (const auto &non_terminal: cfg) {
-        std::cout << non_terminal.first << " --> ";
-        for (const auto &rule: non_terminal.second) {
+void ReadCFG::printCFG() {
+    std::cout << "############################ CFG ############################" << '\n';
+    for (const std::string &non_terminal: this->non_terminals) {
+        std::cout << non_terminal << " --> ";
+        for (const std::vector<std::string> &rule: this->rules.at(non_terminal)) {
             std::cout << "[";
             for (size_t i = 0; i < rule.size(); ++i) {
                 std::cout << rule[i];
@@ -65,14 +67,14 @@ void ReadCFG::printCFG(const std::map<std::string, std::vector<std::vector<std::
                 }
             }
             std::cout << "]";
-            if (&rule != &non_terminal.second.back()) {
+            if (&rule != &this->rules.at(non_terminal).back()) {
                 std::cout << ", ";
             }
         }
         std::cout << std::endl;
     }
+    std::cout << "########################################################" << '\n';
 }
-
 
 // trim from start (in place)
 void ReadCFG::ltrim(std::string &s) {
@@ -98,6 +100,48 @@ std::set<std::string> ReadCFG::get_terminals() {
     return this->terminals;
 }
 
-std::set<std::string> ReadCFG::get_non_terminals() {
+std::vector<std::string> ReadCFG::get_non_terminals() {
     return this->non_terminals;
+}
+
+std::map<std::string, std::vector<std::vector<std::string>>> ReadCFG::get_rules() {
+    return this->rules;
+}
+
+std::vector<std::vector<std::string>> ReadCFG::get_productions(const std::string &non_terminal) {
+    auto it = this->rules.find(non_terminal);
+    if (it == rules.end()) {
+        return {};
+    }
+    return it->second;
+}
+
+bool ReadCFG::is_terminal(const std::string &symbol) {
+    return this->terminals.find(symbol) != this->terminals.end();
+}
+
+bool ReadCFG::is_epsilon_symbol(const std::string &symbol) {
+    return this->epsilon_symbol == symbol;
+}
+
+bool ReadCFG::contains(const std::set<std::string> &container, const std::string &symbol) {
+    return container.find(symbol) != container.end();
+}
+
+bool ReadCFG::contains_epsilon(const std::set<std::string> &symbols) {
+    return symbols.find(this->epsilon_symbol) != symbols.end();
+}
+
+bool ReadCFG::is_non_terminal(const std::string &symbol) {
+    return std::find(this->non_terminals.begin(), this->non_terminals.end(), symbol) != this->non_terminals.end();
+}
+
+std::set<std::string> ReadCFG::remove_epsilon(const std::set<std::string> &symbols) {
+    std::set<std::string> result;
+    for (const std::string &symbol: symbols) {
+        if (symbol != this->epsilon_symbol) {
+            result.insert(symbol);
+        }
+    }
+    return result;
 }

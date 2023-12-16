@@ -6,17 +6,21 @@
 #include <string>
 #include <vector>
 #include <set>
+#include <memory>
+#include "ReadCFG.h"
+#include "FirstFollow.h"
 
 class Table {
 public:
-    void init(const std::map<std::string, std::vector<std::vector<std::string>>> &cfg,
-              std::set<std::string> &terminals, const std::set<std::string> &non_terminals,
-              const std::map<std::string, std::set<std::string>> &first,
-              const std::map<std::string, std::set<std::string>> &follow);
+    Table(const std::string &file_name);
 
     std::vector<std::string> get_rule(const std::string &non_terminal, const std::string &terminal);
 
+    void build_table(const std::shared_ptr<ReadCFG> &rules_obj, const std::shared_ptr<FirstFollow> &firstFollow);
+
+
 private:
+
     std::map<std::pair<std::string, std::string>, std::vector<std::string>> table{};
 };
 

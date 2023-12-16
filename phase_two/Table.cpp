@@ -1,13 +1,21 @@
+#include <iostream>
 #include "Table.h"
 
-void
-Table::init(const std::map<std::string, std::vector<std::vector<std::string>>> &cfg, std::set<std::string> &terminals,
-            const std::set<std::string> &non_terminals, const std::map<std::string, std::set<std::string>> &first,
-            const std::map<std::string, std::set<std::string>> &follow) {
-
+std::vector<std::string> Table::get_rule(const std::string &non_terminal, const std::string &terminal) {
+    this->table = {};
+    return this->table.at(std::make_pair(non_terminal, terminal));
 }
 
-std::vector<std::string> Table::get_rule(const std::string &non_terminal, const std::string &terminal){
-    this->table = {};
-    return this->table.at(std::make_pair(non_terminal,terminal));
+Table::Table(const std::string &file_name) {
+    ReadCFG read_cfg(file_name);
+    read_cfg.printCFG();
+    std::cout << std::endl;
+    FirstFollow first_follow(std::make_shared<ReadCFG>(read_cfg));
+    first_follow.print_first();
+//    first_follow.print_follow();
+//    build_table(std::make_shared<ReadCFG>(read_cfg), std::make_shared<FirstFollow>(first_follow));
+}
+
+void Table::build_table(const std::shared_ptr<ReadCFG> &rules_obj, const std::shared_ptr<FirstFollow> &firstFollow) {
+
 }
