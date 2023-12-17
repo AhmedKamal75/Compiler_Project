@@ -14,6 +14,7 @@ LexicalRulesHandler handler;
 
 std::string final_dfa_file_name = "final_dfa.txt";
 std::string tokens_priorities_name = "tokens_priorities.txt";
+std::string parsing_table_name = "parsing_table.txt";
 
 std::shared_ptr<Automaton>
 init(const std::string &input_file_path, const std::string &final_dfa_path, const std::string &tokens_priorities,
@@ -71,6 +72,9 @@ int main(int argc, char *argv[]) {
 
     // ############################## load parser data ##############################
     Table table(input_cfg_path);
+    table.export_to_file(data_directory_path + parsing_table_name);
+    std::shared_ptr<Table> loaded_table = Table::import_from_file(data_directory_path + parsing_table_name);
+//    loaded_table->print_table();
 
 
     return 0;

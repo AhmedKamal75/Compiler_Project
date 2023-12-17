@@ -13,6 +13,8 @@
 
 class Table {
 public:
+    Table();
+
     explicit Table(const std::string &file_name);
 
     std::vector<std::string> get_rule(const std::string &non_terminal, const std::string &terminal);
@@ -20,6 +22,10 @@ public:
     void build_table(const std::shared_ptr<ReadCFG> &rules_obj, const std::shared_ptr<FirstFollow> &firstFollow);
 
     void print_table();
+
+    void export_to_file(const std::string &file_name);
+
+    static std::shared_ptr<Table> import_from_file(const std::string &file_name);
 
 private:
     struct pair_hash {
