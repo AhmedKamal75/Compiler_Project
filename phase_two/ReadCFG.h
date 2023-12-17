@@ -35,6 +35,8 @@ public:
 
     std::set<std::string> remove_epsilon(const std::set<std::string> &symbols);
 
+    std::string get_dollar_symbol();
+
     static void ltrim(std::string &s);
 
     static void rtrim(std::string &s);
@@ -45,7 +47,8 @@ private:
     std::map<std::string, std::vector<std::vector<std::string>>> rules{};
     std::set<std::string> terminals{};
     std::vector<std::string> non_terminals{};
-    const std::string epsilon_symbol = "\\L";
+    const std::string EPSILON_SYMBOL = "\\L";
+    const std::string DOLLAR_SYMBOL = "$";
 
 
 };

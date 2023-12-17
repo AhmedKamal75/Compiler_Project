@@ -21,7 +21,8 @@ public:
 
     std::set<std::string> get_first(const std::string &nt, const std::vector<std::string> &rule);
 
-    std::set<std::string> get_follow(const std::string &nt, const std::vector<std::string> &rule);
+    std::set<std::string>
+    get_follow(const std::string &nt, const std::string &temp_non_terminal, const std::vector<std::string> &rule);
 
     [[maybe_unused]] void print_first();
 

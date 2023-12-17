@@ -22,13 +22,90 @@ FirstFollow::FirstFollow(const std::shared_ptr<ReadCFG> &rules_obj) {
         auto temp_first = get_first(nt);
     }
 
-
-    // Calculate the first and follow sets for each non-terminal.
     for (const std::string &nt: this->rules_obj->get_non_terminals()) {
-         follow[nt] = get_follow(nt);
+        auto temp_follow = get_follow(nt);
+    }
+}
+
+std::set<std::string> FirstFollow::get_follow(const std::string &nt, const std::string &temp_non_terminal,
+                                              const std::vector<std::string> &rule) {
+    // Initialize the set to store the firsts.
+    std::set<std::string> follows{};
+
+    // if the nt is the first non-terminal, add $ to the set of follows.
+    if (nt == *this->rules_obj->get_non_terminals().begin()) {
+        follows.insert(this->rules_obj->get_dollar_symbol());
     }
 
+    // Iterate over the symbols in the rule, till you find the nt.
+    int i = 0;
+    while (i < rule.size()) {
+        if (rule[i] == nt) {
+            if (i < rule.size() - 1) {
+                bool run = false;
+                do {
+                    if ((i < rule.size() - 1) && (this->rules_obj->is_terminal(rule[i + 1]))) {
+                        follows.insert(rule[i + 1]);
+                    } else {
+                        if (i < rule.size() - 1) {
+                            std::set<std::string> temp_firsts = get_first(rule[i + 1]);
+                            if (this->rules_obj->contains_epsilon(temp_firsts)) {
+                                temp_firsts = this->rules_obj->remove_epsilon(temp_firsts);
+                                follows.insert(temp_firsts.begin(), temp_firsts.end());
+                                run = true;
+                                i++;
+                            } else {
+                                run = false;
+                            }
+                        } else {
+                            if (this->rules_obj->is_terminal(rule[i])) {
+                                follows.insert(rule[i]);
+                            } else {
+                                if (temp_non_terminal != nt) {
+                                    std::set<std::string> temp_follows = get_follow(temp_non_terminal);
+                                    follows.insert(temp_follows.begin(), temp_follows.end());
+                                }
+                            }
+                            run = false;
+                        }
+                    }
+                } while (run);
+            } else {
+                if (this->rules_obj->is_terminal(rule[i])) {
+                    follows.insert(rule[i]);
+                } else {
+                    if (temp_non_terminal != nt) {
+                        std::set<std::string> temp_follows = get_follow(temp_non_terminal);
+                        follows.insert(temp_follows.begin(), temp_follows.end());
+                    }
+                }
+            }
+        }
+        i++;
+    }
+    return follows;
 }
+
+
+std::set<std::string> FirstFollow::get_follow(const std::string &nt) {
+    // Check if nt was already calculated.
+    if (!this->follow.at(nt).empty()) {
+        return this->follow.at(nt);
+    }
+    // Initialize the set to store the firsts.
+    std::set<std::string> follows{};
+
+    for (const auto &entry: this->rules_obj->get_rules()) {
+        std::string temp_non_terminal = entry.first;
+        for (const std::vector<std::string> &rule: entry.second) {
+            std::set<std::string> temp_follows = get_follow(nt, temp_non_terminal, rule);
+            follows.insert(temp_follows.begin(), temp_follows.end());
+        }
+    }
+    this->follow[nt] = follows;
+    return follows;
+}
+
 
 std::set<std::string> FirstFollow::get_first(const std::string &nt, const std::vector<std::string> &rule) {
     // Initialize the set to store the firsts.
@@ -45,7 +122,7 @@ std::set<std::string> FirstFollow::get_first(const std::string &nt, const std::v
             firsts.insert(symbol);
             break;
         }
-        if (symbol == nt){
+        if (symbol == nt) {
             break;
         }
         std::set<std::string> temp_firsts = get_first(symbol);
@@ -56,7 +133,7 @@ std::set<std::string> FirstFollow::get_first(const std::string &nt, const std::v
         firsts.insert(temp_firsts.begin(), temp_firsts.end());
         i++;
 
-        if (!contains_epsilon){
+        if (!contains_epsilon) {
             break;
         }
     }
@@ -92,13 +169,6 @@ std::set<std::string> FirstFollow::get_first(const std::string &nt) {
     return firsts;
 }
 
-std::set<std::string> FirstFollow::get_follow(const std::string &nt, const std::vector<std::string> &rule) {
-    return {};
-}
-
-std::set<std::string> FirstFollow::get_follow(const std::string &nt) {
-    return {};
-}
 
 [[maybe_unused]] std::map<std::string, std::set<std::string>> FirstFollow::get_first() {
     return this->first;
@@ -120,7 +190,7 @@ void FirstFollow::print_first() {
         }
         std::cout << '}' << '\n';
     }
-    std::cout << "################################################################" << '\n';
+    std::cout << "################################################################";
     std::cout << std::endl;
 }
 
@@ -136,7 +206,7 @@ void FirstFollow::print_follow() {
         }
         std::cout << '}' << '\n';
     }
-    std::cout << "################################################################" << '\n';
+    std::cout << "################################################################";
     std::cout << std::endl;
 }
 

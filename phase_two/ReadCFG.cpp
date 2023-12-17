@@ -120,8 +120,12 @@ bool ReadCFG::is_terminal(const std::string &symbol) {
     return this->terminals.find(symbol) != this->terminals.end();
 }
 
+std::string ReadCFG::get_dollar_symbol() {
+    return this->DOLLAR_SYMBOL;
+}
+
 bool ReadCFG::is_epsilon_symbol(const std::string &symbol) {
-    return this->epsilon_symbol == symbol;
+    return this->EPSILON_SYMBOL == symbol;
 }
 
 bool ReadCFG::contains(const std::set<std::string> &container, const std::string &symbol) {
@@ -129,7 +133,7 @@ bool ReadCFG::contains(const std::set<std::string> &container, const std::string
 }
 
 bool ReadCFG::contains_epsilon(const std::set<std::string> &symbols) {
-    return symbols.find(this->epsilon_symbol) != symbols.end();
+    return symbols.find(this->EPSILON_SYMBOL) != symbols.end();
 }
 
 bool ReadCFG::is_non_terminal(const std::string &symbol) {
@@ -139,7 +143,7 @@ bool ReadCFG::is_non_terminal(const std::string &symbol) {
 std::set<std::string> ReadCFG::remove_epsilon(const std::set<std::string> &symbols) {
     std::set<std::string> result;
     for (const std::string &symbol: symbols) {
-        if (symbol != this->epsilon_symbol) {
+        if (symbol != this->EPSILON_SYMBOL) {
             result.insert(symbol);
         }
     }
