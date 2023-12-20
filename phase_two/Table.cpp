@@ -12,6 +12,7 @@ Table::Table() = default;
 Table::Table(const std::string &file_name) {
     ReadCFG read_cfg(file_name);
     this->rules_obj = std::make_shared<ReadCFG>(read_cfg);
+    this->rules_obj->convert_to_LL1();
     read_cfg.printCFG();
 
     FirstFollow first_follow(this->rules_obj);
