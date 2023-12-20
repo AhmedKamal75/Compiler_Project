@@ -16,7 +16,7 @@ CMakeFiles/Compiler_Project.dir/main.cpp.o
  /home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_one/automaton/Automaton.h
  /home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_one/prediction/Predictor.h
  /home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_two/FirstFollow.h
- /home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_two/Parse.h
+ /home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_two/Parser.h
  /home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_two/ReadCFG.h
  /home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_two/Table.h
  /usr/include/alloca.h
@@ -2712,10 +2712,10 @@ CMakeFiles/Compiler_Project.dir/phase_two/FirstFollow.cpp.o
  /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h
  /usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h
 
-CMakeFiles/Compiler_Project.dir/phase_two/Parse.cpp.o
- /home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_two/Parse.cpp
+CMakeFiles/Compiler_Project.dir/phase_two/Parser.cpp.o
+ /home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_two/Parser.cpp
  /home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_two/FirstFollow.h
- /home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_two/Parse.h
+ /home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_two/Parser.h
  /home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_two/ReadCFG.h
  /home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_two/Table.h
  /usr/include/alloca.h

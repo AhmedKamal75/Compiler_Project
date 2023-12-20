@@ -417,29 +417,29 @@ phase_two/FirstFollow.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Compiler_Project.dir/build.make CMakeFiles/Compiler_Project.dir/phase_two/FirstFollow.cpp.s
 .PHONY : phase_two/FirstFollow.cpp.s
 
-phase_two/Parse.o: phase_two/Parse.cpp.o
-.PHONY : phase_two/Parse.o
+phase_two/Parser.o: phase_two/Parser.cpp.o
+.PHONY : phase_two/Parser.o
 
 # target to build an object file
-phase_two/Parse.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Compiler_Project.dir/build.make CMakeFiles/Compiler_Project.dir/phase_two/Parse.cpp.o
-.PHONY : phase_two/Parse.cpp.o
+phase_two/Parser.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Compiler_Project.dir/build.make CMakeFiles/Compiler_Project.dir/phase_two/Parser.cpp.o
+.PHONY : phase_two/Parser.cpp.o
 
-phase_two/Parse.i: phase_two/Parse.cpp.i
-.PHONY : phase_two/Parse.i
+phase_two/Parser.i: phase_two/Parser.cpp.i
+.PHONY : phase_two/Parser.i
 
 # target to preprocess a source file
-phase_two/Parse.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Compiler_Project.dir/build.make CMakeFiles/Compiler_Project.dir/phase_two/Parse.cpp.i
-.PHONY : phase_two/Parse.cpp.i
+phase_two/Parser.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Compiler_Project.dir/build.make CMakeFiles/Compiler_Project.dir/phase_two/Parser.cpp.i
+.PHONY : phase_two/Parser.cpp.i
 
-phase_two/Parse.s: phase_two/Parse.cpp.s
-.PHONY : phase_two/Parse.s
+phase_two/Parser.s: phase_two/Parser.cpp.s
+.PHONY : phase_two/Parser.s
 
 # target to generate assembly for a file
-phase_two/Parse.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Compiler_Project.dir/build.make CMakeFiles/Compiler_Project.dir/phase_two/Parse.cpp.s
-.PHONY : phase_two/Parse.cpp.s
+phase_two/Parser.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Compiler_Project.dir/build.make CMakeFiles/Compiler_Project.dir/phase_two/Parser.cpp.s
+.PHONY : phase_two/Parser.cpp.s
 
 phase_two/ReadCFG.o: phase_two/ReadCFG.cpp.o
 .PHONY : phase_two/ReadCFG.o
@@ -534,9 +534,9 @@ help:
 	@echo "... phase_two/FirstFollow.o"
 	@echo "... phase_two/FirstFollow.i"
 	@echo "... phase_two/FirstFollow.s"
-	@echo "... phase_two/Parse.o"
-	@echo "... phase_two/Parse.i"
-	@echo "... phase_two/Parse.s"
+	@echo "... phase_two/Parser.o"
+	@echo "... phase_two/Parser.i"
+	@echo "... phase_two/Parser.s"
 	@echo "... phase_two/ReadCFG.o"
 	@echo "... phase_two/ReadCFG.i"
 	@echo "... phase_two/ReadCFG.s"

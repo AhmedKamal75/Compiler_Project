@@ -32,6 +32,6 @@ add_executable(Compiler_Project main.cpp
         phase_two/FirstFollow.h
         phase_two/Table.cpp
         phase_two/Table.h
-        phase_two/Parse.cpp
-        phase_two/Parse.h
+        phase_two/Parser.cpp
+        phase_two/Parser.h
 )

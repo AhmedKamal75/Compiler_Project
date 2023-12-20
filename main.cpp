@@ -9,17 +9,16 @@
 #include "phase_one/creation/LexicalRulesHandler.h"
 #include "phase_one/prediction/Predictor.h"
 #include "phase_two/Table.h"
-#include "phase_two/Parse.h"
+#include "phase_two/Parser.h"
 
 LexicalRulesHandler handler;
 
 std::string final_dfa_file_name = "final_dfa.txt";
 std::string tokens_priorities_name = "tokens_priorities.txt";
-std::string parsing_table_name = "parsing_table.txt";
+//std::string parsing_table_name = "parsing_table.txt";
 
 std::shared_ptr<Automaton>
-init(const std::string &input_file_path, const std::string &final_dfa_path, const std::string &tokens_priorities,
-     const std::string &input_cfg_path);
+init(const std::string &input_file_path, const std::string &final_dfa_path, const std::string &tokens_priorities);
 
 void export_token_list_to_file(const std::vector<std::pair<std::string, std::string>> &token_list,
                                const std::string &filename);
@@ -42,8 +41,7 @@ int main(int argc, char *argv[]) {
     std::string tokens_priorities_path = data_directory_path + tokens_priorities_name;
 
     // init the DFA of rules and export its detains and priorities to ../data/final_dfa.txt and ../data/tokens_priorities.txt
-    std::shared_ptr<Automaton> final_dfa = init(input_rules_path, final_dfa_path, tokens_priorities_path,
-                                                input_cfg_path);
+    std::shared_ptr<Automaton> final_dfa = init(input_rules_path, final_dfa_path, tokens_priorities_path);
 
     // ############################## load lexical data ##############################
 
@@ -57,22 +55,19 @@ int main(int argc, char *argv[]) {
     std::vector<std::pair<std::string, std::string >> token_list{};
     std::vector<std::string> tokens{};
     // ############################## predict tokens ##############################
-    if (true) {
-        std::cout << "############################ Tokens ############################" << '\n';
-        while (true) {
-            std::pair<std::string, std::string> entry = predictor.next_token();
-            if (entry.first.empty() && entry.second.empty()) {
-                // if output is ("","") then we reached the end
-                break;
-            }
-            std::cout << entry.first << ": " << entry.second << std::endl;
-            token_list.push_back(entry);
-            tokens.push_back(entry.first);
+    std::cout << "############################ Tokens ############################" << '\n';
+    while (true) {
+        std::pair<std::string, std::string> entry = predictor.next_token();
+        if (entry.first.empty() && entry.second.empty()) {
+            // if output is ("","") then we reached the end
+            break;
         }
-        export_token_list_to_file(token_list, output_token_path);
-        std::cout << "########################################################" << '\n';
-
+        std::cout << entry.first << ": " << entry.second << std::endl;
+        token_list.push_back(entry);
+        tokens.push_back(entry.first);
     }
+    export_token_list_to_file(token_list, output_token_path);
+    std::cout << "########################################################" << '\n';
 
     // ############################## load parser data ##############################
     std::shared_ptr<Table> table = std::make_shared<Table>(input_cfg_path);
@@ -80,12 +75,13 @@ int main(int argc, char *argv[]) {
     parser->parse(tokens);
 
     // ############################## end ##############################
+
+
     return 0;
 }
 
 std::shared_ptr<Automaton>
-init(const std::string &input_file_path, const std::string &final_dfa_path, const std::string &tokens_priorities,
-     const std::string &input_cfg_path) {
+init(const std::string &input_file_path, const std::string &final_dfa_path, const std::string &tokens_priorities) {
     // ############################## create export automata data ##############################
     // map of a token and the minimized DFA that can define it.
     std::unordered_map<std::string, std::shared_ptr<Automaton>> automata = handler.handleFile(input_file_path);

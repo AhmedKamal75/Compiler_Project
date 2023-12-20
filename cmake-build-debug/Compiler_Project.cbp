@@ -151,10 +151,10 @@
 		<Unit filename="/home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_two/FirstFollow.h">
 			<Option target="Compiler_Project"/>
 		</Unit>
-		<Unit filename="/home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_two/Parse.cpp">
+		<Unit filename="/home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_two/Parser.cpp">
 			<Option target="Compiler_Project"/>
 		</Unit>
-		<Unit filename="/home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_two/Parse.h">
+		<Unit filename="/home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_two/Parser.h">
 			<Option target="Compiler_Project"/>
 		</Unit>
 		<Unit filename="/home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_two/ReadCFG.cpp">

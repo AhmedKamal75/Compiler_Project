@@ -20,7 +20,7 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_one/creation/ToAutomaton.cpp" "CMakeFiles/Compiler_Project.dir/phase_one/creation/ToAutomaton.cpp.o" "gcc" "CMakeFiles/Compiler_Project.dir/phase_one/creation/ToAutomaton.cpp.o.d"
   "/home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_one/prediction/Predictor.cpp" "CMakeFiles/Compiler_Project.dir/phase_one/prediction/Predictor.cpp.o" "gcc" "CMakeFiles/Compiler_Project.dir/phase_one/prediction/Predictor.cpp.o.d"
   "/home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_two/FirstFollow.cpp" "CMakeFiles/Compiler_Project.dir/phase_two/FirstFollow.cpp.o" "gcc" "CMakeFiles/Compiler_Project.dir/phase_two/FirstFollow.cpp.o.d"
-  "/home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_two/Parse.cpp" "CMakeFiles/Compiler_Project.dir/phase_two/Parse.cpp.o" "gcc" "CMakeFiles/Compiler_Project.dir/phase_two/Parse.cpp.o.d"
+  "/home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_two/Parser.cpp" "CMakeFiles/Compiler_Project.dir/phase_two/Parser.cpp.o" "gcc" "CMakeFiles/Compiler_Project.dir/phase_two/Parser.cpp.o.d"
   "/home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_two/ReadCFG.cpp" "CMakeFiles/Compiler_Project.dir/phase_two/ReadCFG.cpp.o" "gcc" "CMakeFiles/Compiler_Project.dir/phase_two/ReadCFG.cpp.o.d"
   "/home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_two/Table.cpp" "CMakeFiles/Compiler_Project.dir/phase_two/Table.cpp.o" "gcc" "CMakeFiles/Compiler_Project.dir/phase_two/Table.cpp.o.d"
   )

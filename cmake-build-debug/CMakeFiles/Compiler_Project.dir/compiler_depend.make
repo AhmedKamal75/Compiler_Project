@@ -15,7 +15,7 @@ CMakeFiles/Compiler_Project.dir/main.cpp.o: /home/ahmed-kamal/Projects/cpp_proje
   /home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_one/automaton/Automaton.h \
   /home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_one/prediction/Predictor.h \
   /home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_two/FirstFollow.h \
-  /home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_two/Parse.h \
+  /home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_two/Parser.h \
   /home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_two/ReadCFG.h \
   /home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_two/Table.h \
   /usr/include/alloca.h \
@@ -2700,9 +2700,9 @@ CMakeFiles/Compiler_Project.dir/phase_two/FirstFollow.cpp.o: /home/ahmed-kamal/P
   /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h \
   /usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h
 
-CMakeFiles/Compiler_Project.dir/phase_two/Parse.cpp.o: /home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_two/Parse.cpp \
+CMakeFiles/Compiler_Project.dir/phase_two/Parser.cpp.o: /home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_two/Parser.cpp \
   /home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_two/FirstFollow.h \
-  /home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_two/Parse.h \
+  /home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_two/Parser.h \
   /home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_two/ReadCFG.h \
   /home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_two/Table.h \
   /usr/include/alloca.h \
@@ -3428,8 +3428,6 @@ CMakeFiles/Compiler_Project.dir/phase_two/Table.cpp.o: /home/ahmed-kamal/Project
 
 /home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_two/ReadCFG.cpp:
 
-/home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_two/Parse.cpp:
-
 /home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_one/creation/LexicalRulesHandler.cpp:
 
 /usr/include/c++/13/bits/stl_relops.h:
@@ -3604,6 +3602,10 @@ CMakeFiles/Compiler_Project.dir/phase_two/Table.cpp.o: /home/ahmed-kamal/Project
 
 /usr/include/wchar.h:
 
+/home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_two/FirstFollow.cpp:
+
+/usr/include/time.h:
+
 /usr/include/stdlib.h:
 
 /usr/include/stdio.h:
@@ -3617,14 +3619,6 @@ CMakeFiles/Compiler_Project.dir/phase_two/Table.cpp.o: /home/ahmed-kamal/Project
 /usr/include/pthread.h:
 
 /usr/include/linux/errno.h:
-
-/usr/include/x86_64-linux-gnu/bits/types/time_t.h:
-
-/usr/include/c++/13/bits/shared_ptr_base.h:
-
-/usr/include/c++/13/bits/refwrap.h:
-
-/usr/include/c++/13/istream:
 
 /usr/include/c++/13/bits/ostream.tcc:
 
@@ -3688,6 +3682,14 @@ CMakeFiles/Compiler_Project.dir/phase_two/Table.cpp.o: /home/ahmed-kamal/Project
 
 /usr/include/c++/13/bits/hash_bytes.h:
 
+/usr/include/c++/13/iomanip:
+
+/usr/include/c++/13/bits/requires_hosted.h:
+
+/home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_one/automaton/State.cpp:
+
+/usr/include/c++/13/bits/string_view.tcc:
+
 /usr/include/c++/13/bits/exception.h:
 
 /usr/include/c++/13/bits/align.h:
@@ -3728,21 +3730,17 @@ CMakeFiles/Compiler_Project.dir/phase_two/Table.cpp.o: /home/ahmed-kamal/Project
 
 /usr/include/c++/13/bits/functional_hash.h:
 
-/usr/include/c++/13/iomanip:
+/usr/include/c++/13/bits/refwrap.h:
 
-/usr/include/c++/13/bits/requires_hosted.h:
+/usr/include/c++/13/istream:
 
-/home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_one/automaton/State.cpp:
+/usr/include/x86_64-linux-gnu/bits/types/time_t.h:
 
-/usr/include/c++/13/bits/string_view.tcc:
+/usr/include/c++/13/bits/shared_ptr_base.h:
 
-/home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_two/FirstFollow.cpp:
+/home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_two/Parser.h:
 
-/usr/include/time.h:
-
-/home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_two/Parse.h:
-
-/usr/include/c++/13/algorithm:
+/usr/include/c++/13/queue:
 
 /home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_two/FirstFollow.h:
 
@@ -3759,6 +3757,8 @@ CMakeFiles/Compiler_Project.dir/phase_two/Table.cpp.o: /home/ahmed-kamal/Project
 /usr/include/c++/13/bits/regex_executor.tcc:
 
 /usr/include/endian.h:
+
+/home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_two/Parser.cpp:
 
 /usr/include/c++/13/bits/basic_ios.tcc:
 
@@ -3797,16 +3797,6 @@ CMakeFiles/Compiler_Project.dir/phase_two/Table.cpp.o: /home/ahmed-kamal/Project
 /home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/main.cpp:
 
 /usr/include/c++/13/ext/type_traits.h:
-
-/usr/include/c++/13/bits/std_abs.h:
-
-/usr/include/c++/13/bits/vector.tcc:
-
-/usr/include/x86_64-linux-gnu/c++/13/bits/ctype_base.h:
-
-/usr/include/c++/13/bits/locale_facets.h:
-
-/home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_one/automaton/Conversions.h:
 
 /usr/include/asm-generic/errno.h:
 
@@ -3854,6 +3844,16 @@ CMakeFiles/Compiler_Project.dir/phase_two/Table.cpp.o: /home/ahmed-kamal/Project
 
 /usr/include/c++/13/bits/basic_ios.h:
 
+/usr/include/c++/13/bits/std_abs.h:
+
+/usr/include/c++/13/bits/vector.tcc:
+
+/usr/include/x86_64-linux-gnu/c++/13/bits/ctype_base.h:
+
+/usr/include/c++/13/bits/locale_facets.h:
+
+/home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_one/automaton/Conversions.h:
+
 /home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_two/Table.h:
 
 /usr/include/x86_64-linux-gnu/bits/timex.h:
@@ -3867,6 +3867,8 @@ CMakeFiles/Compiler_Project.dir/phase_two/Table.cpp.o: /home/ahmed-kamal/Project
 /usr/include/c++/13/debug/debug.h:
 
 /home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_one/creation/ToAutomaton.h:
+
+/usr/include/c++/13/algorithm:
 
 /usr/include/c++/13/bits/regex_automaton.h:
 
@@ -3922,9 +3924,9 @@ CMakeFiles/Compiler_Project.dir/phase_two/Table.cpp.o: /home/ahmed-kamal/Project
 
 /usr/include/c++/13/cstddef:
 
-/home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_two/ReadCFG.h:
-
 /usr/include/features-time64.h:
+
+/home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_two/ReadCFG.h:
 
 /usr/include/c++/13/bits/charconv.h:
 
@@ -4017,8 +4019,6 @@ CMakeFiles/Compiler_Project.dir/phase_two/Table.cpp.o: /home/ahmed-kamal/Project
 /usr/include/c++/13/exception:
 
 /usr/include/c++/13/pstl/glue_memory_defs.h:
-
-/usr/include/c++/13/queue:
 
 /usr/include/c++/13/stack:
 
