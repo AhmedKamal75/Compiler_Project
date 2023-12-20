@@ -1,5 +1,6 @@
 #include <iostream>
 #include <stack>
+#include <algorithm>
 #include "FirstFollow.h"
 
 FirstFollow::FirstFollow(const std::shared_ptr<ReadCFG> &rules_obj) {
@@ -167,6 +168,25 @@ std::set<std::string> FirstFollow::get_first(const std::string &nt) {
     // Return the set of firsts.
     this->first[nt] = firsts;
     return firsts;
+}
+
+
+// Check if the grammar is LL(1)
+bool FirstFollow::is_LL1() {
+    for (const std::string &nt: this->rules_obj->get_non_terminals()) {
+        // Check for common elements in First and Follow sets
+        std::set<std::string> intersection{};
+        std::set_intersection(this->first.at(nt).begin(), this->first.at(nt).end(),
+                              this->follow.at(nt).begin(), this->follow.at(nt).end(),
+                              std::inserter(intersection, intersection.begin()));
+        if (!intersection.empty()) {
+            std::cout << "Grammar is not LL(1) due to common elements in First and Follow sets of [" << nt << "]. "
+                      << "they are: {" << ReadCFG::set_to_string(intersection) << "}" << std::endl;
+            return false;
+        }
+    }
+    std::cout << "Grammar is LL(1)" << std::endl;
+    return true;
 }
 
 

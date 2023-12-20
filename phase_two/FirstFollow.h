@@ -24,6 +24,8 @@ public:
     std::set<std::string>
     get_follow(const std::string &nt, const std::string &temp_non_terminal, const std::vector<std::string> &rule);
 
+    bool is_LL1();
+
     [[maybe_unused]] void print_first();
 
     [[maybe_unused]] void print_follow();

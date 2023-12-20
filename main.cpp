@@ -9,6 +9,7 @@
 #include "phase_one/creation/LexicalRulesHandler.h"
 #include "phase_one/prediction/Predictor.h"
 #include "phase_two/Table.h"
+#include "phase_two/Parse.h"
 
 LexicalRulesHandler handler;
 
@@ -53,9 +54,11 @@ int main(int argc, char *argv[]) {
     // prediction
     Predictor predictor(loaded_automaton, priorities, input_program_path);
 
-    if (false) {
+    std::vector<std::pair<std::string, std::string >> token_list{};
+    std::vector<std::string> tokens{};
+    // ############################## predict tokens ##############################
+    if (true) {
         std::cout << "############################ Tokens ############################" << '\n';
-        std::vector<std::pair<std::string, std::string >> token_list{};
         while (true) {
             std::pair<std::string, std::string> entry = predictor.next_token();
             if (entry.first.empty() && entry.second.empty()) {
@@ -64,6 +67,7 @@ int main(int argc, char *argv[]) {
             }
             std::cout << entry.first << ": " << entry.second << std::endl;
             token_list.push_back(entry);
+            tokens.push_back(entry.first);
         }
         export_token_list_to_file(token_list, output_token_path);
         std::cout << "########################################################" << '\n';
@@ -71,12 +75,11 @@ int main(int argc, char *argv[]) {
     }
 
     // ############################## load parser data ##############################
-    Table table(input_cfg_path);
-    table.export_to_file(data_directory_path + parsing_table_name);
-    std::shared_ptr<Table> loaded_table = Table::import_from_file(data_directory_path + parsing_table_name);
-//    loaded_table->print_table();
+    std::shared_ptr<Table> table = std::make_shared<Table>(input_cfg_path);
+    std::shared_ptr<Parser> parser = std::make_shared<Parser>(table);
+    parser->parse(tokens);
 
-
+    // ############################## end ##############################
     return 0;
 }
 

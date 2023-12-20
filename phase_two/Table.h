@@ -19,13 +19,21 @@ public:
 
     std::vector<std::string> get_rule(const std::string &non_terminal, const std::string &terminal);
 
-    void build_table(const std::shared_ptr<ReadCFG> &rules_obj, const std::shared_ptr<FirstFollow> &firstFollow);
+    void build_table();
 
     void print_table();
 
     void export_to_file(const std::string &file_name);
 
     static std::shared_ptr<Table> import_from_file(const std::string &file_name);
+
+    std::string get_start_symbol();
+
+    bool is_terminal(const std::string &symbol);
+
+    std::shared_ptr<FirstFollow> get_first_follow();
+
+    std::shared_ptr<ReadCFG> get_rules();
 
 private:
     struct pair_hash {
@@ -40,6 +48,8 @@ private:
     };
 
     std::unordered_map<std::pair<std::string, std::string>, std::vector<std::string>, pair_hash> parsing_table;
+    std::shared_ptr<ReadCFG> rules_obj;
+    std::shared_ptr<FirstFollow> firstFollow;
 };
 
 

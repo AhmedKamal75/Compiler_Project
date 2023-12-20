@@ -6,10 +6,17 @@
 #include <string>
 #include <vector>
 #include <set>
+#include <stack>
 
 class ReadCFG {
 public:
     explicit ReadCFG(const std::string &file_name);
+
+    bool remove_left_recursion();
+
+    bool left_factoring();
+
+    void convert_to_LL1();
 
     std::map<std::string, std::vector<std::vector<std::string>>> readCFG(const std::string &file_name);
 
@@ -37,7 +44,21 @@ public:
 
     std::string get_dollar_symbol();
 
+    std::string get_sync_symbol();
+
+    std::string get_epsilon_symbol();
+
     static void ltrim(std::string &s);
+
+    static std::string vector_to_string(const std::vector<std::string> &vec);
+
+    static std::string set_to_string(const std::set<std::string> &set);
+
+    static std::string stack_to_string(std::stack<std::string> stack);
+
+    static std::vector<std::string>
+    add_after_target(const std::vector<std::string> &vec, const std::string &target, const std::string &symbol,
+                     bool one_time);
 
     static void rtrim(std::string &s);
 
@@ -49,8 +70,9 @@ private:
     std::vector<std::string> non_terminals{};
     const std::string EPSILON_SYMBOL = "\\L";
     const std::string DOLLAR_SYMBOL = "$";
-
-
+    const std::string SYNC_SYMBOL = "\\SYNC";
+    const std::string FACTORING_SYMBOL = "\"";
+    const std::string RECURSION_SYMBOL = "'";
 };
 
 
