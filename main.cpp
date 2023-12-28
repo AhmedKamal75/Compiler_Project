@@ -15,7 +15,9 @@ LexicalRulesHandler handler;
 
 std::string final_dfa_file_name = "final_dfa.txt";
 std::string tokens_priorities_name = "tokens_priorities.txt";
-//std::string parsing_table_name = "parsing_table.txt";
+std::string parsing_tree_name = "parsing_tree.txt";
+std::string parsing_table_name = "parsing_table.txt";
+std::string parsing_output_name = "parsing_output.txt";
 
 std::shared_ptr<Automaton>
 init(const std::string &input_file_path, const std::string &final_dfa_path, const std::string &tokens_priorities);
@@ -39,6 +41,11 @@ int main(int argc, char *argv[]) {
     std::string input_cfg_path = argv[4];
     std::string final_dfa_path = data_directory_path + final_dfa_file_name;
     std::string tokens_priorities_path = data_directory_path + tokens_priorities_name;
+    std::string parsing_tree_path = data_directory_path + parsing_tree_name;
+    std::string parsing_table_path = data_directory_path + parsing_table_name;
+    std::string parsing_output_path = data_directory_path + parsing_output_name;
+
+
 
     // init the DFA of rules and export its detains and priorities to ../data/final_dfa.txt and ../data/tokens_priorities.txt
     std::shared_ptr<Automaton> final_dfa = init(input_rules_path, final_dfa_path, tokens_priorities_path);
@@ -49,32 +56,43 @@ int main(int argc, char *argv[]) {
     std::shared_ptr<Automaton> loaded_automaton = Automaton::import_from_file(final_dfa_path);
     // import tokens priorities
     std::map<std::string, int> priorities = LexicalRulesHandler::import_priorities(tokens_priorities_path);
-    // prediction
-    Predictor predictor(loaded_automaton, priorities, input_program_path);
 
-    std::vector<std::pair<std::string, std::string >> token_list{};
-    std::vector<std::string> tokens{};
-    // ############################## predict tokens ##############################
-    std::cout << "############################ Tokens ############################" << '\n';
-    while (true) {
-        std::pair<std::string, std::string> entry = predictor.next_token();
-        if (entry.first.empty() && entry.second.empty()) {
-            // if output is ("","") then we reached the end
-            break;
-        }
-        std::cout << entry.first << ": " << entry.second << std::endl;
-        token_list.push_back(entry);
-        tokens.push_back(entry.first);
+    // ############################## predicting tokens and parsing ##############################
+    if (true) {
+        std::shared_ptr<Predictor> tokenizer = std::make_shared<Predictor>(loaded_automaton, priorities,
+                                                                           input_program_path);
+        std::shared_ptr<Table> parsing_table = std::make_shared<Table>(input_cfg_path, parsing_table_path);
+        std::shared_ptr<Parser> parser = std::make_shared<Parser>(parsing_table);
+        parser->parse(tokenizer, parsing_tree_path, parsing_output_path);
     }
-    export_token_list_to_file(token_list, output_token_path);
-    std::cout << "########################################################" << '\n';
+    else {
+        // prediction
+        Predictor predictor(loaded_automaton, priorities, input_program_path);
 
-    // ############################## load parser data ##############################
-    std::shared_ptr<Table> table = std::make_shared<Table>(input_cfg_path);
-    std::shared_ptr<Parser> parser = std::make_shared<Parser>(table);
-    parser->parse(tokens);
+        std::vector<std::pair<std::string, std::string >> token_list{};
+        std::vector<std::string> tokens{};
+        // ############################## predict tokens ##############################
+        std::cout << "############################ Tokens ############################" << '\n';
+        while (true) {
+            std::pair<std::string, std::string> entry = predictor.next_token();
+            if (entry.first.empty() && entry.second.empty()) {
+                // if output is ("","") then we reached the end
+                break;
+            }
+            std::cout << entry.first << ": " << entry.second << std::endl;
+            token_list.push_back(entry);
+            tokens.push_back(entry.first);
+        }
+        export_token_list_to_file(token_list, output_token_path);
+        std::cout << "########################################################" << '\n';
 
-    // ############################## end ##############################
+        // ############################## load parser data ##############################
+        std::shared_ptr<Table> table = std::make_shared<Table>(input_cfg_path, parsing_table_path);
+        std::shared_ptr<Parser> parser = std::make_shared<Parser>(table);
+        parser->parse(tokens);
+
+        // ############################## end ##############################
+    }
 
 
     return 0;

@@ -217,4 +217,5 @@ CMakeFiles/Compiler_Project.dir/main.cpp.o: \
  /usr/include/c++/13/stack /usr/include/c++/13/bits/stl_stack.h \
  /home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_two/FirstFollow.h \
  /home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_two/Parser.h \
- /home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_two/Table.h
+ /home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_two/Table.h \
+ /home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_two/../phase_one/prediction/Predictor.h

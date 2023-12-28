@@ -15,7 +15,7 @@ class Table {
 public:
     Table();
 
-    explicit Table(const std::string &file_name);
+    explicit Table(const std::string &file_name, const std::string &parsing_table_output_file_name);
 
     std::vector<std::string> get_rule(const std::string &non_terminal, const std::string &terminal);
 

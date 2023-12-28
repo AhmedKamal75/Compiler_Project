@@ -14,6 +14,7 @@ CMakeFiles/Compiler_Project.dir/main.cpp.o: /home/ahmed-kamal/Projects/cpp_proje
   /home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_one/creation/ToAutomaton.h \
   /home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_one/automaton/Automaton.h \
   /home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_one/prediction/Predictor.h \
+  /home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_one/prediction/Predictor.h \
   /home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_two/FirstFollow.h \
   /home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_two/Parser.h \
   /home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_two/ReadCFG.h \
@@ -2701,6 +2702,10 @@ CMakeFiles/Compiler_Project.dir/phase_two/FirstFollow.cpp.o: /home/ahmed-kamal/P
   /usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h
 
 CMakeFiles/Compiler_Project.dir/phase_two/Parser.cpp.o: /home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_two/Parser.cpp \
+  /home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_one/automaton/Automaton.h \
+  /home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_one/automaton/State.h \
+  /home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_one/automaton/Types.h \
+  /home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_one/prediction/Predictor.h \
   /home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_two/FirstFollow.h \
   /home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_two/Parser.h \
   /home/ahmed-kamal/Projects/cpp_projects/Compiler_Project/phase_two/ReadCFG.h \
@@ -2723,6 +2728,7 @@ CMakeFiles/Compiler_Project.dir/phase_two/Parser.cpp.o: /home/ahmed-kamal/Projec
   /usr/include/c++/13/bits/basic_string.tcc \
   /usr/include/c++/13/bits/char_traits.h \
   /usr/include/c++/13/bits/charconv.h \
+  /usr/include/c++/13/bits/codecvt.h \
   /usr/include/c++/13/bits/concept_check.h \
   /usr/include/c++/13/bits/cpp_type_traits.h \
   /usr/include/c++/13/bits/cxxabi_forced.h \
@@ -2733,6 +2739,7 @@ CMakeFiles/Compiler_Project.dir/phase_two/Parser.cpp.o: /home/ahmed-kamal/Projec
   /usr/include/c++/13/bits/exception.h \
   /usr/include/c++/13/bits/exception_defines.h \
   /usr/include/c++/13/bits/exception_ptr.h \
+  /usr/include/c++/13/bits/fstream.tcc \
   /usr/include/c++/13/bits/functexcept.h \
   /usr/include/c++/13/bits/functional_hash.h \
   /usr/include/c++/13/bits/hash_bytes.h \
@@ -2789,6 +2796,7 @@ CMakeFiles/Compiler_Project.dir/phase_two/Parser.cpp.o: /home/ahmed-kamal/Projec
   /usr/include/c++/13/bits/stringfwd.h \
   /usr/include/c++/13/bits/unique_ptr.h \
   /usr/include/c++/13/bits/unordered_map.h \
+  /usr/include/c++/13/bits/unordered_set.h \
   /usr/include/c++/13/bits/uses_allocator.h \
   /usr/include/c++/13/bits/uses_allocator_args.h \
   /usr/include/c++/13/bits/utility.h \
@@ -2812,6 +2820,7 @@ CMakeFiles/Compiler_Project.dir/phase_two/Parser.cpp.o: /home/ahmed-kamal/Projec
   /usr/include/c++/13/ext/numeric_traits.h \
   /usr/include/c++/13/ext/string_conversions.h \
   /usr/include/c++/13/ext/type_traits.h \
+  /usr/include/c++/13/fstream \
   /usr/include/c++/13/initializer_list \
   /usr/include/c++/13/ios \
   /usr/include/c++/13/iosfwd \
@@ -2835,6 +2844,7 @@ CMakeFiles/Compiler_Project.dir/phase_two/Parser.cpp.o: /home/ahmed-kamal/Projec
   /usr/include/c++/13/type_traits \
   /usr/include/c++/13/typeinfo \
   /usr/include/c++/13/unordered_map \
+  /usr/include/c++/13/unordered_set \
   /usr/include/c++/13/vector \
   /usr/include/ctype.h \
   /usr/include/endian.h \
@@ -2914,8 +2924,10 @@ CMakeFiles/Compiler_Project.dir/phase_two/Parser.cpp.o: /home/ahmed-kamal/Projec
   /usr/include/x86_64-linux-gnu/bits/wctype-wchar.h \
   /usr/include/x86_64-linux-gnu/bits/wordsize.h \
   /usr/include/x86_64-linux-gnu/c++/13/bits/atomic_word.h \
+  /usr/include/x86_64-linux-gnu/c++/13/bits/basic_file.h \
   /usr/include/x86_64-linux-gnu/c++/13/bits/c++allocator.h \
   /usr/include/x86_64-linux-gnu/c++/13/bits/c++config.h \
+  /usr/include/x86_64-linux-gnu/c++/13/bits/c++io.h \
   /usr/include/x86_64-linux-gnu/c++/13/bits/c++locale.h \
   /usr/include/x86_64-linux-gnu/c++/13/bits/cpu_defines.h \
   /usr/include/x86_64-linux-gnu/c++/13/bits/ctype_base.h \

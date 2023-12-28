@@ -9,7 +9,7 @@
 Table::Table() = default;
 
 // Constructor
-Table::Table(const std::string &file_name) {
+Table::Table(const std::string &file_name, const std::string &parsing_table_output_file_name) {
     ReadCFG read_cfg(file_name);
     this->rules_obj = std::make_shared<ReadCFG>(read_cfg);
     this->rules_obj->convert_to_LL1();
